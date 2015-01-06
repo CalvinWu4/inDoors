@@ -26,7 +26,9 @@ var gdinfo = function (element, name) {
 			var response = JSON.parse(xmlhttp.responseText || "null");
 			if (response != null) {
 				if(response["success"] == true) {
-				 	console.log(response["response"].employers[0].overallRating);				
+					var rating = response["response"].employers[0].overallRating 
+				 	console.log(rating);
+				 	element.append("Rating: " + rating);
 				}
 			}
 		} else {
