@@ -7,7 +7,7 @@
     [
         {
             "matches":["https://www.linkedin.com/vsearch/*"],
-            "js":["jquery-2.1.3.min.js", "linker.js"],
+            "js":["jquery-2.1.3.min.js","var.js", "linker.js"],
             "run_at": "document_end"
         }
     ],
