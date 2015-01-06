@@ -2,6 +2,22 @@
 This script is activated on Linkedin search pages. It will attach
 a hover event onto company names that appear in search results
 *****************************************************/
+/*Check if company is already in localstorage*/
+var checkDatabase = function(name){
+    if(localStorage["name"]){
+	return true;
+    }
+    return false;
+}
+/*Saving things into local storage*/
+var save = function(name,rating){
+    localStorage[name] = rating;
+}
+
+/*Load rating*/
+var load = function(name){
+    return localStorage["name"];
+}
 
 /* IP Generator - Fix IP address blocking issues */
 var genIP = function() {
@@ -26,9 +42,18 @@ var gdinfo = function (element, name) {
 			var response = JSON.parse(xmlhttp.responseText || "null");
 			if (response != null) {
 				if(response["success"] == true) {
-					var rating = response["response"].employers[0].overallRating 
-				 	console.log(rating);
-				 	element.find(".glassdoor-rating").html(rating);
+					if(checkDatabase(name)){
+					    var rating = load(name);
+					    console.log("Loaded");
+					    console.log(rating);
+					    element.find(".glassdoor-rating").html(rating);
+					}
+					else{
+					    var rating = response["response"].employers[0].overallRating;
+					    console.log(rating);
+					    element.find(".glassdoor-rating").html(rating);
+					    save(name,rating);
+					}
 				}
 			}
 		} else {
