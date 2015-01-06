@@ -28,7 +28,7 @@ var gdinfo = function (element, name) {
 				if(response["success"] == true) {
 					var rating = response["response"].employers[0].overallRating 
 				 	console.log(rating);
-				 	element.append("Rating: " + rating);
+				 	element.find(".glassdoor-rating").html(rating);
 				}
 			}
 		} else {
@@ -39,6 +39,11 @@ var gdinfo = function (element, name) {
 
 	xmlhttp.send();
 }
+
+/* Append a rating box to the end of each description element */
+$(".description bdi").each( function() {
+	$(this).append("<div class='glassdoor-label'>Rating: <span class='glassdoor-rating'></span></div>");
+});
 
 /* Each description class element will have the company name */
 $(".description").hover(function() {
