@@ -4,7 +4,7 @@ a hover event onto company names that appear in search results
 *****************************************************/
 /* Check if company is already in localstorage */
 var checkDatabase = function(name) {
-    if(localStorage["name"]) {
+    if(localStorage[name]) {
 		return true;
     }
     return false;
@@ -16,7 +16,7 @@ var save = function(name,rating) {
 
 /* Load rating */
 var load = function(name) {
-    return localStorage["name"];
+    return localStorage[name];
 }
 
 /* IP Generator - Fix IP address blocking issues */
