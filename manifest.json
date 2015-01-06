@@ -1,0 +1,13 @@
+{
+  "name": "Glassdoor-Linkedinator",
+  "description": "Shows Glassdoor reviews for companies when searching on Linkedin",
+  "version": "1.0",
+  "linker": {
+    "scripts": ["linker.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_title": "Show Glassdoor Reviews"
+  },
+  "manifest_version": 1
+}
