@@ -30,6 +30,13 @@ var randomInt = function () {
 
 /* Grab the GlassDoor Data given the company name */
 var gdinfo = function (element, name) {
+    if(checkDatabase(name)){
+	var rating = load(name);
+	console.log("Loaded");
+	console.log(rating);
+	element.find(".glassdoor-rating").html(rating);
+    }
+    else{
 	var xmlhttp = new XMLHttpRequest();
 	var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers&userip=" + genIP() + "&useragent=" + navigator.userAgent + "&q=" + name;
 	xmlhttp.open("GET", url, true);
@@ -42,20 +49,12 @@ var gdinfo = function (element, name) {
 			var response = JSON.parse(xmlhttp.responseText || "null");
 			if (response != null) {
 				if(response["success"] == true) {
-					if(checkDatabase(name)){
-					    var rating = load(name);
-					    console.log("Loaded");
-					    console.log(rating);
-					    element.find(".glassdoor-rating").html(rating);
-					}
-					else{
 					    var rating = response["response"].employers[0].overallRating;
 					    console.log(rating);
 					    element.find(".glassdoor-rating").html(rating);
 					    save(name,rating);
 					}
 				}
-			}
 		} else {
 			/* GET Unsuccessful */
 
@@ -63,6 +62,7 @@ var gdinfo = function (element, name) {
 	};
 
 	xmlhttp.send();
+    }
 }
 
 /* Append a rating box to the end of each description element */
