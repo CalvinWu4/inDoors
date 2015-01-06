@@ -11,6 +11,8 @@
             "run_at": "document_end"
         }
     ],
-
+  "permissions": [
+    "https://api.glassdoor.com/*"
+  ],
   "manifest_version": 2
 }

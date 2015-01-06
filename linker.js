@@ -10,15 +10,17 @@ var gdinfo = function (name) {
 	xmlhttp.open("GET", url, true);
 	
 	xmlhttp.onreadystatechange = function() {
-		var status;
 		var data;
-		if (status == 200) {
+		if (xmlhttp.status == 200) {
 			/* GET Successful, parse data into JSON object */
+			console.log(xmlhttp.responseText);
 			return JSON.parse(xmlhttp.responseText);		
 		} else {
+			console.log("Bad");
 			return null;
 		}
 	};
+
 	xmlhttp.send();
 }
 
@@ -31,6 +33,6 @@ $(".description").each(function() {
 		/* If we're in this loop, this was a valid company name. 
 		Grab the company name and strip it of HTML tags */
 		var cleanname = name.replace("<b>","").replace("</b>","");
-		var url = gdinfo(cleanname);
+		var info = gdinfo(cleanname);
 	}
 });
