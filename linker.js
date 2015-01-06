@@ -24,7 +24,11 @@ var gdinfo = function (element, name) {
 			console.log(url);
 			/* GET Successful, parse data into JSON object */
 			var response = JSON.parse(xmlhttp.responseText || "null");
-		 	console.log(response["response"].employers);				
+			if (response != null) {
+				if(response["success"] == true) {
+				 	console.log(response["response"].employers[0].overallRating);				
+				}
+			}
 		} else {
 			/* GET Unsuccessful */
 
