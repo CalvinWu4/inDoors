@@ -15,3 +15,8 @@ $(".description").each(function() {
 	    console.log(cleanname);
 	}
 });
+
+/* Grab the GlassDoor Data given the company name */
+var gdinfo = function (name) {
+
+}
