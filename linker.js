@@ -33,12 +33,10 @@ var gdinfo = function (element, name) {
     if(checkDatabase(name)) {
     	/* Database entry hit - No need to send new HTTP Request */
 		var rating = load(name);
-		console.log("Loaded" + name + "from local storage. Rating: " + rating);
 		element.find(".glassdoor-rating").html(rating);
     }
     else{
     	/* Database entry miss - Send new HTTP Request to Glassdoor API for rating info */
-    	console.log("Database miss - Sending new request");
 		var xmlhttp = new XMLHttpRequest();
 		var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers&userip=" + genIP() + "&useragent=" + navigator.userAgent + "&q=" + name;
 		xmlhttp.open("GET", url, true);
@@ -51,14 +49,12 @@ var gdinfo = function (element, name) {
 				if (response != null) {
 					if(response["success"] == true) {
 						    var rating = response["response"].employers[0].overallRating;
-						    console.log(rating);
 						    element.find(".glassdoor-rating").html(rating);
 						    save(name,rating);
 						}
 					}
 			} else {
 				/* GET Unsuccessful */
-
 			}
 		};
 
