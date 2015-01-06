@@ -22,9 +22,9 @@ var gdinfo = function (name) {
 		var data;
 		if (xmlhttp.status == 200) {
 			/* GET Successful, parse data into JSON object */
-			console.log(xmlhttp.responseText);
-			console.log(url);
-			return JSON.parse(xmlhttp.responseText);		
+			var response = xmlhttp.responseText;
+			console.log(response);
+			return JSON.parse(response);		
 		} else {
 			console.log("Bad");
 			return null;
@@ -35,7 +35,7 @@ var gdinfo = function (name) {
 }
 
 /* Each description class element will have the company name */
-$(".description").each(function() {
+$(".description").hover(function() {
 	var link = $(this).find("bdi").find("a");
 	var name = link.html();
 
