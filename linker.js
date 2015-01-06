@@ -30,38 +30,39 @@ var randomInt = function () {
 
 /* Grab the GlassDoor Data given the company name */
 var gdinfo = function (element, name) {
-    if(checkDatabase(name)){
-	var rating = load(name);
-	console.log("Loaded");
-	console.log(rating);
-	element.find(".glassdoor-rating").html(rating);
+    if(checkDatabase(name)) {
+    	/* Database entry hit - No need to send new HTTP Request */
+		var rating = load(name);
+		console.log("Loaded" + name + "from local storage. Rating: " + rating);
+		element.find(".glassdoor-rating").html(rating);
     }
     else{
-	var xmlhttp = new XMLHttpRequest();
-	var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers&userip=" + genIP() + "&useragent=" + navigator.userAgent + "&q=" + name;
-	xmlhttp.open("GET", url, true);
-	
-	xmlhttp.onreadystatechange = function() {
-		var data;
-		if (xmlhttp.status == 200) {
-			console.log(url);
-			/* GET Successful, parse data into JSON object */
-			var response = JSON.parse(xmlhttp.responseText || "null");
-			if (response != null) {
-				if(response["success"] == true) {
-					    var rating = response["response"].employers[0].overallRating;
-					    console.log(rating);
-					    element.find(".glassdoor-rating").html(rating);
-					    save(name,rating);
+    	/* Database entry miss - Send new HTTP Request to Glassdoor API for rating info */
+    	console.log("Database miss - Sending new request");
+		var xmlhttp = new XMLHttpRequest();
+		var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers&userip=" + genIP() + "&useragent=" + navigator.userAgent + "&q=" + name;
+		xmlhttp.open("GET", url, true);
+		
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.status == 200) {
+				console.log(url);
+				/* GET Successful, parse data into JSON object */
+				var response = JSON.parse(xmlhttp.responseText || "null");
+				if (response != null) {
+					if(response["success"] == true) {
+						    var rating = response["response"].employers[0].overallRating;
+						    console.log(rating);
+						    element.find(".glassdoor-rating").html(rating);
+						    save(name,rating);
+						}
 					}
-				}
-		} else {
-			/* GET Unsuccessful */
+			} else {
+				/* GET Unsuccessful */
 
-		}
-	};
+			}
+		};
 
-	xmlhttp.send();
+		xmlhttp.send();
     }
 }
 
