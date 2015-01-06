@@ -2,20 +2,20 @@
 This script is activated on Linkedin search pages. It will attach
 a hover event onto company names that appear in search results
 *****************************************************/
-/*Check if company is already in localstorage*/
-var checkDatabase = function(name){
-    if(localStorage["name"]){
-	return true;
+/* Check if company is already in localstorage */
+var checkDatabase = function(name) {
+    if(localStorage["name"]) {
+		return true;
     }
     return false;
 }
-/*Saving things into local storage*/
-var save = function(name,rating){
+/* Saving things into local storage */
+var save = function(name,rating) {
     localStorage[name] = rating;
 }
 
-/*Load rating*/
-var load = function(name){
+/* Load rating */
+var load = function(name) {
     return localStorage["name"];
 }
 
