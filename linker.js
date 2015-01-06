@@ -23,8 +23,8 @@ var gdinfo = function (element, name) {
 		if (xmlhttp.status == 200) {
 			console.log(url);
 			/* GET Successful, parse data into JSON object */
-			var response = xmlhttp.responseText;
-			console.log(response);
+			var response = JSON.parse(xmlhttp.responseText || "null");
+		 	console.log(response["response"].employers);				
 		} else {
 			/* GET Unsuccessful */
 
