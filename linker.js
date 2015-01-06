@@ -2,6 +2,22 @@
 This script is activated on Linkedin search pages. It will attach
 a hover event onto company names that appear in search results
 *****************************************************/
+/* Check if company is already in localstorage */
+var checkDatabase = function(name) {
+    if(localStorage[name]) {
+		return true;
+    }
+    return false;
+}
+/* Saving things into local storage */
+var save = function(name,rating) {
+    localStorage[name] = rating;
+}
+
+/* Load rating */
+var load = function(name) {
+    return localStorage[name];
+}
 
 /* IP Generator - Fix IP address blocking issues */
 var genIP = function() {
@@ -14,30 +30,36 @@ var randomInt = function () {
 
 /* Grab the GlassDoor Data given the company name */
 var gdinfo = function (element, name) {
-	var xmlhttp = new XMLHttpRequest();
-	var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers&userip=" + genIP() + "&useragent=" + navigator.userAgent + "&q=" + name;
-	xmlhttp.open("GET", url, true);
-	
-	xmlhttp.onreadystatechange = function() {
-		var data;
-		if (xmlhttp.status == 200) {
-			console.log(url);
-			/* GET Successful, parse data into JSON object */
-			var response = JSON.parse(xmlhttp.responseText || "null");
-			if (response != null) {
-				if(response["success"] == true) {
-					var rating = response["response"].employers[0].overallRating 
-				 	console.log(rating);
-				 	element.find(".glassdoor-rating").html(rating);
-				}
+    if(checkDatabase(name)) {
+    	/* Database entry hit - No need to send new HTTP Request */
+		var rating = load(name);
+		element.find(".glassdoor-rating").html(rating);
+    }
+    else{
+    	/* Database entry miss - Send new HTTP Request to Glassdoor API for rating info */
+		var xmlhttp = new XMLHttpRequest();
+		var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers&userip=" + genIP() + "&useragent=" + navigator.userAgent + "&q=" + name;
+		xmlhttp.open("GET", url, true);
+		
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.status == 200) {
+				console.log(url);
+				/* GET Successful, parse data into JSON object */
+				var response = JSON.parse(xmlhttp.responseText || "null");
+				if (response != null) {
+					if(response["success"] == true) {
+						    var rating = response["response"].employers[0].overallRating;
+						    element.find(".glassdoor-rating").html(rating);
+						    save(name,rating);
+						}
+					}
+			} else {
+				/* GET Unsuccessful */
 			}
-		} else {
-			/* GET Unsuccessful */
+		};
 
-		}
-	};
-
-	xmlhttp.send();
+		xmlhttp.send();
+    }
 }
 
 /* Append a rating box to the end of each description element */

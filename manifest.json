@@ -12,7 +12,7 @@
         }
     ],
   "permissions": [
-    "https://api.glassdoor.com/*"
+    "https://api.glassdoor.com/*","storage"
   ],
   "manifest_version": 2
 }
