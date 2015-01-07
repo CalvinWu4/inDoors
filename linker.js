@@ -64,7 +64,11 @@ var gdinfo = function (element, name) {
 
 /* Append a rating box to the end of each description element */
 $(".description bdi").each( function() {
-	$(this).append("<div class='glassdoor-label'>Rating: <span class='glassdoor-rating'></span></div>");
+	$(this).append("<div class='glassdoor-label'>Rating: <span class='glassdoor-rating'></span><div> <a href='http://www.glassdoor.com/index.htm'>powered by <img src='http://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search' /></a></div></div>");
+});
+
+$(".description .glassdoor-label").each( function() {
+	$(this).hide();
 });
 
 /* Each description class element will have the company name */
@@ -74,6 +78,7 @@ $(".description").hover(function() {
 
 	var element = $(this);
 	if(typeof(name) !== "undefined") { 
+		$(this).find(".glassdoor-label").toggle();
 		/* If we're in this loop, this was a valid company name. 
 		Grab the company name and strip it of HTML tags */
 		var cleanname = name.replace("<b>","").replace("</b>","");
