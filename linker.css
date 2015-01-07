@@ -9,5 +9,8 @@
 	padding: 10px;
 	border: 1px #DDD solid;
 	border-radius: 9px;
-	width: 180px;
+	width: 160px;
+}
+.glassdoor-rating {
+	font-weight: bold;
 }
