@@ -39,7 +39,7 @@ var randomInt = function () {
 var gdinfo = function (element, name) {
     var currentDate = new Date();
     if(checkDatabase(name)){
-	if (currentDate.getFullYear() > load(name).year || currentDate.getMonth() > load(name).month || currentDate.getDate() - 7 >= load(name).day) {
+	if (!(currentDate.getFullYear() > load(name).year || currentDate.getMonth() > load(name).month || currentDate.getDate() - 7 >= load(name).day)) {
     	    /* Database entry hit - No need to send new HTTP Request */
 	    console.log("We made it here \n \n \n");
             var rating = load(name).rating;
