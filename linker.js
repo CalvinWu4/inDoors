@@ -85,3 +85,8 @@ $(".description bdi").hover(function() {
 		var info = gdinfo(element, cleanname);
 	}
 });
+
+/* Force DOM to refresh when new page is clicked */
+$(".pagination a").click(function() {
+	window.location.reload();
+});
