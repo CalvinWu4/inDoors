@@ -10,12 +10,13 @@ var checkDatabase = function(name) {
     return false;
 }
 /* Saving things into local storage */
-var save = function(addName,addRating, addMonth, addDay, addYear) {
+var save = function(addName,addRating) {
+    var date = new Date();
     var employer = {
 	rating:addRating,
-	month:addMonth,
-	day:addDay,
-	year:addYear
+	month:date.getMonth(),
+	day:date.getDate(),
+	year:date.getYear()
     };
     localStorage[name] = employer;
 }
@@ -40,6 +41,7 @@ var gdinfo = function (element, name) {
     if(checkDatabase(name)){
 	if (currentDate.getFullYear() > load(name).year || currentDate.getMonth() > load(name).month || currentDate.getDate() - 7 >= load(name).day) {
     	    /* Database entry hit - No need to send new HTTP Request */
+	    console.log("We made it here \n \n \n");
             var rating = load(name).rating;
             element.find(".glassdoor-rating").html(rating);
 	}
@@ -58,7 +60,7 @@ var gdinfo = function (element, name) {
 			if(response["success"] == true) {
 			    var rating = response["response"].employers[0].overallRating;
 			    element.find(".glassdoor-rating").html(rating);
-			    save(name,rating,currentDate.getMonth(),currentDate.getDate(),currentDate.getFullYear());
+			    save(name,rating);
 			}
 		    }
 		} else {
@@ -84,7 +86,7 @@ var gdinfo = function (element, name) {
 					if(response["success"] == true) {
 					    var rating = response["response"].employers[0].overallRating;
 					    element.find(".glassdoor-rating").html(rating);
-					    save(name,rating,currentDate.getMonth(),currentDate.getDate(),currentDate.getFullYear());
+					    save(name,rating);
 					}
 		}
 	    } else {
