@@ -1,6 +1,13 @@
+.glassdoor-label-wrapper {
+	position: relative;
+}
 .glassdoor-label {
-	background-color: #DDD;
+	color: white;
+	z-index: 100;
+	position: absolute;
+	background-color: #111;
 	padding: 10px;
-	border: 1px #BBB solid;
-	width: 200px;
+	border: 1px #DDD solid;
+	border-radius: 9px;
+	width: 180px;
 }

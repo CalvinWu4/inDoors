@@ -64,7 +64,7 @@ var gdinfo = function (element, name) {
 
 /* Append a rating box to the end of each description element */
 $(".description bdi").each( function() {
-	$(this).append("<div class='glassdoor-label'>Rating: <span class='glassdoor-rating'></span><div> <a href='http://www.glassdoor.com/index.htm'>powered by <img src='http://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search' /></a></div></div>");
+	$(this).append("<div class='glassdoor-label-wrapper'><div class='glassdoor-label'><b>Rating:</b> <span class='glassdoor-rating'></span><div><a class='glassdoor-link' style='color:white' href='http://www.glassdoor.com/index.htm'>Powered by  <img src='http://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search' /></a></div></div></div>");
 });
 
 $(".description .glassdoor-label").each( function() {
