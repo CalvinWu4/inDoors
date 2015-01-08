@@ -12,6 +12,10 @@ var checkDatabase = function(name) {
 /* Saving things into local storage */
 var save = function(addName,addRating) {
     var date = new Date();
+    //Employer is an array where indices 0 refers to the rating
+    //1 gives the month
+    //2 gives the day
+    //3 gives the year
     var employer = [addRating, date.getMonth(), date.getDate(), date.getYear()];
     localStorage[addName] = employer;
 }
@@ -34,40 +38,44 @@ var randomInt = function () {
 var gdinfo = function (element, name) {
     var currentDate = new Date();
     var storageData = load(name);
+    //Check if company is in localStorage
     if(checkDatabase(name) && 
-    	!(currentDate.getFullYear() > storageData[3] || 
-		 currentDate.getMonth() > storageData[1] || 
-		 currentDate.getDate() - 7 >= storageData[2])) {
-			/* Database entry hit - Use recent data from in localstorage */
-			var rating = storageData[0];
-			element.find(".glassdoor-rating").html(rating);
-	} else {
+       //Compare year, if new year, refresh
+    	!(currentDate.getFullYear() > storageData[3] ||
+	  //Compare month, if new month refresh
+	  currentDate.getMonth() > storageData[1] || 
+	  //Check day. Refresh if it was has been over a week
+	  currentDate.getDate() - 7 >= storageData[2])) {
+	/* Database entry hit - Use recent data from in localstorage */
+	var rating = storageData[0];
+	element.find(".glassdoor-rating").html(rating);
+    } else {
     	/* Database entry miss - Send new HTTP Request to Glassdoor API for rating info */
-		var xmlhttp = new XMLHttpRequest();
-		var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers&userip=" + genIP() + "&useragent=" + navigator.userAgent + "&q=" + name;
-		xmlhttp.open("GET", url, true);
-		
-		xmlhttp.onreadystatechange = function() {
-		    if (xmlhttp.status == 200) {
-				console.log(url);
-				/* GET Successful, parse data into JSON object */
-				var response = JSON.parse(xmlhttp.responseText || "null");
-				if (response != null) {
-				    if (response["success"] == true) {
-						var rating = response["response"].employers[0].overallRating;
-						save(name,rating);
-						element.find(".glassdoor-rating").html(rating);
-				    }
-				    if (response["success"] == false) {
-				    	/* GET Successful, but access denied error */
-				    }
-				}
-		    } else {
-			/* GET Unsuccessful */
+	var xmlhttp = new XMLHttpRequest();
+	var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers&userip=" + genIP() + "&useragent=" + navigator.userAgent + "&q=" + name;
+	xmlhttp.open("GET", url, true);
+	
+	xmlhttp.onreadystatechange = function() {
+	    if (xmlhttp.status == 200) {
+		console.log(url);
+		/* GET Successful, parse data into JSON object */
+		var response = JSON.parse(xmlhttp.responseText || "null");
+		if (response != null) {
+		    if (response["success"] == true) {
+			var rating = response["response"].employers[0].overallRating;
+			save(name,rating);
+			element.find(".glassdoor-rating").html(rating);
 		    }
-		};
+		    if (response["success"] == false) {
+				    	/* GET Successful, but access denied error */
+		    }
+		}
+		    } else {
+		/* GET Unsuccessful */
+	    }
+	};
 		
-		xmlhttp.send();
+	xmlhttp.send();
     }
 }
     
