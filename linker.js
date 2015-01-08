@@ -9,7 +9,7 @@ var checkDatabase = function(name) {
     }
     return false;
 }
-/* Saving things into local storage */
+/* Save ratings into local storage, and keep track of how old it is */
 var save = function(name, rating) {
 	localStorage[name] = rating * 10.0;
 	var date = new Date();
@@ -35,9 +35,9 @@ var gdinfo = function (element, name) {
     var currentDate = new Date();
     var storageData = load(name);
     var storageTime = new Date(localStorage["gd-retrieval-date"]);
+    /* Used for calculating how old the data in local storage is */
     var oneDay = 24*60*60*1000;
 
-    //Check if company is in localStorage
     if(checkDatabase(name) && 
     	Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7) {
 			/* Database entry hit - Use recent data from in localstorage. Divide by 10
