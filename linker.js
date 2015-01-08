@@ -46,6 +46,7 @@ var gdinfo = function (element, name) {
 		  currentDate.getDate() - 7 >= storageData[2])) {
 			/* Database entry hit - Use recent data from in localstorage. Divide by 10
 				for float storage workaround  */
+			console.log("Using local storage");
 			var rating = storageData[0]/10.0;
 			element.find(".glassdoor-rating").html(rating);
     } else {
@@ -77,7 +78,7 @@ var gdinfo = function (element, name) {
 				element.find("glassdoor-rating").html(message);
 		    }
 		};
-			
+		console.log("Sending out new request");	
 		xmlhttp.send();
     }
 }
