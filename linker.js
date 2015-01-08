@@ -5,7 +5,7 @@ a hover event onto company names that appear in search results
 /* Check if company is already in localstorage */
 var checkDatabase = function(name) {
     if(localStorage[name]) {
-		return true;
+	return true;
     }
     return false;
 }
@@ -18,7 +18,7 @@ var save = function(addName,addRating) {
 		day:date.getDate(),
 		year:date.getYear()
     };
-    localStorage[name] = employer;
+    localStorage[addName] = employer;
 }
 
 /* Load rating */
@@ -38,44 +38,18 @@ var randomInt = function () {
 /* Grab the GlassDoor Data given the company name */
 var gdinfo = function (element, name) {
     var currentDate = new Date();
-    if(checkDatabase(name)){
-		if(!(currentDate.getFullYear() > load(name).year || 
-			currentDate.getMonth() > load(name).month || 
-			currentDate.getDate() - 7 >= load(name).day)) {
-	    	    /* Database entry hit - No need to send new HTTP Request */
-		    	console.log("Database entry hit");
-	            var rating = load(name).rating;
-	            element.find(".glassdoor-rating").html(rating);
-		} else {
-		    /* Database entry miss - Send new HTTP Request to Glassdoor API for rating info */
-		    console.log("new request");
-		    var xmlhttp = new XMLHttpRequest();
-		    var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers&userip=" + genIP() + "&useragent=" + navigator.userAgent + "&q=" + name;
-		    xmlhttp.open("GET", url, true);
-		    
-		    xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.status == 200) {
-			    console.log(url);
-			    /* GET Successful, parse data into JSON object */
-			    var response = JSON.parse(xmlhttp.responseText || "null");
-			    if (response != null) {
-				if(response["success"] == true) {
-				    var rating = response["response"].employers[0].overallRating;
-				    element.find(".glassdoor-rating").html(rating);
-				    save(name,rating);
-				}
-			    }
-			} else {
-			    /* GET Unsuccessful */
-				}
-		    };
-		    
-		    xmlhttp.send();
-		}
+    if(checkDatabase(name) && 
+       !(currentDate.getFullYear() > load(name).year || 
+	 currentDate.getMonth() > load(name).month || 
+	 currentDate.getDate() - 7 >= load(name).day)) {
+	/* Database entry hit - No need to send new HTTP Request */
+	console.log("Database entry hit");
+	var rating = load(name).rating;
+	element.find(".glassdoor-rating").html(rating);
     }
     else{
     	/* Database entry miss - Send new HTTP Request to Glassdoor API for rating info */
-    console.log("new request");
+	console.log("new request");
 	var xmlhttp = new XMLHttpRequest();
 	var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers&userip=" + genIP() + "&useragent=" + navigator.userAgent + "&q=" + name;
 	xmlhttp.open("GET", url, true);
@@ -86,11 +60,11 @@ var gdinfo = function (element, name) {
 		/* GET Successful, parse data into JSON object */
 		var response = JSON.parse(xmlhttp.responseText || "null");
 		if (response != null) {
-					if(response["success"] == true) {
-					    var rating = response["response"].employers[0].overallRating;
-					    element.find(".glassdoor-rating").html(rating);
-					    save(name,rating);
-					}
+		    if(response["success"] == true) {
+			var rating = response["response"].employers[0].overallRating;
+			save(name,rating);
+			element.find(".glassdoor-rating").html(rating);
+		    }
 		}
 	    } else {
 		/* GET Unsuccessful */
