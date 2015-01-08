@@ -10,14 +10,10 @@ var checkDatabase = function(name) {
     return false;
 }
 /* Saving things into local storage */
-var save = function(addName,addRating) {
-    var date = new Date();
-    //[0]: Rating (multiplied by 10, couldn't store as float)
-    //[1]: Month of date when rating was stored
-    //[2]: Day of date when rating was stored
-    //[3]: Year of date when rating was stored
-    var employer = [(addRating * 10), date.getMonth(), date.getDate(), date.getYear()];
-    localStorage[addName] = employer;
+var save = function(name, rating) {
+	localStorage[name] = rating * 10.0;
+	var date = new Date();
+	localStorage["gd-retrieval-date"] = date.toDateString();
 }
 
 /* Load rating */
@@ -38,16 +34,16 @@ var randomInt = function () {
 var gdinfo = function (element, name) {
     var currentDate = new Date();
     var storageData = load(name);
+    var storageTime = new Date(localStorage["gd-retrieval-date"]);
+    var oneDay = 24*60*60*1000;
+
     //Check if company is in localStorage
     if(checkDatabase(name) && 
-       // Grab new data if data stored is from a previous year or month, or >7 days ago. 
-    	!(currentDate.getFullYear() > storageData[3] ||
-		  currentDate.getMonth() > storageData[1] || 
-		  currentDate.getDate() - 7 >= storageData[2])) {
+    	Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7) {
 			/* Database entry hit - Use recent data from in localstorage. Divide by 10
 				for float storage workaround  */
 			console.log("Using local storage");
-			var rating = storageData[0]/10.0;
+			var rating = storageData/10.0;
 			element.find(".glassdoor-rating").html(rating);
     } else {
     	/* Database entry miss - Send new HTTP Request to Glassdoor API for rating info */
@@ -64,6 +60,7 @@ var gdinfo = function (element, name) {
 				    if (response["success"] == true) {
 						var rating = response["response"].employers[0].overallRating;
 						save(name,rating);
+						console.log("Save" + name + " "+ rating);
 						element.find(".glassdoor-rating").html(rating);
 				    }
 				    if (response["success"] == false) {
