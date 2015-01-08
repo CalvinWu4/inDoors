@@ -42,7 +42,6 @@ var gdinfo = function (element, name) {
     	Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7) {
 			/* Database entry hit - Use recent data from in localstorage. Divide by 10
 				for float storage workaround  */
-			console.log("Using local storage");
 			var rating = storageData/10.0;
 			element.find(".glassdoor-rating").html(rating);
     } else {
@@ -53,14 +52,12 @@ var gdinfo = function (element, name) {
 		
 		xmlhttp.onreadystatechange = function() {
 		    if (xmlhttp.status == 200) {
-				console.log(url);
 				/* GET Successful, parse data into JSON object */
 				var response = JSON.parse(xmlhttp.responseText || "null");
 				if (response != null) {
 				    if (response["success"] == true) {
 						var rating = response["response"].employers[0].overallRating;
 						save(name,rating);
-						console.log("Save" + name + " "+ rating);
 						element.find(".glassdoor-rating").html(rating);
 				    }
 				    if (response["success"] == false) {
@@ -75,7 +72,6 @@ var gdinfo = function (element, name) {
 				element.find("glassdoor-rating").html(message);
 		    }
 		};
-		console.log("Sending out new request");	
 		xmlhttp.send();
     }
 }
