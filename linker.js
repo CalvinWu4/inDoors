@@ -16,7 +16,7 @@ var save = function(addName,addRating) {
     //[1]: Month of date when rating was stored
     //[2]: Day of date when rating was stored
     //[3]: Year of date when rating was stored
-    var employer = [addRating, date.getMonth(), date.getDate(), date.getYear()];
+    var employer = [(addRating * 10), date.getMonth(), date.getDate(), date.getYear()];
     localStorage[addName] = employer;
 }
 
@@ -45,7 +45,7 @@ var gdinfo = function (element, name) {
 		  currentDate.getMonth() > storageData[1] || 
 		  currentDate.getDate() - 7 >= storageData[2])) {
 			/* Database entry hit - Use recent data from in localstorage */
-			var rating = storageData[0];
+			var rating = storageData[0]/10.0;
 			element.find(".glassdoor-rating").html(rating);
     } else {
     	/* Database entry miss - Send new HTTP Request to Glassdoor API for rating info */
