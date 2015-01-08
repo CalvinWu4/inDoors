@@ -12,12 +12,7 @@ var checkDatabase = function(name) {
 /* Saving things into local storage */
 var save = function(addName,addRating) {
     var date = new Date();
-    var employer = {
-		rating:addRating,
-		month:date.getMonth(),
-		day:date.getDate(),
-		year:date.getYear()
-    };
+    var employer = [addRating, date.getMonth(), date.getDate(), date.getYear()];
     localStorage[addName] = employer;
 }
 
@@ -39,12 +34,12 @@ var randomInt = function () {
 var gdinfo = function (element, name) {
     var currentDate = new Date();
     if(checkDatabase(name) && 
-       !(currentDate.getFullYear() > load(name).year || 
-	 currentDate.getMonth() > load(name).month || 
-	 currentDate.getDate() - 7 >= load(name).day)) {
+       !(currentDate.getFullYear() > load(name)[3] || 
+	 currentDate.getMonth() > load(name)[1] || 
+	 currentDate.getDate() - 7 >= load(name)[2])) {
 	/* Database entry hit - No need to send new HTTP Request */
 	console.log("Database entry hit");
-	var rating = load(name).rating;
+	var rating = load(name)[0];
 	element.find(".glassdoor-rating").html(rating);
     }
     else{
