@@ -71,6 +71,8 @@ var gdinfo = function (element, name) {
 				}
 		    } else {
 				/* GET Unsuccessful */
+				var message = "Could not contact Glassdoor servers"
+				element.find("glassdoor-rating").html(message);
 		    }
 		};
 			
