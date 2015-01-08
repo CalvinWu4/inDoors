@@ -67,7 +67,7 @@ var gdinfo = function (element, name) {
 				    }
 				    if (response["success"] == false) {
 				    	/* GET Successful, but access denied error */
-					element.find(".glassdoor-rating").html("Sorry, we currently unable to detect contact Glassdoor. Try again later.");
+					element.find(".glassdoor-rating").html("Sorry, we currently unable to contact Glassdoor. Try again later.");
 				    }
 				}
 		    } else {
