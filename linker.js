@@ -67,6 +67,8 @@ var gdinfo = function (element, name) {
 				    }
 				    if (response["success"] == false) {
 				    	/* GET Successful, but access denied error */
+					var message = "Requests throttled by Glassdoor. Try again in a few minutes";
+					element.find(".glassdoor-rating").html(message);
 				    }
 				}
 		    } else {
