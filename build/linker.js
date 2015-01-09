@@ -104,3 +104,13 @@ $(".description bdi").hover(function() {
 $(".pagination a").click(function() {
 	window.location.reload();
 });
+
+/* Force DOM to refresh when new search is started */
+$(".submit-advs").click(function() {
+	window.location.reload();
+});
+
+/* Force DOM to refresh when new search criteria is added */
+$(".label-container").click(function() {
+	window.location.reload();
+});
