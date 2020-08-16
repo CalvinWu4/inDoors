@@ -49,6 +49,8 @@ var gdinfo = function (element, name) {
 		var xmlhttp = new XMLHttpRequest();
 		var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers&userip=" + genIP() + "&useragent=" + navigator.userAgent + "&q=" + name;
 		xmlhttp.open("GET", url, true);
+		xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+
 		
 		xmlhttp.onreadystatechange = function() {
 		    if (xmlhttp.status == 200) {
@@ -77,16 +79,16 @@ var gdinfo = function (element, name) {
 }
     
 /* Append a rating box to the end of each description element */
-$(".description bdi").each( function() {
+$("[data-control-name='job_card_company_link']").each( function() {
 	$(this).append("<div class='glassdoor-label-wrapper'><div class='glassdoor-label'>Rating: <span class='glassdoor-rating'></span><div><a class='glassdoor-link' style='color:white' href='http://www.glassdoor.com/index.htm'>Powered by  <img style='margin-left:6px' src='http://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search' /></a></div></div></div>");
 });
 
-$(".description .glassdoor-label").each( function() {
+$("[data-control-name='job_card_company_link'] .glassdoor-label").each( function() {
 	$(this).hide();
 });
 
 /* Each description class element will have the company name */
-$(".description bdi").hover(function() {
+$("[data-control-name='job_card_company_link']").hover(function() {
 	var link = $(this).find("a");
 	var name = link.html();
 
@@ -114,3 +116,5 @@ $(".submit-advs").click(function() {
 $(".label-container").click(function() {
 	window.location.reload();
 });
+
+console.log('hi');
