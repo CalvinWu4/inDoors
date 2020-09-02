@@ -49,9 +49,9 @@ var gdinfo = function (element, name) {
 		var xmlhttp = new XMLHttpRequest();
 		const partnerid = 51706;
 		const apikey = "xBpFKWDKEM";
+		var proxyurl = "https://cors-anywhere.herokuapp.com/";
 		var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers&userip=" + genIP() + "&useragent=" + navigator.userAgent + "&q=" + name;
-		xmlhttp.open("GET", url, true);
-		xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+		xmlhttp.open("GET", proxyurl + url, true);
 
 		
 		xmlhttp.onreadystatechange = function() {
@@ -91,9 +91,8 @@ $("[data-control-name='job_card_company_link'] .glassdoor-label").each( function
 
 /* Each description class element will have the company name */
 $("[data-control-name='job_card_company_link']").hover(function() {
-	var link = $(this).find("a");
-	var name = link.html();
-
+	var content = $(this).html()
+	var name = content.split("\n")[0]
 	var element = $(this);
 	if(typeof(name) !== "undefined") { 
 		$(this).find(".glassdoor-label").toggle();
@@ -119,4 +118,4 @@ $(".label-container").click(function() {
 	window.location.reload();
 });
 
-console.log('hi');
+console.log('Glassdoor-Linkedinator loaded');
