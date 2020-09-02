@@ -89,8 +89,12 @@ $("[data-control-name='job_card_company_link'] .glassdoor-label").each( function
 
 /* Each description class element will have the company name */
 $("[data-control-name='job_card_company_link']").hover(function() {
-	var content = $(this).html()
-	var name = content.split("\n")[0]
+	var name = $(this).contents()
+					.filter(function() { 
+						return !!$.trim( this.innerHTML || this.data ); 
+					})
+					.first()
+					.text();
 	var element = $(this);
 	if(typeof(name) !== "undefined") { 
 		$(this).find(".glassdoor-label").toggle();
