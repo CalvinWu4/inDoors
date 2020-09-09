@@ -2,15 +2,38 @@
 	position: relative;
 }
 .glassdoor-label {
-	color: white;
-	z-index: 100;
-	position: absolute;
-	background-color: #111;
-	padding: 10px;
-	border: 1px #DDD solid;
-	border-radius: 9px;
-	width: 160px;
+	/* color: white; */
+	/* z-index: 100; */
+	/* position: absolute; */
+	/* background-color: #111; */
+	/* padding: 10px; */
+	/* border: 1px #DDD solid; */
+	/* border-radius: 9px; */
+	color: rgba(0,0,0,.6);
+	font-weight: 400;
+	/* width: 100em; */
 }
 .glassdoor-rating {
 	font-weight: bold;
+}
+
+/* .tbl {
+	width: 100em;
+} */
+
+.cell {
+	display: table-cell;
+	float: none !important;
+}
+
+.middle {
+	vertical-align: middle !important;
+}
+
+.padRtSm {
+	padding-right: 12px !important;
+}
+
+.padRtLg {
+	padding-right: 36px !important;
 }
