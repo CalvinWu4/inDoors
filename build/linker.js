@@ -62,7 +62,6 @@ var gdinfo = function (element, name) {
 				    if (response["success"] == true) {
 						var rating = response["response"].employers[0].overallRating;
 						save(name,rating);
-						consolee.log(element.find(".glassdoor-rating"));
 						element.find(".glassdoor-rating").html(rating);
 				    }
 				    if (response["success"] == false) {
@@ -84,45 +83,7 @@ var gdinfo = function (element, name) {
 /* Append a rating box to the end of each description element */
 $("[data-control-name='job_card_company_link']").each( function() {
 	$(this).parent().append("<div class='glassdoor-label-wrapper'><div class='glassdoor-label'><div class='tbl glassdoor-rating'><div class='cell middle padRtLg glassdoor-rating'>Rating: </div><div class='cell middle padRtSm'>powered by</div><div class='cell middle'><a href='https://www.glassdoor.com/index.htm'><img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search'></a></div></div><div></div></div></div>");
-// 	var name = $(this).contents()
-// 	.filter(function() { 
-// 		return !!$.trim( this.innerHTML || this.data ); 
-// 	})
-// 	.first()
-// 	.text();
-// var element = $(this);
-// if(typeof(name) !== "undefined") { 
-// $(this).find(".glassdoor-label").toggle();
-// /* If we're in this loop, this was a valid company name. 
-// Grab the company name and strip it of HTML tags */
-// var cleanname = name.replace("<b>","").replace("</b>","");
-// var info = gdinfo(element, cleanname);
-// }
-
-}
-);
-
-// $("[data-control-name='job_card_company_link']").each( function() {
-// 	var name = $(this).contents()
-// 	.filter(function() { 
-// 		return !!$.trim( this.innerHTML || this.data ); 
-// 	})
-// 	.first()
-// 	.text();
-// var element = $(this);
-// if(typeof(name) !== "undefined") { 
-// $(this).find(".glassdoor-label").toggle();
-// /* If we're in this loop, this was a valid company name. 
-// Grab the company name and strip it of HTML tags */
-// var cleanname = name.replace("<b>","").replace("</b>","");
-// var info = gdinfo(element, cleanname);
-// }
-
-// });
-
-// $("[data-control-name='job_card_company_link'] .glassdoor-label").each( function() {
-// 	$(this).hide();
-// });
+});
 
 /* Each description class element will have the company name */
 // $("[data-control-name='job_card_company_link']").bind("DOMNodeInserted",function(){
