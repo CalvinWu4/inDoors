@@ -79,10 +79,17 @@ var gdinfo = function (element, name) {
 		xmlhttp.send();
     }
 }
-    
+
+function appendRatings(node){
+	node.parent().append("<div class='glassdoor-label-wrapper'><div class='glassdoor-label'><div class='tbl'><div class='cell middle padRtSm'>Rating: <span class='glassdoor-rating'></div><div class='cell middle padRtSm'>powered by</div><div class='cell middle'><a href='https://www.glassdoor.com/index.htm'><img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search'></a></div></div><div></div></div></div>");
+}
 /* Append a rating box to the end of each description element */
-$("[data-control-name='job_card_company_link']").each( function() {
-	$(this).parent().append("<div class='glassdoor-label-wrapper'><div class='glassdoor-label'><div class='tbl'><div class='cell middle padRtSm'>Rating: <span class='glassdoor-rating'></div><div class='cell middle padRtSm'>powered by</div><div class='cell middle'><a href='https://www.glassdoor.com/index.htm'><img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search'></a></div></div><div></div></div></div>");
+$("[data-control-name='job_card_company_link']").each(function() {
+	appendRatings($(this));
+});
+
+$(document).arrive("[data-control-name='job_card_company_link']", function(){
+	appendRatings($(this));
 });
 
 /* Each description class element will have the company name */

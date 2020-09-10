@@ -9,7 +9,7 @@
         {
             "matches":["https://www.linkedin.com/jobs/*"],
             "css":["linker.css"],
-            "js":["jquery-2.1.3.min.js", "build/linker.js"],
+            "js":["jquery-2.1.3.min.js", "arrive.min.js", "build/linker.js"],
             "run_at": "document_end"
         }
     ],
