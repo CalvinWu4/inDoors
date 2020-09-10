@@ -85,7 +85,7 @@ $("[data-control-name='job_card_company_link']").each( function() {
 
 /* Each description class element will have the company name */
 // $("[data-control-name='job_card_company_link']").bind("DOMNodeInserted",function(){
-$("[data-control-name='job_card_company_link']").hover(function() {
+$("[data-control-name='job_card_company_link']").each(function() {
 	var name = $(this).contents()
 					.filter(function() { 
 						return !!$.trim( this.innerHTML || this.data ); 
