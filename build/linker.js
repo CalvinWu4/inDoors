@@ -95,6 +95,10 @@ function appendRating(node){
 					.first()
 					.text();
 
+	/* To avoid misdirected name searches */	
+	const replaceManyStr = (obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
+	name = replaceManyStr(misdirectArray, name);
+
 	if(typeof(name) !== "undefined") { 
 		/* If we're in this loop, this was a valid company name. 
 		Grab the company name and strip it of HTML tags */
