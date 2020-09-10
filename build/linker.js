@@ -10,8 +10,8 @@ var checkDatabase = function(name) {
     return false;
 }
 /* Save ratings into local storage, and keep track of how old it is */
-var save = function(name, rating) {
-	localStorage[name] = rating * 10.0;
+var save = function(name, info) {
+	localStorage[name] = info;
 	var date = new Date();
 	localStorage["gd-retrieval-date"] = date.toDateString();
 }
@@ -33,7 +33,6 @@ var randomInt = function () {
 /* Grab the GlassDoor Data given the company name */
 var gdinfo = function (element, name) {
     var currentDate = new Date();
-    var storageData = load(name);
     var storageTime = new Date(localStorage["gd-retrieval-date"]);
     /* Used for calculating how old the data in local storage is */
     var oneDay = 24*60*60*1000;
@@ -42,8 +41,9 @@ var gdinfo = function (element, name) {
     	Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7) {
 			/* Database entry hit - Use recent data from in localstorage. Divide by 10
 				for float storage workaround  */
-			var rating = storageData/10.0;
-			element.parent().find(".glassdoor-rating").html(rating);
+			var x = load(name);
+			var storageData = JSON.parse(x);
+			element.parent().find(".glassdoor-rating").html(`${storageData.overallRating} out of ${storageData.numberOfRatings} ratings`);
     } else {
     	/* Database entry miss - Send new HTTP Request to Glassdoor API for rating info */
 		var xmlhttp = new XMLHttpRequest();
@@ -58,9 +58,15 @@ var gdinfo = function (element, name) {
 				var response = JSON.parse(xmlhttp.responseText || "null");
 				if (response != null) {
 				    if (response["success"] == true) {
-						var rating = response["response"].employers[0].overallRating;
-						save(name,rating);
-						element.parent().find(".glassdoor-rating").html(rating);
+						var employer = response["response"].employers[0];
+						if(employer){
+							var info = {
+								overallRating: employer.overallRating,
+								numberOfRatings: employer.numberOfRatings
+							}
+							save(name, JSON.stringify(info));
+							element.parent().find(".glassdoor-rating").html(`${info.overallRating} out of ${info.numberOfRatings} ratings`);
+						}
 				    }
 				    if (response["success"] == false) {
 				    	/* GET Successful, but access denied error */
