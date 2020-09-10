@@ -85,8 +85,25 @@ var gdinfo = function (element, name) {
 
 /* Append a rating box to the end of each description element */
 function appendWrapper(node){
-	node.parent().append("<div class='glassdoor-label-wrapper'><div class='glassdoor-label'><div class='tbl'><div class='cell middle padRtSm'>Rating: <span class='glassdoor-rating'></div><div class='cell middle padRtSm'>powered by</div><div class='cell middle'><a href='https://www.glassdoor.com/index.htm'><img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search'></a></div></div><div></div></div></div>");
-}
+	node.parent().append(
+		`<div class='glassdoor-label-wrapper'>
+			<div class='glassdoor-label'>
+				<div class='tbl'>
+					<div class='cell middle padRtSm'>
+						Rating: <span class='glassdoor-rating'>
+					</div>
+					<div class='cell middle padRtSm'>
+						powered by
+					</div>
+					<div class='cell middle'>
+						<a href='https://www.glassdoor.com/index.htm'>
+							<img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search'>
+						</a>
+					</div>
+				</div>
+			<div>
+		</div>`
+	);
 
 function appendRating(node){
 	/* Each description class element will have the company name */
