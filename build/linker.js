@@ -70,6 +70,9 @@ var gdinfo = function (element, name) {
 					element.parent().find(".glassdoor-rating").html(message);
 				    }
 				}
+				else{
+					element.parent().find(".glassdoor-rating").html("N/A");
+				}
 		    } else {
 				/* GET Unsuccessful */
 				var message = "Could not contact Glassdoor servers"
@@ -98,7 +101,7 @@ function appendRating(node){
 		/* If we're in this loop, this was a valid company name. 
 		Grab the company name and strip it of HTML tags */
 		var cleanname = name.replace("<b>","").replace("</b>","");
-		var info = gdinfo(node, cleanname);
+		gdinfo(node, cleanname);
 	}
 }
 
