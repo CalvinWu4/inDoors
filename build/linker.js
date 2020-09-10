@@ -97,7 +97,9 @@ function appendWrapper(node){
 			<div class='glassdoor-label'>
 				<div class='tbl'>
 					<a class='glassdoor-link cell middle padRtSm'>
-						Rating: <span class='glassdoor-rating'>
+						Rating: 
+						<span class='glassdoor-rating'>
+						<span class="loading"><span>.</span><span>.</span><span>.</span></span>
 					</a>
 					<div class='cell middle padRtSm'>
 						powered by
