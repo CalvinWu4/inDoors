@@ -102,6 +102,7 @@ function appendWrapper(node){
 			<div>
 		</div>`
 	);
+}
 
 function appendRating(node){
 	/* Each description class element will have the company name */
