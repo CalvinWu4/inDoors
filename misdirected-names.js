@@ -1,4 +1,5 @@
 const misdirectArray = [
-    { 'Bloomberg LP': 'Bloomberg' }
+    {'Bloomberg LP': 'Bloomberg'},
+    {'Verizon Media Platform': 'Verizon Media'}
   ]
   
