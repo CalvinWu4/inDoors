@@ -39,11 +39,10 @@ var gdinfo = function (element, name) {
 
     if(checkDatabase(name) && 
     	Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7) {
-			/* Database entry hit - Use recent data from in localstorage. Divide by 10
-				for float storage workaround  */
-			var x = load(name);
-			var storageData = JSON.parse(x);
+			/* Database entry hit - Use recent data from in localstorage. */
+			var storageData = JSON.parse(load(name));
 			element.parent().find(".glassdoor-rating").html(`${storageData.overallRating} out of ${storageData.numberOfRatings} ratings`);
+			element.parent().find(".glassdoor-link").attr("href", storageData.url);
     } else {
     	/* Database entry miss - Send new HTTP Request to Glassdoor API for rating info */
 		var xmlhttp = new XMLHttpRequest();
@@ -59,13 +58,17 @@ var gdinfo = function (element, name) {
 				if (response != null) {
 				    if (response["success"] == true) {
 						var employer = response["response"].employers[0];
+						console.log(response["response"]);
 						if(employer){
+							var reviewsUrl = `https://www.glassdoor.com/Reviews/${name}-Reviews-E${employer.id}.htm`
 							var info = {
 								overallRating: employer.overallRating,
-								numberOfRatings: employer.numberOfRatings
+								numberOfRatings: employer.numberOfRatings,
+								url: reviewsUrl,
 							}
 							save(name, JSON.stringify(info));
 							element.parent().find(".glassdoor-rating").html(`${info.overallRating} out of ${info.numberOfRatings} ratings`);
+							element.parent().find(".glassdoor-link").attr("href", info.url);
 						}
 				    }
 				    if (response["success"] == false) {
@@ -93,7 +96,7 @@ function appendWrapper(node){
 		`<div class='glassdoor-label-wrapper'>
 			<div class='glassdoor-label'>
 				<div class='tbl'>
-					<a class='cell middle padRtSm'>
+					<a class='glassdoor-link cell middle padRtSm'>
 						Rating: <span class='glassdoor-rating'>
 					</a>
 					<div class='cell middle padRtSm'>
