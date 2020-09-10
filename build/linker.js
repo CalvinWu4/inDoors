@@ -89,9 +89,9 @@ function appendWrapper(node){
 		`<div class='glassdoor-label-wrapper'>
 			<div class='glassdoor-label'>
 				<div class='tbl'>
-					<div class='cell middle padRtSm'>
+					<a class='cell middle padRtSm'>
 						Rating: <span class='glassdoor-rating'>
-					</div>
+					</a>
 					<div class='cell middle padRtSm'>
 						powered by
 					</div>
