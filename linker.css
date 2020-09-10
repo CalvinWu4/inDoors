@@ -3,7 +3,7 @@
 .glassdoor-label-wrapper {
 	position: relative;
 }
-/* .glassdoor-label { */
+.glassdoor-label {
 	/* color: white; */
 	/* z-index: 100; */
 	/* position: absolute; */
@@ -13,11 +13,12 @@
 	/* border-radius: 9px; */
 	/* color: rgba(0,0,0,.6); */
 	/* width: 100em; */
-/* } */
+	color: rgba(0,0,0,.6);
+}
 
 .glassdoor-link {
 	font-weight: 400;
-	color: rgba(0,0,0,.6);
+	color: rgba(0, 0, 0, 0.6);
 }
 
 .glassdoor-link a, a:visited{
