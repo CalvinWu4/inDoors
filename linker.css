@@ -1,3 +1,5 @@
+/* || General styles */
+
 .glassdoor-label-wrapper {
 	position: relative;
 }
@@ -20,6 +22,9 @@
 /* .tbl {
 	width: 100em;
 } */
+
+
+/* || Columnate Glassdoor wrapper */
 
 .cell {
 	display: table-cell;
