@@ -3,7 +3,7 @@
 .glassdoor-label-wrapper {
 	position: relative;
 }
-.glassdoor-label {
+/* .glassdoor-label { */
 	/* color: white; */
 	/* z-index: 100; */
 	/* position: absolute; */
@@ -11,16 +11,23 @@
 	/* padding: 10px; */
 	/* border: 1px #DDD solid; */
 	/* border-radius: 9px; */
-	color: rgba(0,0,0,.6);
+	/* color: rgba(0,0,0,.6); */
 	/* width: 100em; */
-}
+/* } */
 
 .glassdoor-link {
 	font-weight: 400;
+	color: rgba(0,0,0,.6);
 }
-/* .glassdoor-rating {
-	font-weight: bold;
-} */
+
+.glassdoor-link a, a:visited{
+	color: rgba(0,0,0,.6) !important;
+}
+
+.glassdoor-link a:focus, a:hover {
+	color: #006097 !important;
+}
+
 
 /* .tbl {
 	width: 100em;
