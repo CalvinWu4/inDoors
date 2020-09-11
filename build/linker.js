@@ -41,7 +41,7 @@ var gdinfo = function (element, name) {
     	Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7) {
 			/* Database entry hit - Use recent data from in localstorage. */
 			var storageData = JSON.parse(load(name));
-			element.parent().find(".glassdoor-rating").html(`${storageData.overallRating} out of ${storageData.numberOfRatings} ratings`);
+			element.parent().find(".glassdoor-rating").html(`${storageData.overallRating} out of ${storageData.numberOfRatings} reviews`);
 			element.parent().find(".glassdoor-link").attr("href", storageData.url);
     } else {
     	/* Database entry miss - Send new HTTP Request to Glassdoor API for rating info */
@@ -68,7 +68,7 @@ var gdinfo = function (element, name) {
 								url: reviewsUrl,
 							}
 							save(name, JSON.stringify(info));
-							element.parent().find(".glassdoor-rating").html(`${info.overallRating} out of ${info.numberOfRatings} ratings`);
+							element.parent().find(".glassdoor-rating").html(`${info.overallRating} out of ${info.numberOfRatings} reviews`);
 							element.parent().find(".glassdoor-link").attr("href", info.url);
 						}
 				    }
