@@ -79,7 +79,7 @@
     }
 }
 
-.saving span {
+.loading span {
     /**
      * Use the blink animation, which is defined above
      */
@@ -102,7 +102,7 @@
     animation-fill-mode: both;
 }
 
-.saving span:nth-child(2) {
+.loading span:nth-child(2) {
     /**
      * Starts the animation of the third dot
      * with a delay of .2s, otherwise all dots
@@ -111,7 +111,7 @@
     animation-delay: .2s;
 }
 
-.saving span:nth-child(3) {
+.loading span:nth-child(3) {
     /**
      * Starts the animation of the third dot
      * with a delay of .4s, otherwise all dots
