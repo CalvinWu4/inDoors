@@ -30,6 +30,18 @@ var randomInt = function () {
 	return Math.floor((Math.random() * 220) + 15);
 }
 
+/* Convert 2500 to 2.5K */
+function kFormatter(num) {
+	num = Math.round(num/1000)*1000	// Round to nearest thousandth
+    return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'K' : Math.sign(num)*Math.abs(num)
+}
+
+
+function updateHtmlFromData(element, data){
+	element.parent().find(".glassdoor-rating").html(`${data.overallRating} out of ${data.numberOfRatings} reviews`);
+	element.parent().find(".glassdoor-link").attr("href", data.url);
+}
+
 /* Grab the GlassDoor Data given the company name */
 var gdinfo = function (element, name) {
     var currentDate = new Date();
@@ -41,8 +53,7 @@ var gdinfo = function (element, name) {
     	Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7) {
 			/* Database entry hit - Use recent data from in localstorage. */
 			var storageData = JSON.parse(load(name));
-			element.parent().find(".glassdoor-rating").html(`${storageData.overallRating} out of ${storageData.numberOfRatings} reviews`);
-			element.parent().find(".glassdoor-link").attr("href", storageData.url);
+			updateHtmlFromData(element, storageData);
     } else {
     	/* Database entry miss - Send new HTTP Request to Glassdoor API for rating info */
 		var xmlhttp = new XMLHttpRequest();
@@ -50,7 +61,6 @@ var gdinfo = function (element, name) {
 		var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers&userip=" + genIP() + "&useragent=" + navigator.userAgent + "&q=" + name;
 		xmlhttp.open("GET", proxyurl + url, true);
 
-		
 		xmlhttp.onreadystatechange = function() {
 		    if (xmlhttp.status == 200) {
 				/* GET Successful, parse data into JSON object */
@@ -62,12 +72,11 @@ var gdinfo = function (element, name) {
 							var reviewsUrl = `https://www.glassdoor.com/Reviews/${name}-Reviews-E${employer.id}.htm`
 							var info = {
 								overallRating: employer.overallRating,
-								numberOfRatings: employer.numberOfRatings,
+								numberOfRatings: kFormatter(employer.numberOfRatings),
 								url: reviewsUrl,
 							}
 							save(name, JSON.stringify(info));
-							element.parent().find(".glassdoor-rating").html(`${info.overallRating} out of ${info.numberOfRatings} reviews`);
-							element.parent().find(".glassdoor-link").attr("href", info.url);
+							updateHtmlFromData(element, info);
 						}
 				    }
 				    if (response["success"] == false) {
@@ -90,8 +99,8 @@ var gdinfo = function (element, name) {
 }
 
 /* Append a rating box to the end of each description element */
-function appendWrapper(node){
-	node.parent().append(
+function appendWrapper(element){
+	element.parent().append(
 		`<div class='glassdoor-label-wrapper'>
 			<div class='glassdoor-label'>
 				<div class='tbl'>
@@ -114,9 +123,9 @@ function appendWrapper(node){
 	);
 }
 
-function appendRating(node){
+function appendRating(element){
 	/* Each description class element will have the company name */
-	var name = node.contents()
+	var name = element.contents()
 					.filter(function() { 
 						return !!$.trim( this.innerHTML || this.data ); 
 					})
@@ -131,7 +140,7 @@ function appendRating(node){
 		/* If we're in this loop, this was a valid company name. 
 		Grab the company name and strip it of HTML tags */
 		var cleanname = name.replace("<b>","").replace("</b>","");
-		gdinfo(node, cleanname);
+		gdinfo(element, cleanname);
 	}
 }
 
