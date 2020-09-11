@@ -48,7 +48,7 @@ var gdinfo = function (element, name) {
 		var xmlhttp = new XMLHttpRequest();
 		const partnerid = 51706;
 		const apikey = "xBpFKWDKEM";
-		var proxyurl = "https://cors-anywhere.herokuapp.com/";
+		var proxyurl = "https://glassdoor-cors-proxy.herokuapp.com/";
 		var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers&userip=" + genIP() + "&useragent=" + navigator.userAgent + "&q=" + name;
 		xmlhttp.open("GET", proxyurl + url, true);
 
@@ -60,7 +60,6 @@ var gdinfo = function (element, name) {
 				if (response != null) {
 				    if (response["success"] == true) {
 						var employer = response["response"].employers[0];
-						console.log(response["response"]);
 						if(employer){
 							var reviewsUrl = `https://www.glassdoor.com/Reviews/${name}-Reviews-E${employer.id}.htm`
 							var info = {
