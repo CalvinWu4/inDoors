@@ -1,18 +1,8 @@
 /* || General styles */
-
 .glassdoor-label-wrapper {
 	position: relative;
 }
 .glassdoor-label {
-	/* color: white; */
-	/* z-index: 100; */
-	/* position: absolute; */
-	/* background-color: #111; */
-	/* padding: 10px; */
-	/* border: 1px #DDD solid; */
-	/* border-radius: 9px; */
-	/* color: rgba(0,0,0,.6); */
-	/* width: 100em; */
 	color: rgba(0,0,0,.6);
 }
 
@@ -29,14 +19,7 @@
 	color: #006097 !important;
 }
 
-
-/* .tbl {
-	width: 100em;
-} */
-
-
 /* || Columnate Glassdoor wrapper */
-
 .cell {
 	display: table-cell;
 	float: none !important;
@@ -47,11 +30,7 @@
 }
 
 .padRtSm {
-	padding-right: 12px !important;
-}
-
-.padRtLg {
-	padding-right: 36px !important;
+	padding-right: 10px !important;
 }
 
 /* || Loading animation  */
