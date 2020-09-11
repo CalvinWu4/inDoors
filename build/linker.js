@@ -32,7 +32,15 @@ var randomInt = function () {
 
 /* Convert 2500 to 2.5K */
 function kFormatter(num) {
-    return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'K' : Math.sign(num)*Math.abs(num)
+	if (num > 9999) {
+		return (num/10000).toFixed(1)*10 + 'k'
+	}
+    else if (num > 999) {
+		return (num/1000).toFixed(1) + 'k'
+	}
+	else{
+		return num;
+	}
 }
 
 
