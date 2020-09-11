@@ -14,7 +14,7 @@
         }
     ],
   "permissions": [
-    "https://api.glassdoor.com/*","storage", "https://www.linkedin.com/*"
+    "https://api.glassdoor.com/*", "storage"
   ],
   "icons": {
     "16":"icon/icon16.png",
