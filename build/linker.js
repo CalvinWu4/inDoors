@@ -32,7 +32,6 @@ var randomInt = function () {
 
 /* Convert 2500 to 2.5K */
 function kFormatter(num) {
-	num = Math.round(num/1000)*1000	// Round to nearest thousandth
     return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'K' : Math.sign(num)*Math.abs(num)
 }
 
