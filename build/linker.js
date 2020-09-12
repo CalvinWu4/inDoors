@@ -109,7 +109,7 @@ var gdinfo = function (element, name) {
 
 /* Append a rating box to the end of each description element */
 function appendWrapper(element){
-	element.parent().append(
+	element.parentNode.innerHTML = (
 		`<div class='glassdoor-label-wrapper'>
 			<div class='glassdoor-label'>
 				<div class='tbl'>
@@ -134,12 +134,7 @@ function appendWrapper(element){
 
 function appendRating(element){
 	/* Each description class element will have the company name */
-	var name = element.contents()
-					.filter(function() { 
-						return !!$.trim( this.innerHTML || this.data ); 
-					})
-					.first()
-					.text();
+	var name = element.innerText.trim();
 
 	/* To avoid misdirected name searches */	
 	const replaceManyStr = (obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
@@ -153,15 +148,20 @@ function appendRating(element){
 	}
 }
 
-$("[data-control-name='job_card_company_link']").each(function() {
-	appendWrapper($(this));
-	appendRating($(this));
-});
+[...document.querySelectorAll("[data-control-name='job_card_company_link']")]
+	.forEach(element => {
+			appendWrapper(element); 
+			appendRating(element);
+		});
+// $("[data-control-name='job_card_company_link']").each(function() {
+// 	appendWrapper($(this));
+// 	appendRating($(this));
+// });
 
-$(document).arrive("[data-control-name='job_card_company_link']", function(){
-	appendWrapper($(this));
-	appendRating($(this));
-});
+// $(document).arrive("[data-control-name='job_card_company_link']", function(){
+// 	appendWrapper($(this));
+// 	appendRating($(this));
+// });
 
 // /* Each description class element will have the company name */
 // $("[data-control-name='job_card_company_link']").each(function() {
