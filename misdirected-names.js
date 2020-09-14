@@ -4,6 +4,7 @@ const misdirectArray = [
     {'JPMorgan Chase & Co.': 'J.P. Morgan'},
     {'Walt Disney Direct-to-Consumer & International': 'The Walt Disney Company'},
     {'Cockroach Labs, the Makers of CockroachDB': 'Cockroach Labs'},
-    {'Binary Fountain™': 'Binary Fountain'}
+    {'Binary Fountain™': 'Binary Fountain'},
+    {'BoomTown - Real Estate Platform': 'BoomTown (South Carolina)'}
   ]
   
