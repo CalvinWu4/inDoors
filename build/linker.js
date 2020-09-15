@@ -21,15 +21,6 @@ var load = function(name) {
     return localStorage[name];
 }
 
-/* IP Generator - Fix IP address blocking issues */
-var genIP = function() {
-	return randomInt() + "." + randomInt() + "." + randomInt() + "." + randomInt();
-}
-
-var randomInt = function () {
-	return Math.floor((Math.random() * 220) + 15);
-}
-
 /* Convert 2500 to 2.5K */
 function kFormatter(num) {
 	if (num > 9999) {
@@ -67,7 +58,7 @@ var gdinfo = function (element, name) {
 		const partnerid = 51706;
 		const apikey = "xBpFKWDKEM";
 		var proxyurl = "https://glassdoor-cors-proxy.herokuapp.com/";
-		var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers&userip=" + genIP() + "&useragent=" + navigator.userAgent + "&q=" + name;
+		var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers" + "&q=" + name;
 		xmlhttp.open("GET", proxyurl + url, true);
 
 		xmlhttp.onreadystatechange = function() {
