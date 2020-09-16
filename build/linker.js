@@ -35,9 +35,11 @@ function kFormatter(num) {
 }
 
 
-function updateHtmlFromData(element, data){
-	element.parent().find(".glassdoor-rating").html(`${data.overallRating} out of ${data.numberOfRatings} reviews`);
+function updateHtmlFromData(element, data){	
 	element.parent().find(".glassdoor-link").attr("href", data.url);
+	if(data.overallRating && data.numberOfRatings){
+		element.parent().find(".glassdoor-rating").html(`${data.overallRating} out of ${data.numberOfRatings} reviews`);
+	}
 }
 
 /* Grab the GlassDoor Data given the company name */
@@ -55,9 +57,11 @@ var gdinfo = function (element, name) {
     } else {
     	/* Database entry miss - Send new HTTP Request to Glassdoor API for rating info */
 		var xmlhttp = new XMLHttpRequest();
-		var proxyurl = "https://glassdoor-cors-proxy.herokuapp.com/";
-		var url = "https://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=" + partnerid + "&t.k=" + apikey + "&action=employers" + "&q=" + name;
-		xmlhttp.open("GET", proxyurl + url, true);
+
+		const proxyUrl = 'https://glassdoor-cors-proxy.herokuapp.com/'
+		const url = `https://glassdoor-search.netlify.app/.netlify/functions/gdinfo?company=${name}`;    
+
+		xmlhttp.open("GET", proxyUrl + url, true);
 
 		xmlhttp.onreadystatechange = function() {
 		    if (xmlhttp.status == 200) {
@@ -66,14 +70,23 @@ var gdinfo = function (element, name) {
 				if (response != null) {
 				    if (response["success"] == true) {
 						var employer = response["response"].employers[0];
+						var reviewsUrl;
+						var info;
 						if(employer){
-							var reviewsUrl = `https://www.glassdoor.com/Reviews/${name}-Reviews-E${employer.id}.htm`
-							var info = {
+							reviewsUrl = `https://www.glassdoor.com/Reviews/${name}-Reviews-E${employer.id}.htm`
+							info = {
 								overallRating: employer.overallRating,
 								numberOfRatings: kFormatter(employer.numberOfRatings),
 								url: reviewsUrl,
 							}
 							save(name, JSON.stringify(info));
+							updateHtmlFromData(element, info);
+						}
+						else{
+							reviewsUrl = response["response"].attributionURL;
+							info = {
+								url: reviewsUrl,
+							}
 							updateHtmlFromData(element, info);
 						}
 				    }
