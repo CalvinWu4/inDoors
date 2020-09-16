@@ -35,10 +35,11 @@ function kFormatter(num) {
 }
 
 
-function updateHtmlFromData(element, data){	
+function updateHtmlFromData(element, data){
 	element.parent().find(".glassdoor-link").attr("href", data.url);
 	if(data.overallRating && data.numberOfRatings){
-		element.parent().find(".glassdoor-rating").html(`${data.overallRating} out of ${data.numberOfRatings} reviews`);
+		element.parent().find(".glassdoor-rating").html(`${data.overallRating} ★`);
+		element.parent().find(".glassdoor-reviews").html(`• ${data.numberOfRatings} Reviews`);
 	}
 }
 
@@ -93,16 +94,16 @@ var gdinfo = function (element, name) {
 				    if (response["success"] == false) {
 				    	/* GET Successful, but access denied error */
 					var message = "Requests throttled by Glassdoor. Try again in a few minutes";
-					element.parent().find(".glassdoor-rating").html(message);
+					element.parent().find(".glassdoor-reviews").html(message);
 				    }
 				}
 				else{
-					element.parent().find(".glassdoor-rating").html("N/A");
+					element.parent().find(".glassdoor-reviews").html("N/A");
 				}
 		    } else {
 				/* GET Unsuccessful */
 				var message = "Could not contact Glassdoor servers"
-				element.parent().find("glassdoor-rating").html(message);
+				element.parent().find("glassdoor-reviews").html(message);
 		    }
 		};
 		xmlhttp.send();
@@ -116,8 +117,8 @@ function appendWrapper(element){
 			<div class='glassdoor-label'>
 				<div class='tbl'>
 					<a class='glassdoor-link cell middle padRtSm'>
-						Rating: 
-						<span class='glassdoor-rating'>
+						<span class='glassdoor-rating'>★</span>
+						<span class='glassdoor-reviews'>•</span>
 						<span class="loading"><span>.</span><span>.</span><span>.</span></span>
 					</a>
 					<div class='cell middle padRtSm'>

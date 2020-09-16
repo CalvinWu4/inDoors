@@ -11,12 +11,17 @@
 	color: rgba(0, 0, 0, 0.6);
 }
 
-.glassdoor-link a, a:visited{
+.glassdoor-link a, a:visited {
 	color: rgba(0,0,0,.6) !important;
 }
 
 .glassdoor-link a:focus, a:hover {
 	color: #006097 !important;
+}
+
+.glassdoor-rating {
+  color: #0caa41;
+  font-weight: bold;
 }
 
 /* || Columnate Glassdoor wrapper */
