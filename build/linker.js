@@ -36,7 +36,7 @@ function kFormatter(num) {
 
 
 function updateHtmlFromData(element, data){	
-	element.parent().find(".glassdoor-link").attr("href", data.url);
+	element.parent().find("#glassdoor-link").attr("href", data.url);
 	if(data.overallRating && data.numberOfRatings){
 		element.parent().find(".glassdoor-rating").html(`${data.overallRating} out of ${data.numberOfRatings} reviews`);
 	}
@@ -115,7 +115,7 @@ function appendWrapper(element){
 		`<div class='glassdoor-label-wrapper'>
 			<div class='glassdoor-label'>
 				<div class='tbl'>
-					<a class='glassdoor-link cell middle padRtSm'>
+					<a id='glassdoor-link' class='cell middle padRtSm'>
 						Rating: 
 						<span class='glassdoor-rating'>
 						<span class="loading"><span>.</span><span>.</span><span>.</span></span>

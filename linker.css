@@ -6,31 +6,31 @@
 	color: rgba(0,0,0,.6);
 }
 
-.glassdoor-link {
+#glassdoor-link {
 	font-weight: 400;
 	color: rgba(0, 0, 0, 0.6);
 }
 
-.glassdoor-link a, a:visited{
-	color: rgba(0,0,0,.6) !important;
+#glassdoor-link a, a:visited{
+	color: rgba(0,0,0,.6) t;
 }
 
-.glassdoor-link a:focus, a:hover {
-	color: #006097 !important;
+#glassdoor-link a:focus, a:hover {
+	color: #006097;
 }
 
 /* || Columnate Glassdoor wrapper */
 .cell {
 	display: table-cell;
-	float: none !important;
+	float: none;
 }
 
 .middle {
-	vertical-align: middle !important;
+	vertical-align: middle;
 }
 
 .padRtSm {
-	padding-right: 10px !important;
+	padding-right: 10px;
 }
 
 /* || Loading animation  */
