@@ -6,16 +6,13 @@
 	color: rgba(0,0,0,.6);
 }
 
-#glassdoor-link {
+#glassdoor-link, :visited {
 	font-weight: 400;
 	color: rgba(0, 0, 0, 0.6);
 }
 
-#glassdoor-link a, a:visited{
-	color: rgba(0,0,0,.6) t;
-}
 
-#glassdoor-link a:focus, a:hover {
+#glassdoor-link:hover {
 	color: #006097;
 }
 
