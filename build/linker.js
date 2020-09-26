@@ -158,6 +158,12 @@ function appendRating(element){
 // 	appendRating($(this));
 // });
 
+document.arrive("[data-control-name='job_card_company_link']", function(newElem) {
+	appendWrapper(newElem); 
+	appendRating(newElem);
+});
+
+
 // $(document).arrive("[data-control-name='job_card_company_link']", function(){
 // 	appendWrapper($(this));
 // 	appendRating($(this));
