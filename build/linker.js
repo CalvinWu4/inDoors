@@ -140,7 +140,7 @@ function appendWrapper(element){
 //
 function appendRating(element){
 	/* Each description class element will have the company name */
-	var name = element.childNodes[2].innerText;
+	var name = element.childNodes[2].data;
 
 	/* To avoid misdirected name searches */	
 	const replaceManyStr = (obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
@@ -154,16 +154,18 @@ function appendRating(element){
 	}
 }
 
-[...document.querySelectorAll("[data-control-name='job_card_company_link']")]
-	.forEach(element => {
-		appendWrapper(element); 
-		appendRating(element);
+if(window.location.href.includes("/jobs/search/")){
+	document.arrive("[data-control-name='job_card_company_link']", function(newElem) {
+		const parentNode = newElem.parentNode;
+		appendWrapper(parentNode); 
+		appendRating(parentNode);
 	});
+}
 
-document.arrive("[data-control-name='job_card_company_link']", function(newElem) {
-	const parentNode = newElem.parentNode;
-	appendWrapper(parentNode); 
-	appendRating(parentNode);
-});
-
+if(window.location.href.includes("/my-items/saved-jobs/?cardType=SAVED")){
+	document.arrive(".entity-result__primary-subtitle", function(newElem) {
+		appendWrapper(newElem); 
+		appendRating(newElem);
+	});
+}
 console.log('Glassdoor-Linkedinator loaded');
