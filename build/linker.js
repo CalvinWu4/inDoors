@@ -109,7 +109,7 @@ var gdinfo = function (element, name) {
 
 /* Append a rating box to the end of each description element */
 function appendWrapper(element){
-	element.parentNode.innerHTML = (
+	element.parentNode.insertAdjacentHTML('beforeend',
 		`<div class='glassdoor-label-wrapper'>
 			<div class='glassdoor-label'>
 				<div class='tbl'>
