@@ -39,6 +39,9 @@ function updateHtmlFromData(element, data){
 	if(data.overallRating && data.numberOfRatings){
 		element.querySelector(".glassdoor-rating").innerHTML = `${data.overallRating} out of ${data.numberOfRatings} reviews`;
 	}
+	else{
+		element.querySelector(".glassdoor-rating").innerHTML = "N/A";
+	}
 }
 
 /* Grab the GlassDoor Data given the company name */
@@ -78,7 +81,6 @@ var gdinfo = function (element, name) {
 								numberOfRatings: kFormatter(employer.numberOfRatings),
 								url: reviewsUrl,
 							}
-							save(name, JSON.stringify(info));
 							updateHtmlFromData(element, info);
 						}
 						else{
@@ -88,6 +90,7 @@ var gdinfo = function (element, name) {
 							}
 							updateHtmlFromData(element, info);
 						}
+						save(name, JSON.stringify(info));
 				    }
 				    if (response["success"] == false) {
 				    	/* GET Successful, but access denied error */
@@ -98,7 +101,8 @@ var gdinfo = function (element, name) {
 				else{
 					element.querySelector(".glassdoor-rating").innerHTML = "N/A";
 				}
-		    } else {
+			}
+			else {
 				/* GET Unsuccessful */
 				var message = "Could not contact Glassdoor servers"
 				element.querySelector("glassdoor-rating").innerHTML = message;
