@@ -7,7 +7,7 @@
   "content_scripts": 
     [
         {
-            "matches":["https://*.linkedin.com/jobs/search/*", "https://*.linkedin.com/my-items/saved-jobs/?cardType=SAVED*"],
+            "matches":["https://*.linkedin.com/jobs/search/*", "https://*.linkedin.com/my-items/saved-jobs/*"],
             "css":["linker.css"],
             "js":["arrive.min.js", "misdirected-names.js", "build/linker.js"],
             "run_at": "document_end"
