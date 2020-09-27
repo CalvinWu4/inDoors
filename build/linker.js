@@ -34,11 +34,10 @@ function kFormatter(num) {
 	}
 }
 
-
 function updateHtmlFromData(element, data){	
-	element.parent().find("#glassdoor-link").attr("href", data.url);
+	element.querySelector("#glassdoor-link").setAttribute("href", data.url);
 	if(data.overallRating && data.numberOfRatings){
-		element.parent().find(".glassdoor-rating").html(`${data.overallRating} out of ${data.numberOfRatings} reviews`);
+		element.querySelector(".glassdoor-rating").innerHTML = `${data.overallRating} out of ${data.numberOfRatings} reviews`;
 	}
 }
 
@@ -93,16 +92,16 @@ var gdinfo = function (element, name) {
 				    if (response["success"] == false) {
 				    	/* GET Successful, but access denied error */
 					var message = "Requests throttled by Glassdoor. Try again in a few minutes";
-					element.parent().find(".glassdoor-rating").html(message);
+					element.querySelector(".glassdoor-rating").innerHTML = message;
 				    }
 				}
 				else{
-					element.parent().find(".glassdoor-rating").html("N/A");
+					element.querySelector(".glassdoor-rating").innerHTML = "N/A";
 				}
 		    } else {
 				/* GET Unsuccessful */
 				var message = "Could not contact Glassdoor servers"
-				element.parent().find("glassdoor-rating").html(message);
+				element.querySelector("glassdoor-rating").innerHTML = message;
 		    }
 		};
 		xmlhttp.send();
@@ -111,7 +110,7 @@ var gdinfo = function (element, name) {
 
 /* Append a rating box to the end of each description element */
 function appendWrapper(element){
-	element.parent().append(
+	element.insertAdjacentHTML('beforeend',
 		`<div class='glassdoor-label-wrapper'>
 			<div class='glassdoor-label'>
 				<div class='tbl'>
@@ -134,14 +133,10 @@ function appendWrapper(element){
 	);
 }
 
+//
 function appendRating(element){
 	/* Each description class element will have the company name */
-	var name = element.contents()
-					.filter(function() { 
-						return !!$.trim( this.innerHTML || this.data ); 
-					})
-					.first()
-					.text();
+	var name = element.childNodes[2].innerText;
 
 	/* To avoid misdirected name searches */	
 	const replaceManyStr = (obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
@@ -155,34 +150,16 @@ function appendRating(element){
 	}
 }
 
-$("[data-control-name='job_card_company_link']").each(function() {
-	appendWrapper($(this));
-	appendRating($(this));
-});
+[...document.querySelectorAll("[data-control-name='job_card_company_link']")]
+	.forEach(element => {
+		appendWrapper(element); 
+		appendRating(element);
+	});
 
-$(document).arrive("[data-control-name='job_card_company_link']", function(){
-	appendWrapper($(this));
-	appendRating($(this));
-});
-
-// /* Each description class element will have the company name */
-// $("[data-control-name='job_card_company_link']").each(function() {
-// 	appendRating($(this));
-// });
-
-/* Force DOM to refresh when new page is clicked */
-$(".pagination a").click(function() {
-	window.location.reload();
-});
-
-/* Force DOM to refresh when new search is started */
-$(".submit-advs").click(function() {
-	window.location.reload();
-});
-
-/* Force DOM to refresh when new search criteria is added */
-$(".label-container").click(function() {
-	window.location.reload();
+document.arrive("[data-control-name='job_card_company_link']", function(newElem) {
+	const parentNode = newElem.parentNode;
+	appendWrapper(parentNode); 
+	appendRating(parentNode);
 });
 
 console.log('Glassdoor-Linkedinator loaded');

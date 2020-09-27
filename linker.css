@@ -2,6 +2,7 @@
 .glassdoor-label-wrapper {
 	position: relative;
 }
+
 .glassdoor-label {
 	color: rgba(0,0,0,.6);
 }
@@ -11,9 +12,8 @@
 	color: rgba(0, 0, 0, 0.6);
 }
 
-
 #glassdoor-link:hover {
-	color: #006097;
+	color: var(--color-action-active);
 }
 
 /* || Columnate Glassdoor wrapper */
