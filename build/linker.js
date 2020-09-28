@@ -39,7 +39,7 @@ function updateHtmlFromData(element, data){
 	const link = element.querySelector("#glassdoor-link");
 	link.setAttribute("href", data.url);
 
-	if(data.overallRating && data.numberOfRatings){
+	if(data.overallRating != null && data.numberOfRatings != null){
 		const rating = element.querySelector(".glassdoor-rating");
 		const reviews = element.querySelector(".glassdoor-reviews");
 		const loading = element.querySelector(".loading");
@@ -47,11 +47,16 @@ function updateHtmlFromData(element, data){
 		loading.classList.add("display-none");
 		rating.classList.remove("display-none");
 		reviews.classList.remove("display-none");
-		rating.innerHTML = `${data.overallRating} ★`;
+		if(data.overallRating !== "0"){
+			rating.innerHTML = `${data.overallRating} ★`;
+		}
+		else{
+			rating.innerHTML = `N/A ★`;
+		}
 		reviews.innerHTML = `• ${data.numberOfRatings} Reviews`;
 	}
 	else{
-		link.innerHTML = ("Rating not found");
+		link.innerHTML = ("Company not found");
 	}
 }
 
