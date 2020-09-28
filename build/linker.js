@@ -172,17 +172,20 @@ function appendRating(element){
 		gdinfo(element, cleanname);
 	}
 }
+
 // linkedin.com/jobs/search/*
+if(window.location.href.includes("jobs/search")){
 	document.arrive("[data-control-name='job_card_company_link']", function(newElem) {
 		const parentNode = newElem.parentNode;
 		appendWrapper(parentNode); 
 		appendRating(parentNode);
 	});
+}
 
 // linkedin.com/my-items/saved-jobs/?cardType=SAVED
-	document.arrive(".entity-result__primary-subtitle", function(newElem) {
-		appendWrapper(newElem); 
-		appendRating(newElem);
-	});
+document.arrive(".entity-result__primary-subtitle", function(newElem) {
+	appendWrapper(newElem); 
+	appendRating(newElem);
+});
 
 console.log('Glassdoor-Linkedinator loaded');
