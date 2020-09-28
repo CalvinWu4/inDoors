@@ -36,14 +36,22 @@ function kFormatter(num) {
 
 
 function updateHtmlFromData(element, data){	
-	element.querySelector("#glassdoor-link").setAttribute("href", data.url);
+	const link = element.querySelector("#glassdoor-link");
+	link.setAttribute("href", data.url);
+
 	if(data.overallRating && data.numberOfRatings){
-		element.querySelector(".loading").classList.add("display-none");
-		element.querySelector(".glassdoor-rating").innerHTML = `${data.overallRating} ★`;
-		element.querySelector(".glassdoor-reviews").innerHTML = `• ${data.numberOfRatings} Reviews`;
+		const rating = element.querySelector(".glassdoor-rating");
+		const reviews = element.querySelector(".glassdoor-reviews");
+		const loading = element.querySelector(".loading");
+
+		loading.classList.add("display-none");
+		rating.classList.remove("display-none");
+		reviews.classList.remove("display-none");
+		rating.innerHTML = `${data.overallRating} ★`;
+		reviews.innerHTML = `• ${data.numberOfRatings} Reviews`;
 	}
 	else{
-		element.querySelector("#glassdoor-link").innerHTML = ("Rating not found");
+		link.innerHTML = ("Rating not found");
 	}
 }
 
@@ -122,9 +130,9 @@ function appendWrapper(element){
 			<div class='glassdoor-label'>
 				<div class='tbl'>
 					<a id='glassdoor-link' class='cell middle padRtSm'>
-						<span class='glassdoor-rating'>★</span>
-						<span class='glassdoor-reviews'>•</span>
-						<span class="loading"><span>.</span><span>.</span><span>.</span></span>
+						<span class='glassdoor-rating display-none'>★</span>
+						<span class='glassdoor-reviews display-none'>•</span>
+						<span class='loading'><span>.</span><span>.</span><span>.</span></span>
 					</a>
 					<div class='cell middle padRtSm'>
 						powered by
