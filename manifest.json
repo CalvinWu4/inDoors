@@ -2,19 +2,19 @@
   "name": "inDoors - Glassdoor Integrator for Linkedin",
   "short_name": "inDoors",
   "description": "Shows Glassdoor reviews for companies when searching on Linkedin",
-  "version": "1.0.1",
+  "version": "2.0.0",
 
   "content_scripts": 
     [
         {
-            "matches":["https://www.linkedin.com/jobs/*"],
+            "matches":["https://*.linkedin.com/jobs/search/*", "https://*.linkedin.com/my-items/saved-jobs/*"],
             "css":["linker.css"],
-            "js":["jquery-2.1.3.min.js", "arrive.min.js", "misdirected-names.js", "build/linker.js"],
+            "js":["arrive.min.js", "misdirected-names.js", "build/linker.js"],
             "run_at": "document_end"
         }
     ],
   "permissions": [
-    "https://glassdoor-search.netlify.app/*", "https://www.linkedin.com/*", "storage"
+    "storage"
   ],
   "icons": {
     "16":"icon/icon16.png",
