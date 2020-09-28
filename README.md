@@ -3,7 +3,7 @@ Glassdoor-Linkedinator is a Google Chrome extension that displays Glassdoor rati
 
 [Glassdoor API]:http://www.glassdoor.com/api/index.htm
 
-![Screenshot](https://i.imgur.com/Ju8Hz04.jpg)
+![Screenshot](https://i.imgur.com/K0pOkZz.jpg)
 
 Upcoming features:
 * Add ratings to /jobs, /jobs/view, /company/ pages
