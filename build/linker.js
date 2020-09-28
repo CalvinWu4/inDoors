@@ -77,14 +77,26 @@ var gdinfo = function (element, name) {
 		xmlhttp.open("GET", proxyUrl + url, true);
 
 		xmlhttp.onreadystatechange = function() {
+				function linkToSpan(message){
+					const link = element.querySelector("#glassdoor-link");
+					let span = document.createElement('span');
+					span.innerHTML = message;
+
+					link.removeAttribute('id');
+					link.parentNode.replaceChild(span, link);
+				}
+
 		    if (xmlhttp.status == 200) {
 				/* GET Successful, parse data into JSON object */
 				var response = JSON.parse(xmlhttp.responseText || "null");
+
 				if (response != null) {
+
 				    if (response["success"] == true) {
 						var employer = response["response"].employers[0];
 						var reviewsUrl;
 						var info;
+
 						if(employer){
 							reviewsUrl = `https://www.glassdoor.com/Reviews/${name}-Reviews-E${employer.id}.htm`
 							info = {
@@ -92,32 +104,28 @@ var gdinfo = function (element, name) {
 								numberOfRatings: kFormatter(employer.numberOfRatings),
 								url: reviewsUrl,
 							}
-							updateHtmlFromData(element, info);
 						}
 						else{
 							reviewsUrl = response["response"].attributionURL;
 							info = {
 								url: reviewsUrl,
 							}
-							updateHtmlFromData(element, info);
 						}
+						updateHtmlFromData(element, info);
 						save(name, JSON.stringify(info));
 				    }
 				    if (response["success"] == false) {
 				    	/* GET Successful, but access denied error */
-					var message = "Requests throttled by Glassdoor. Try again in a few minutes";
-					element.querySelector(".glassdoor-reviews").innerHTML = message;
+						var message = "Requests throttled by Glassdoor. Try again in a few minutes";
+						linkToSpan(message);
 				    }
-				}
-				else{
-					element.querySelector(".glassdoor-reviews").innerHTML = "N/A";
 				}
 			}
 			else {
 				/* GET Unsuccessful */
 				var message = "Could not contact Glassdoor servers"
-				element.querySelector("glassdoor-reviews").innerHTML = message;
-		    }
+				linkToSpan(message);		    
+			}
 		};
 		xmlhttp.send();
     }
