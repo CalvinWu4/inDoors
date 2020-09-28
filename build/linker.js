@@ -164,7 +164,7 @@ function appendWrapper(element){
 //
 function appendRating(element){
 	/* Each description class element will have the company name */
-	var name = element.childNodes[2].textContent;
+	var name = element.childNodes[2].textContent.trim();
 
 	/* To avoid misdirected name searches */	
 	const replaceManyStr = (obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
