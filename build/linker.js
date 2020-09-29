@@ -170,6 +170,10 @@ function appendRating(element){
 	const replaceManyStr = (obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
 	name = replaceManyStr(misdirectArray, name);
 
+	/* Remove accents/diacritics */
+	const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+	name = normalize(name);
+
 	if(typeof(name) !== "undefined") { 
 		/* If we're in this loop, this was a valid company name. 
 		Grab the company name and strip it of HTML tags */
