@@ -2,26 +2,28 @@
 This script is activated on Linkedin search pages. It will attach
 a hover event onto company names that appear in search results
 *****************************************************/
-/* Check if company is already in localstorage */
+
+// Check if company is already in localstorage
 var checkDatabase = function(name) {
     if(localStorage[name]) {
 		return true;
     }
     return false;
 }
-/* Save ratings into local storage, and keep track of how old it is */
+
+// Save ratings into local storage, and keep track of how old it is
 var save = function(name, info) {
 	localStorage[name] = info;
 	var date = new Date();
 	localStorage["gd-retrieval-date"] = date.toDateString();
 }
 
-/* Load rating */
+// Load rating
 var load = function(name) {
     return localStorage[name];
 }
 
-/* Convert 2500 to 2.5K */
+// Convert 2500 to 2.5K
 function kFormatter(num) {
 	if (num > 9999) {
 		return (num/10000).toFixed(1)*10 + 'k'
@@ -34,7 +36,7 @@ function kFormatter(num) {
 	}
 }
 
-
+// Update the element after the Glassdoor data is fetched
 function updateHtmlFromData(element, data){	
 	const link = element.querySelector("#glassdoor-link");
 	link.setAttribute("href", data.url);
@@ -60,16 +62,16 @@ function updateHtmlFromData(element, data){
 	}
 }
 
-/* Grab the GlassDoor Data given the company name */
+// Grab the GlassDoor data given the company name
 var gdinfo = function (element, name) {
     var currentDate = new Date();
     var storageTime = new Date(localStorage["gd-retrieval-date"]);
-    /* Used for calculating how old the data in local storage is */
+    // Used for calculating how old the data in local storage is
     var oneDay = 24*60*60*1000;
 
     if(checkDatabase(name) && 
     	Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7) {
-			/* Database entry hit - Use recent data from in localstorage. */
+			// Database entry hit - Use recent data from in localstorage.
 			var storageData = JSON.parse(load(name));
 			updateHtmlFromData(element, storageData);
     } else {
@@ -87,12 +89,12 @@ var gdinfo = function (element, name) {
 					let span = document.createElement('span');
 					span.innerHTML = message;
 
-					link.removeAttribute('id');
+					link.hasAttribute('id') && link.removeAttribute('id');
 					link.parentNode.replaceChild(span, link);
 				}
 
 		    if (xmlhttp.status == 200) {
-				/* GET Successful, parse data into JSON object */
+				// GET Successful, parse data into JSON object
 				var response = JSON.parse(xmlhttp.responseText || "null");
 
 				if (response != null) {
@@ -120,14 +122,14 @@ var gdinfo = function (element, name) {
 						save(name, JSON.stringify(info));
 				    }
 				    if (response["success"] == false) {
-				    	/* GET Successful, but access denied error */
+				    	// GET Successful, but access denied error
 						var message = "Requests throttled by Glassdoor. Try again in a few minutes";
 						linkToSpan(message);
 				    }
 				}
 			}
 			else {
-				/* GET Unsuccessful */
+				// GET Unsuccessful
 				var message = "Could not contact Glassdoor servers"
 				linkToSpan(message);		    
 			}
@@ -136,7 +138,7 @@ var gdinfo = function (element, name) {
     }
 }
 
-/* Append a rating box to the end of each description element */
+// Append the rating wrapper after the element
 function appendWrapper(element){
 	element.insertAdjacentHTML('beforeend',
 		`<div class='glassdoor-label-wrapper'>
@@ -161,38 +163,46 @@ function appendWrapper(element){
 	);
 }
 
-//
-function appendRating(element){
-	/* Each description class element will have the company name */
+// Insert the rating data into the wrapper element
+function addRating(element){
+	// Each description class element will have the company name
 	var name = element.childNodes[2].textContent.trim();
 
-	/* To avoid misdirected name searches */	
+	// To avoid misdirected name searches
 	const replaceManyStr = (obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
 	name = replaceManyStr(misdirectArray, name);
 
-	/* Remove accents/diacritics */
+	// Remove accents/diacritics
 	const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 	name = normalize(name);
 
 	if(typeof(name) !== "undefined") { 
-		/* If we're in this loop, this was a valid company name. 
-		Grab the company name and strip it of HTML tags */
-		var cleanname = name.replace("<b>","").replace("</b>","");
-		gdinfo(element, cleanname);
+		// If we're in this loop, this was a valid company name.
+		gdinfo(element, name);
 	}
 }
+
+function appendGlassdoor(element){
+	appendWrapper(element); 
+	addRating(element);
+}
+
 
 // linkedin.com/jobs/search/*
 document.arrive("[data-control-name='job_card_company_link']", function(newElem) {
 	const parentNode = newElem.parentNode;
-	appendWrapper(parentNode); 
-	appendRating(parentNode);
+	appendGlassdoor(parentNode); 
 });
 
-// linkedin.com/my-items/saved-jobs/?cardType=SAVED
+// linkedin.com/my-items/saved-jobs/*
+[...document.querySelectorAll(".entity-result__primary-subtitle")]
+	.forEach(element => {
+		appendGlassdoor(element);
+	});
+
 document.arrive(".entity-result__primary-subtitle", function(newElem) {
-	appendWrapper(newElem); 
-	appendRating(newElem);
+	appendGlassdoor(newElem); 
 });
+
 
 console.log('Glassdoor-Linkedinator loaded');
