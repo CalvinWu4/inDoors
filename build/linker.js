@@ -199,7 +199,7 @@ document.arrive("[data-control-name='job_card_company_link']", function(newElem)
 	});
 
 document.arrive(".entity-result__primary-subtitle", function(newElem) {
-	const name = element.childNodes[2].textContent.trim();
+	const name = newElem.childNodes[2].textContent.trim();
 	appendGlassdoor(newElem, name); 
 });
 
