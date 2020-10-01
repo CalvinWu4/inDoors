@@ -138,7 +138,7 @@ var gdinfo = function (element, name) {
     }
 }
 
-// Append the rating wrapper after the element
+// Append the rating wrapper after the company name element
 function appendWrapper(element){
 	element.insertAdjacentHTML('beforeend',
 		`<div class='glassdoor-label-wrapper'>
@@ -163,9 +163,9 @@ function appendWrapper(element){
 	);
 }
 
-// Insert the rating data into the wrapper element
+// Insert the rating data into the rating wrapper
 function addRating(element){
-	// Each description class element will have the company name
+	// Get company name
 	var name = element.childNodes[2].textContent.trim();
 
 	// To avoid misdirected name searches
@@ -176,17 +176,13 @@ function addRating(element){
 	const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 	name = normalize(name);
 
-	if(typeof(name) !== "undefined") { 
-		// If we're in this loop, this was a valid company name.
-		gdinfo(element, name);
-	}
+	gdinfo(element, name);
 }
 
 function appendGlassdoor(element){
 	appendWrapper(element); 
 	addRating(element);
 }
-
 
 // linkedin.com/jobs/search/*
 document.arrive("[data-control-name='job_card_company_link']", function(newElem) {
