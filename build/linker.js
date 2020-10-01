@@ -36,8 +36,8 @@ function kFormatter(num) {
 	}
 }
 
-// Update the element after the Glassdoor data is fetched
-function updateHtmlFromData(element, data){	
+// Update the rating after the Glassdoor data is fetched
+function updateRating(element, data){
 	const link = element.querySelector("#glassdoor-link");
 	link.setAttribute("href", data.url);
 
@@ -62,18 +62,18 @@ function updateHtmlFromData(element, data){
 	}
 }
 
-// Grab the GlassDoor data given the company name
+// Grab the Glassdoor data for the company name and update the HTML
 var gdinfo = function (element, name) {
     var currentDate = new Date();
     var storageTime = new Date(localStorage["gd-retrieval-date"]);
     // Used for calculating how old the data in local storage is
-    var oneDay = 24*60*60*1000;
+	var oneDay = 24*60*60*1000;
 
     if(checkDatabase(name) && 
     	Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7) {
 			// Database entry hit - Use recent data from in localstorage.
 			var storageData = JSON.parse(load(name));
-			updateHtmlFromData(element, storageData);
+			updateRating(element, storageData);
     } else {
     	/* Database entry miss - Send new HTTP Request to Glassdoor API for rating info */
 		var xmlhttp = new XMLHttpRequest();
@@ -118,7 +118,7 @@ var gdinfo = function (element, name) {
 								url: reviewsUrl,
 							}
 						}
-						updateHtmlFromData(element, info);
+						updateRating(element, info);
 						save(name, JSON.stringify(info));
 				    }
 				    if (response["success"] == false) {
@@ -140,7 +140,7 @@ var gdinfo = function (element, name) {
 
 // Append the rating wrapper after the company name element
 function appendWrapper(element){
-	element.insertAdjacentHTML('beforeend',
+	element.insertAdjacentHTML('afterend',
 		`<div class='glassdoor-label-wrapper'>
 			<div class='glassdoor-label'>
 				<div class='tbl'>
@@ -164,10 +164,7 @@ function appendWrapper(element){
 }
 
 // Insert the rating data into the rating wrapper
-function addRating(element){
-	// Get company name
-	var name = element.childNodes[2].textContent.trim();
-
+function addRating(element, name){
 	// To avoid misdirected name searches
 	const replaceManyStr = (obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
 	name = replaceManyStr(misdirectArray, name);
@@ -180,11 +177,18 @@ function addRating(element){
 }
 
 function appendGlassdoor(element){
-	appendWrapper(element); 
-	addRating(element);
+	appendWrapper(element);
+	// Get company name
+	const name = element.childNodes[2].textContent.trim();
+	addRating(element.nextSibling, name);
 }
 
 // linkedin.com/jobs/search/*
+[...document.querySelectorAll("[data-control-name='job_card_company_link']")]
+	.forEach(element => {
+		appendGlassdoor(element.parentNode);
+	});
+
 document.arrive("[data-control-name='job_card_company_link']", function(newElem) {
 	const parentNode = newElem.parentNode;
 	appendGlassdoor(parentNode); 
