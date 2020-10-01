@@ -1,4 +1,6 @@
-/* || General styles */
+/* 
+* === General styles ===
+*/
 .glassdoor-label-wrapper {
 	position: relative;
 }
@@ -20,12 +22,18 @@
   color: #0caa41;
   font-weight: bold;
 }
-
-.display-none{
+.display-none {
   display: none;
 }
 
-/* || Columnate Glassdoor wrapper */
+/* Remove Glassdoor logo link */
+a[href="https://www.glassdoor.com/index.htm"]{
+  pointer-events: none;
+}
+
+/* 
+* === Columnate Glassdoor wrapper ===
+*/
 .cell {
 	display: table-cell;
 	float: none;
@@ -39,7 +47,9 @@
 	padding-right: 10px;
 }
 
-/* || Loading animation  */
+/*
+* === Loading animation ===
+*/
 @keyframes blink {
     /**
      * At the start of the animation the dot
