@@ -186,14 +186,9 @@ function appendGlassdoor(element, name){
 }
 
 // linkedin.com/jobs/search/*
-[...document.querySelectorAll("[data-control-name='job_card_company_link']")]
-	.forEach(element => {
-		appendGlassdoor(element.parentNode);
-	});
-
 document.arrive("[data-control-name='job_card_company_link']", function(newElem) {
-	const parentNode = newElem.parentNode;
-	appendGlassdoor(parentNode); 
+	const name = newElem.childNodes[2].wholeText.trim();
+	appendGlassdoor(newElem, name); 
 });
 
 // linkedin.com/my-items/saved-jobs/*
@@ -208,6 +203,7 @@ document.arrive(".entity-result__primary-subtitle", function(newElem) {
 	appendGlassdoor(newElem, name); 
 });
 
+// linkedin.com/jobs
 [...document.querySelectorAll(".job-card-square__text--1-line .job-card-container__company-name")]
 	.forEach(element => {
 		const name = element.childNodes[2].wholeText.trim();
