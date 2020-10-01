@@ -40,6 +40,9 @@ function kFormatter(num) {
 function updateRating(element, data){
 	const link = element.querySelector("#glassdoor-link");
 	link.setAttribute("href", data.url);
+	link.addEventListener('click', function (e) {
+		e.stopPropagation();
+	});
 
 	if(data.overallRating != null && data.numberOfRatings != null){
 		const rating = element.querySelector(".glassdoor-rating");
@@ -139,12 +142,12 @@ var gdinfo = function (element, name) {
 }
 
 // Append the rating wrapper after the company name element
-function appendWrapper(element){
+function appendWrapper(element, twoLines=false){	// Determines whether the wrapper will take up one or two lines
 	element.insertAdjacentHTML('afterend',
 		`<div class='glassdoor-label-wrapper'>
 			<div class='glassdoor-label'>
 				<div class='tbl'>
-					<a id='glassdoor-link' class='cell middle padRtSm'>
+					<a id='glassdoor-link' ${!twoLines && "class='cell middle padRtSm'"}>
 						<span class='glassdoor-rating display-none'>★</span>
 						<span class='glassdoor-reviews display-none'>•</span>
 						<span class='loading'><span>.</span><span>.</span><span>.</span></span>
@@ -176,10 +179,9 @@ function addRating(element, name){
 	gdinfo(element, name);
 }
 
-function appendGlassdoor(element){
+function appendGlassdoor(element, name){
 	appendWrapper(element);
 	// Get company name
-	const name = element.childNodes[2].textContent.trim();
 	addRating(element.nextSibling, name);
 }
 
@@ -197,12 +199,26 @@ document.arrive("[data-control-name='job_card_company_link']", function(newElem)
 // linkedin.com/my-items/saved-jobs/*
 [...document.querySelectorAll(".entity-result__primary-subtitle")]
 	.forEach(element => {
-		appendGlassdoor(element);
+		const name = element.childNodes[2].textContent.trim();
+		appendGlassdoor(element, name);
 	});
 
 document.arrive(".entity-result__primary-subtitle", function(newElem) {
-	appendGlassdoor(newElem); 
+	const name = element.childNodes[2].textContent.trim();
+	appendGlassdoor(newElem, name); 
 });
 
+[...document.querySelectorAll(".job-card-square__text--1-line .job-card-container__company-name")]
+	.forEach(element => {
+		const name = element.childNodes[2].wholeText.trim();
+		appendWrapper(newElem.parentNode, true);
+		addRating(newElem.parentNode.nextSibling, name);
+});
 
+document.arrive(".job-card-square__text--1-line .job-card-container__company-name", function(newElem) {
+	const name = newElem.childNodes[2].wholeText.trim();
+	appendWrapper(newElem.parentNode, true);
+	addRating(newElem.parentNode.nextSibling, name);
+});
+	
 console.log('Glassdoor-Linkedinator loaded');

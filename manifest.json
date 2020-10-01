@@ -2,7 +2,7 @@
   "name": "inDoors - Glassdoor Integrator for Linkedin",
   "short_name": "inDoors",
   "description": "Shows Glassdoor reviews for companies when searching on Linkedin",
-  "version": "2.1.2",
+  "version": "2.2.0",
 
   "content_scripts": 
     [
