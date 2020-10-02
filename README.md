@@ -12,7 +12,7 @@ Upcoming features:
 Screenshots:
 
 <img src="https://i.imgur.com/bvHg5g5.jpg" width="900">
-<img src="https://i.imgur.com/hoXH8Qi.jpg" width="450">
-<img src="https://i.imgur.com/hrN1Mq5.jpg" width="450">
 <img src="https://i.imgur.com/AaU2Lt3.jpg" height="350">
-<img src="https://i.imgur.com/kx5S6co.jpg" width="650">
+<img src="https://i.imgur.com/kx5S6co.jpg" width="500">
+<img src="https://i.imgur.com/hoXH8Qi.jpg" width="500">
+<img src="https://i.imgur.com/hrN1Mq5.jpg" width="500">
