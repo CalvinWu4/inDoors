@@ -179,16 +179,39 @@ function addRating(element, name){
 	gdinfo(element, name);
 }
 
-function appendGlassdoor(element, name){
-	appendWrapper(element);
+function appendGlassdoor(element, name, twoLines=false, classes=false){
+	appendWrapper(element, twoLines, classes);
 	// Get company name
 	addRating(element.nextSibling, name);
 }
 
 // linkedin.com/jobs/search/*
-document.arrive("[data-control-name='job_card_company_link']", function(newElem) {
-	const name = newElem.childNodes[2].wholeText.trim();
-	appendGlassdoor(newElem, name); 
+// left list
+[...document.querySelectorAll("[data-control-name='job_card_company_link']")]
+	.forEach(element => {
+		const name = element.childNodes[2].wholeText.trim();
+		appendGlassdoor(element, name);
+	});
+
+document.arrive("[data-control-name='job_card_company_link']", function(element) {
+	const name = element.childNodes[2].wholeText.trim();
+	appendGlassdoor(element, name); 
+});
+
+// right rail
+document.arrive(".jobs-details-top-card__company-url", function(element) {
+	let name = element.textContent.trim();
+	appendGlassdoor(element.parentNode, name, twoLines=true)
+
+	var observer = new MutationObserver(function(mutations) {
+	mutations.forEach(function() {
+			element.parentNode.parentNode.querySelectorAll(".glassdoor-label-wrapper").forEach(e => e.parentNode.removeChild(e));
+
+			name = element.textContent.trim();
+			appendGlassdoor(element.parentNode, name, twoLines=true)
+		});
+	});
+	observer.observe(element, { attributeFilter: [ "href" ],   subtree: true});
 });
 
 // linkedin.com/my-items/saved-jobs/*
@@ -198,23 +221,21 @@ document.arrive("[data-control-name='job_card_company_link']", function(newElem)
 		appendGlassdoor(element, name);
 	});
 
-document.arrive(".entity-result__primary-subtitle", function(newElem) {
-	const name = newElem.childNodes[2].textContent.trim();
-	appendGlassdoor(newElem, name); 
+document.arrive(".entity-result__primary-subtitle", function(element) {
+	const name = element.childNodes[2].textContent.trim();
+	appendGlassdoor(element, name); 
 });
 
 // linkedin.com/jobs
 [...document.querySelectorAll(".job-card-square__text--1-line .job-card-container__company-name")]
 	.forEach(element => {
 		const name = element.childNodes[2].wholeText.trim();
-		appendWrapper(element.parentNode, twoLines=true, classes="artdeco-entity-lockup__subtitle");
-		addRating(element.parentNode.nextSibling, name);
+		appendGlassdoor(element.parentNode, name, twoLines=true, classes="artdeco-entity-lockup__subtitle")
 });
 
-document.arrive(".job-card-square__text--1-line .job-card-container__company-name", function(newElem) {
-	const name = newElem.childNodes[2].wholeText.trim();
-	appendWrapper(newElem.parentNode, twoLines=true, classes="artdeco-entity-lockup__subtitle");
-	addRating(newElem.parentNode.nextSibling, name);
+document.arrive(".job-card-square__text--1-line .job-card-container__company-name", function(element) {
+	const name = element.childNodes[2].wholeText.trim();
+	appendGlassdoor(element.parentNode, name, twoLines=true, classes="artdeco-entity-lockup__subtitle")
 });
 
 // https://www.linkedin.com/company/*
@@ -224,9 +245,9 @@ document.arrive(".job-card-square__text--1-line .job-card-container__company-nam
 		appendGlassdoor(element, name);
 	});
 	
-document.arrive(".org-top-card-summary__title", function(newElem) {
-	const name = newElem.textContent.trim();
-	appendGlassdoor(newElem, name);
+document.arrive(".org-top-card-summary__title", function(element) {
+	const name = element.textContent.trim();
+	appendGlassdoor(element, name);
 });
 
 // https://www.linkedin.com/jobs/view/*
@@ -236,9 +257,9 @@ document.arrive(".org-top-card-summary__title", function(newElem) {
 		appendGlassdoor(element.parentNode, name);
 	});
 
-document.arrive(".jobs-top-card__company-url", function(newElem) {
-	const name = newElem.textContent.trim();
-	appendGlassdoor(newElem.parentNode, name);
+document.arrive(".jobs-top-card__company-url", function(element) {
+	const name = element.textContent.trim();
+	appendGlassdoor(element.parentNode, name);
 });
-	
+
 console.log('Glassdoor-Linkedinator loaded');
