@@ -103,7 +103,35 @@ var gdinfo = function (element, name) {
 				if (response != null) {
 
 				    if (response["success"] == true) {
-						var employer = response["response"].employers[0];
+						// Take first three employers from search
+						const employers = response["response"].employers.slice(0, 3);
+						// See which employers exactly match given employer name
+						const exactMatchEmployers = employers.filter(function (e) {
+							return name.toLowerCase() === e.name.toLowerCase();
+						});
+
+						let employer;
+						// Prioritize exact matches over first in Glassdoor search results
+						if(exactMatchEmployers.length > 0) {
+							if(exactMatchEmployers.length > 1) {
+								// If there are multiple exact matches, choose employer with most number of ratings
+								employer = exactMatchEmployers.reduce(function(prev, current) {
+									if (current.numberOfRatings > prev.numberOfRatings) {
+										return current;
+									} else {
+										return prev;
+									}
+								});
+							}
+							else{
+								employer = exactMatchEmployers[0];
+							}
+						}
+						// If there are no exact matches, choose the first one
+						else{
+							employer = employers[0];
+						}
+						
 						var reviewsUrl;
 						var info;
 
