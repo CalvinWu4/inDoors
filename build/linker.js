@@ -107,7 +107,9 @@ var gdinfo = function (element, name) {
 						const employers = response["response"].employers.slice(0, 3);
 						// See which employers exactly match given employer name
 						const exactMatchEmployers = employers.filter(function (e) {
-							return name.toLowerCase() === e.name.toLowerCase();
+							// Remove location in parentheses in search results
+							parenthesesRegex = /\s*\(.*?\)\s*/g;
+							return name.toLowerCase() === e.name.toLowerCase().replace(parenthesesRegex, "");
 						});
 
 						let employer;
@@ -198,6 +200,9 @@ function appendWrapper(element, twoLines=false, classes=false){
 
 // Insert the rating data into the rating wrapper
 function addRating(element, name){
+	// Remove whitespace
+	name = name.trim();
+
 	// To avoid misdirected name searches
 	const replaceManyStr = (obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
 	name = replaceManyStr(misdirectArray, name);
@@ -206,7 +211,13 @@ function addRating(element, name){
 	const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 	name = normalize(name);
 
-	gdinfo(element, name);
+	// Remove text after commas, dashes, and colons
+	name = name.replace(/(\:|\-|\,).*$/, "");
+
+	// Remove corporate suffixes 
+	name = name.replace(/®|™|(Inc\.)|(Inc)|LP/, "");
+
+	gdinfo(element, name.trim());
 }
 
 function appendGlassdoor(element, name, twoLines=false, classes=false){
@@ -219,23 +230,23 @@ function appendGlassdoor(element, name, twoLines=false, classes=false){
 // left list
 [...document.querySelectorAll("[data-control-name='job_card_company_link']")]
 	.forEach(element => {
-		const name = element.childNodes[2].wholeText.trim();
+		const name = element.childNodes[2].wholeText;
 		appendGlassdoor(element, name);
 	});
 
 document.arrive("[data-control-name='job_card_company_link']", function(element) {
-	const name = element.childNodes[2].wholeText.trim();
+	const name = element.childNodes[2].wholeText;
 	appendGlassdoor(element, name); 
 });
 
 // right rail
 document.arrive(".jobs-details-top-card__company-url", function(element) {
-	let name = element.textContent.trim();
+	let name = element.textContent;
 	appendGlassdoor(element.parentNode, name, twoLines=true)
 
 	var observer = new MutationObserver(function(mutations) {
 	mutations.forEach(function() {
-			name = element.textContent.trim();
+			name = element.textContent;
 			appendGlassdoor(element.parentNode, name, twoLines=true)
 		});
 	});
@@ -245,48 +256,48 @@ document.arrive(".jobs-details-top-card__company-url", function(element) {
 // linkedin.com/my-items/saved-jobs/*
 [...document.querySelectorAll(".entity-result__primary-subtitle")]
 	.forEach(element => {
-		const name = element.childNodes[2].textContent.trim();
+		const name = element.childNodes[2].textContent;
 		appendGlassdoor(element, name);
 	});
 
 document.arrive(".entity-result__primary-subtitle", function(element) {
-	const name = element.childNodes[2].textContent.trim();
+	const name = element.childNodes[2].textContent;
 	appendGlassdoor(element, name); 
 });
 
 // linkedin.com/jobs
 [...document.querySelectorAll(".job-card-square__text--1-line .job-card-container__company-name")]
 	.forEach(element => {
-		const name = element.childNodes[2].wholeText.trim();
+		const name = element.childNodes[2].wholeText;
 		appendGlassdoor(element.parentNode, name, twoLines=true, classes="artdeco-entity-lockup__subtitle")
 });
 
 document.arrive(".job-card-square__text--1-line .job-card-container__company-name", function(element) {
-	const name = element.childNodes[2].wholeText.trim();
+	const name = element.childNodes[2].wholeText;
 	appendGlassdoor(element.parentNode, name, twoLines=true, classes="artdeco-entity-lockup__subtitle")
 });
 
 // https://www.linkedin.com/company/*
 [...document.querySelectorAll(".org-top-card-summary__title")]
 	.forEach(element => {
-		const name = element.textContent.trim();
+		const name = element.textContent;
 		appendGlassdoor(element, name);
 	});
 	
 document.arrive(".org-top-card-summary__title", function(element) {
-	const name = element.textContent.trim();
+	const name = element.textContent;
 	appendGlassdoor(element, name);
 });
 
 // https://www.linkedin.com/jobs/view/*
 [...document.querySelectorAll(".jobs-top-card__company-url")]
 	.forEach(element => {
-		const name = element.textContent.trim();
+		const name = element.textContent;
 		appendGlassdoor(element.parentNode, name);
 	});
 
 document.arrive(".jobs-top-card__company-url", function(element) {
-	const name = element.textContent.trim();
+	const name = element.textContent;
 	appendGlassdoor(element.parentNode, name);
 });
 
