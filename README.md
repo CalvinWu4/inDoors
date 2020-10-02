@@ -11,6 +11,5 @@ Screenshots:
 <img src="https://i.imgur.com/AaU2Lt3.jpg" height="300">
 
 Upcoming features:
-* Add ratings to /jobs/view, /company/ pages
-* Add popover showing rating breakdowns by category
 * Extension versions for Firefox and other browsers
+* Add popover showing rating breakdowns by category
