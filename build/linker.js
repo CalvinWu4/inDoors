@@ -143,6 +143,8 @@ var gdinfo = function (element, name) {
 
 // Append the rating wrapper after the company name element
 function appendWrapper(element, twoLines=false, classes=false){
+	element.parentNode.querySelectorAll(".glassdoor-label-wrapper").forEach(e => e.parentNode.removeChild(e));
+
 	element.insertAdjacentHTML('afterend',
 		`<div class='glassdoor-label-wrapper ${classes ? classes : ""}'>
 			<div class='glassdoor-label'>
@@ -205,8 +207,6 @@ document.arrive(".jobs-details-top-card__company-url", function(element) {
 
 	var observer = new MutationObserver(function(mutations) {
 	mutations.forEach(function() {
-			element.parentNode.parentNode.querySelectorAll(".glassdoor-label-wrapper").forEach(e => e.parentNode.removeChild(e));
-
 			name = element.textContent.trim();
 			appendGlassdoor(element.parentNode, name, twoLines=true)
 		});
