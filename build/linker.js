@@ -228,5 +228,17 @@ document.arrive(".org-top-card-summary__title", function(newElem) {
 	const name = newElem.textContent.trim();
 	appendGlassdoor(newElem, name);
 });
+
+// https://www.linkedin.com/jobs/view/*
+[...document.querySelectorAll(".jobs-top-card__company-url")]
+	.forEach(element => {
+		const name = element.textContent.trim();
+		appendGlassdoor(element.parentNode, name);
+	});
+
+document.arrive(".jobs-top-card__company-url", function(newElem) {
+	const name = newElem.textContent.trim();
+	appendGlassdoor(newElem.parentNode, name);
+});
 	
 console.log('Glassdoor-Linkedinator loaded');
