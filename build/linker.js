@@ -211,8 +211,8 @@ function addRating(element, name){
 	const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 	name = normalize(name);
 
-	// Remove text after commas, dashes, and colons
-	name = name.replace(/(\:|\-|\,).*$/, "");
+	// Remove text after commas, colons, and dashes (in between spaces)
+	name = name.replace(/(\:|(\s\-\s)|\,).*$/, "");
 
 	// Remove corporate suffixes 
 	name = name.replace(/®|™|(Inc\.)|(Inc)|LP/, "");
