@@ -10,6 +10,7 @@ Upcoming features:
 * Add popover showing rating breakdowns by category
 
 Screenshots:
+
 <img src="https://i.imgur.com/bvHg5g5.jpg" width="900">
 <img src="https://i.imgur.com/hoXH8Qi.jpg" width="450">
 <img src="https://i.imgur.com/hrN1Mq5.jpg" width="450">
