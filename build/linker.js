@@ -142,12 +142,12 @@ var gdinfo = function (element, name) {
 }
 
 // Append the rating wrapper after the company name element
-function appendWrapper(element, twoLines=false){	// Determines whether the wrapper will take up one or two lines
+function appendWrapper(element, twoLines=false, classes=false){
 	element.insertAdjacentHTML('afterend',
-		`<div class='glassdoor-label-wrapper'>
+		`<div class='glassdoor-label-wrapper ${classes ? classes : ""}'>
 			<div class='glassdoor-label'>
 				<div class='tbl'>
-					<a id='glassdoor-link' ${!twoLines && "class='cell middle padRtSm'"}>
+					<a id='glassdoor-link' ${!twoLines ? "class='cell middle padRtSm'" : ""}>
 						<span class='glassdoor-rating display-none'>★</span>
 						<span class='glassdoor-reviews display-none'>•</span>
 						<span class='loading'><span>.</span><span>.</span><span>.</span></span>
@@ -207,14 +207,26 @@ document.arrive(".entity-result__primary-subtitle", function(newElem) {
 [...document.querySelectorAll(".job-card-square__text--1-line .job-card-container__company-name")]
 	.forEach(element => {
 		const name = element.childNodes[2].wholeText.trim();
-		appendWrapper(newElem.parentNode, true);
-		addRating(newElem.parentNode.nextSibling, name);
+		appendWrapper(element.parentNode, twoLines=true, classes="artdeco-entity-lockup__subtitle");
+		addRating(element.parentNode.nextSibling, name);
 });
 
 document.arrive(".job-card-square__text--1-line .job-card-container__company-name", function(newElem) {
 	const name = newElem.childNodes[2].wholeText.trim();
-	appendWrapper(newElem.parentNode, true);
+	appendWrapper(newElem.parentNode, twoLines=true, classes="artdeco-entity-lockup__subtitle");
 	addRating(newElem.parentNode.nextSibling, name);
+});
+
+// https://www.linkedin.com/company/*
+[...document.querySelectorAll(".org-top-card-summary__title")]
+	.forEach(element => {
+		const name = element.textContent.trim();
+		appendGlassdoor(element, name);
+	});
+	
+document.arrive(".org-top-card-summary__title", function(newElem) {
+	const name = newElem.textContent.trim();
+	appendGlassdoor(newElem, name);
 });
 	
 console.log('Glassdoor-Linkedinator loaded');
