@@ -92,8 +92,10 @@ var gdinfo = function (element, name) {
 					let span = document.createElement('span');
 					span.innerHTML = message;
 
-					link.hasAttribute('id') && link.removeAttribute('id');
-					link.parentNode.replaceChild(span, link);
+					if (link) {
+						link.hasAttribute('id') && link.removeAttribute('id');
+						link.parentNode.replaceChild(span, link);
+					}
 				}
 
 		    if (xmlhttp.status == 200) {
