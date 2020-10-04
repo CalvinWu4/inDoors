@@ -66,9 +66,9 @@ function updateRating(element, data){
 }
 
 // Grab the Glassdoor data for the company name and update the HTML
-var gdinfo = function (element, name) {
+var gdinfo = async function (element, name) {
     var currentDate = new Date();
-    var storageTime = new Date(localStorage["gd-retrieval-date"]);
+	var storageTime = new Date(localStorage["gd-retrieval-date"]);
     // Used for calculating how old the data in local storage is
 	var oneDay = 24*60*60*1000;
 
@@ -78,99 +78,92 @@ var gdinfo = function (element, name) {
 			var storageData = JSON.parse(load(name));
 			updateRating(element, storageData);
     } else {
-    	/* Database entry miss - Send new HTTP Request to Glassdoor API for rating info */
-		var xmlhttp = new XMLHttpRequest();
+    	// Database entry miss - Send new HTTP Request to Glassdoor API for rating info
+		let reqHeader = new Headers();
+		reqHeader.append('Content-Type', 'text/json');
 
+		let initObject = {
+			method: 'GET', headers: reqHeader,
+		};
 		const proxyUrl = 'https://glassdoor-cors-proxy.herokuapp.com/'
 		const url = `https://glassdoor-search.netlify.app/.netlify/functions/gdinfo?company=${name}`;    
 
-		xmlhttp.open("GET", proxyUrl + url, true);
+		let response = await fetch(proxyUrl + url, initObject);
+		
+		// Convert a tag to span tag
+		function linkToSpan(message){
+			const link = element.querySelector("#glassdoor-link");
+			let span = document.createElement('span');
+			span.innerHTML = message;
 
-		xmlhttp.onreadystatechange = function() {
-				function linkToSpan(message){
-					const link = element.querySelector("#glassdoor-link");
-					let span = document.createElement('span');
-					span.innerHTML = message;
+			if (link) {
+				link.hasAttribute('id') && link.removeAttribute('id');
+				link.parentNode.replaceChild(span, link);
+			}
+		}
 
-					if (link) {
-						link.hasAttribute('id') && link.removeAttribute('id');
-						link.parentNode.replaceChild(span, link);
-					}
+		if (response.ok) {
+			const json = await response.json();
+			const data = json.response;
+			// Take first three employers from search
+			const employers = data.employers.slice(0, 3);
+			// See which employers exactly match given employer name
+			const exactMatchEmployers = employers.filter(function (e) {
+				// Remove location in parentheses in search results
+				parenthesesRegex = /\s*\(.*?\)\s*/g;
+				return name.toLowerCase() === e.name.toLowerCase().replace(parenthesesRegex, "");
+			});
+
+			// Prioritize exact matches over first in Glassdoor search results
+			let employer;
+			if(exactMatchEmployers.length > 0) {
+				if(exactMatchEmployers.length > 1) {
+					// If there are multiple exact matches, choose employer with most number of ratings
+					employer = exactMatchEmployers.reduce(function(prev, current) {
+						if (current.numberOfRatings > prev.numberOfRatings) {
+							return current;
+						} else {
+							return prev;
+						}
+					});
 				}
-
-		    if (xmlhttp.status == 200) {
-				// GET Successful, parse data into JSON object
-				var response = JSON.parse(xmlhttp.responseText || "null");
-
-				if (response != null) {
-
-				    if (response["success"] == true) {
-						// Take first three employers from search
-						const employers = response["response"].employers.slice(0, 3);
-						// See which employers exactly match given employer name
-						const exactMatchEmployers = employers.filter(function (e) {
-							// Remove location in parentheses in search results
-							parenthesesRegex = /\s*\(.*?\)\s*/g;
-							return name.toLowerCase() === e.name.toLowerCase().replace(parenthesesRegex, "");
-						});
-
-						let employer;
-						// Prioritize exact matches over first in Glassdoor search results
-						if(exactMatchEmployers.length > 0) {
-							if(exactMatchEmployers.length > 1) {
-								// If there are multiple exact matches, choose employer with most number of ratings
-								employer = exactMatchEmployers.reduce(function(prev, current) {
-									if (current.numberOfRatings > prev.numberOfRatings) {
-										return current;
-									} else {
-										return prev;
-									}
-								});
-							}
-							else{
-								employer = exactMatchEmployers[0];
-							}
-						}
-						// If there are no exact matches, choose the first one
-						else{
-							employer = employers[0];
-						}
-						
-						var reviewsUrl;
-						var info;
-
-						if(employer){
-							reviewsUrl = `https://www.glassdoor.com/Reviews/${name}-Reviews-E${employer.id}.htm`
-							info = {
-								overallRating: employer.overallRating,
-								numberOfRatings: kFormatter(employer.numberOfRatings),
-								url: reviewsUrl,
-							}
-						}
-						else{
-							reviewsUrl = response["response"].attributionURL;
-							info = {
-								url: reviewsUrl,
-							}
-						}
-						updateRating(element, info);
-						save(name, JSON.stringify(info));
-				    }
-				    if (response["success"] == false) {
-				    	// GET Successful, but access denied error
-						var message = "Requests throttled by Glassdoor. Try again in a few minutes";
-						linkToSpan(message);
-				    }
+				else{
+					employer = exactMatchEmployers[0];
 				}
 			}
-			else {
-				// GET Unsuccessful
-				var message = "Could not contact Glassdoor servers"
-				linkToSpan(message);		    
+			// If there are no exact matches, choose the first one
+			else{
+				employer = employers[0];
 			}
-		};
-		xmlhttp.send();
-    }
+				
+			var reviewsUrl;
+			var info;
+
+			if(employer){
+				// Insert link to employer reviews
+				reviewsUrl = `https://www.glassdoor.com/Reviews/${name}-Reviews-E${employer.id}.htm`
+				info = {
+					overallRating: employer.overallRating,
+					numberOfRatings: kFormatter(employer.numberOfRatings),
+					url: reviewsUrl,
+				}
+			}
+			else{
+				// Insert link to search page if employer can't be found
+				reviewsUrl = data.attributionURL;
+				info = {
+					url: reviewsUrl,
+				}
+			}
+			updateRating(element, info);
+			save(name, JSON.stringify(info));
+		}
+		else {
+			// GET Unsuccessful
+			var message = "Could not contact Glassdoor servers"
+			linkToSpan(message);		    
+		}
+	};
 }
 
 // Append the rating wrapper after the company name element
