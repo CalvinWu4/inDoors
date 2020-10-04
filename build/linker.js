@@ -210,7 +210,7 @@ function addRating(element, name){
 	name = normalize(name);
 
 	// Remove text after colons, and vertical bars and spaces surrounded by spaces
-	name = name.replace(/(\:|(\s\-\s)|(\s\|\s)).*$/, "");
+	name = name.replace(/(\:|(\s\-\s)|(\s\|\s)|(\s\–\s)).*$/, "");
 
 	// Remove company suffixes 
 	name = name.replace(/®|™|(Inc\.)|(Inc)|\sLP|\sPBC/, "");
