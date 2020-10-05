@@ -225,7 +225,7 @@ function appendGlassdoor(element, name, twoLines=false, classes=false){
 }
 
 // linkedin.com/jobs/search/*
-// left list
+// Left result list (logged in UI)
 [...document.querySelectorAll("[data-control-name='job_card_company_link']")]
 	.forEach(element => {
 		const name = element.childNodes[2].wholeText;
@@ -237,7 +237,7 @@ document.arrive("[data-control-name='job_card_company_link']", function(element)
 	appendGlassdoor(element, name); 
 });
 
-// right rail
+// Right rail
 document.arrive(".jobs-details-top-card__company-url", function(element) {
 	let name = element.textContent;
 	appendGlassdoor(element.parentNode, name, twoLines=true)
@@ -249,6 +249,18 @@ document.arrive(".jobs-details-top-card__company-url", function(element) {
 		});
 	});
 	observer.observe(element, { attributeFilter: [ "href" ],   subtree: true});
+});
+
+// Left result list (logged out UI)
+[...document.querySelectorAll(".job-result-card__subtitle-link")]
+	.forEach(element => {
+		const name = element.textContent;
+		appendGlassdoor(element, name);
+	});
+
+document.arrive(".job-result-card__subtitle-link", function(element) {
+	const name = element.textContent;
+	appendGlassdoor(element, name);
 });
 
 // linkedin.com/my-items/saved-jobs/*
