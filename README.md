@@ -1,7 +1,8 @@
 ## Glassdoor-Linkedinator
-Glassdoor-Linkedinator is a Google Chrome extension that displays Glassdoor ratings on https://linkedin.com/jobs/, https://linkedin.com/jobs/search/, `https://www.linkedin.com/jobs/view/*`, https://linkedin.com/my-items/saved-jobs/, and `https://www.linkedin.com/company/*`. This Chrome Extension uses the [Glassdoor API](http://www.glassdoor.com/api/index.htm).
+Glassdoor-Linkedinator is a Google Chrome extension that displays Glassdoor ratings on https://linkedin.com/jobs/, https://linkedin.com/jobs/search/, `https://www.linkedin.com/jobs/view/*`, https://linkedin.com/my-items/saved-jobs/, and `https://www.linkedin.com/company/*`. This Chrome Extension uses the [Glassdoor API](http://www.glassdoor.com/api/index.htm). This extension was forked from and intended as a successor to: https://github.com/Brian-Lam/Glassdoor-Linkedinator.
 
 You can download the Chrome Extension here: https://chrome.google.com/webstore/detail/indoors-glassdoor-integra/eapcedpgnlmgkigiieacngkpdjikfgci?hl=en&authuser=0
+
 
 Note:
 Remember that the fewer reviews a company has, the less likely a chance Glassdoor will correctly find it.
