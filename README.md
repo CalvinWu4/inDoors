@@ -8,6 +8,7 @@ Note:
 Remember that the fewer reviews a company has, the less likely a chance Glassdoor will correctly find it.
 
 Possible features:
+* Cache ratings with a server and db to avoid throttling Glassdoor API.
 * Extension versions for Firefox and other browsers
 * Add popover showing rating breakdowns by category
 
