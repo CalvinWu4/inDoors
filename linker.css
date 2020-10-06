@@ -82,13 +82,8 @@ Match hover effect of parent element */
 	padding-right: 10px;
 }
 
-.logo-wrapper {
-  overflow: hidden;
-  height: 22px;
-}
-
 .logo-wrapper > .cell {
-  transform: translate(0, 4.2px);
+  transform: translate(0, .25rem);
 }
 
 /*
