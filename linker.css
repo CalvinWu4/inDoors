@@ -30,9 +30,14 @@
 .org-jobs-recommended-jobs-module__jobs--carousel-card-dimensions{
   height: unset !important;
 }
+
 /* Remove Glassdoor logo link */
 a[href="https://www.glassdoor.com/index.htm"]{
   pointer-events: none;
+}
+
+.jobs-search__results-list .glassdoor-label-wrapper{
+  cursor: pointer;
 }
 
 /* 
