@@ -7,7 +7,7 @@ This extension was forked from and intended as a successor to: https://github.co
 
 Possible features:
 * Cache ratings with a server and db to avoid throttling Glassdoor API.
-* Extension versions for Firefox and other browsers
+* Extension for Firefox
 * Add popover showing rating breakdowns by category
 
 Screenshots:
