@@ -311,7 +311,7 @@ document.arrive(".jobs-top-card__company-url", function(element) {
 	appendGlassdoor(element.parentNode, name);
 });
 
-// (Logged out UI) top card
+// (Logged out UI) Top card
 [...document.querySelectorAll(".topcard__org-name-link")]
 	.forEach(element => {
 		const name = element.textContent;
@@ -323,7 +323,7 @@ document.arrive(".topcard__org-name-link", function(element) {
 	appendGlassdoor(element.parentNode.parentNode, name);
 });
 
-// (Logged out UI) job tiles
+// (Logged out UI) Job tiles
 [...document.querySelectorAll(".job-result-tile .job-result-card__subtitle-link")]
 	.forEach(element => {
 		const name = element.textContent;
@@ -335,6 +335,7 @@ document.arrive(".job-result-tile .job-result-card__subtitle-link", function(ele
 	appendGlassdoor(element.parentNode, name, twoLines=true);
 });	
 
+// (Logged out UI) Right rail
 [...document.querySelectorAll(".result-card__subtitle--reduced-whitespace")]
 	.forEach(element => {
 		const name = element.textContent;
