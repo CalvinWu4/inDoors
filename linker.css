@@ -10,6 +10,10 @@
   color: rgba(0,0,0,.6);
 }
 
+#glassdoor-link {
+  position: relative;
+}
+
 #glassdoor-link, :visited {
 	font-weight: 400;
 	color: rgba(0, 0, 0, 0.6);
@@ -23,6 +27,7 @@
   color: #0caa41;
   font-weight: bold;
 }
+
 .display-none {
   display: none;
 }
@@ -36,8 +41,29 @@ a[href="https://www.glassdoor.com/index.htm"]{
   pointer-events: none;
 }
 
+/* (Logged out UI) linkedin.com/jobs/search/*
+Left result list
+Match hover effect of parent element */
 .jobs-search__results-list .glassdoor-label-wrapper{
   cursor: pointer;
+}
+
+/* 
+* (Logged out UI) https://www.linkedin.com/jobs/view/*
+*/
+/* Put glassdoor-link in front of a tag */
+.result-card__full-card-link {
+  z-index: 1;
+}
+
+/* Job tiles */
+.job-result-tile #glassdoor-link {
+  z-index: 2;
+}
+
+/* Right rail */
+.job-result-card--reduced-whitespace #glassdoor-link{
+  z-index: 2;
 }
 
 /* 
