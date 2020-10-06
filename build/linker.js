@@ -209,7 +209,7 @@ function addRating(element, name){
 	const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 	name = normalize(name);
 
-	// Remove text after colons, and vertical bars and spaces surrounded by spaces
+	// Remove text after colons, and vertical bars and dashes surrounded by spaces
 	name = name.replace(/(\:|(\s\-\s)|(\s\|\s)|(\s\–\s)).*$/, "");
 
 	// Remove company suffixes 
