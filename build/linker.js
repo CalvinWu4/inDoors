@@ -182,10 +182,12 @@ function appendWrapper(element, twoLines=false, classes=false){
 					<div class='cell middle padRtSm'>
 						powered by
 					</div>
-					<div class='cell middle'>
-						<a href='https://www.glassdoor.com/index.htm'>
-							<img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search'>
-						</a>
+					<div class='cell middle logo-wrapper'>
+						<div class='cell middle'>
+							<a href='https://www.glassdoor.com/index.htm'>
+								<img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search'>
+							</a>
+						</div>
 					</div>
 				</div>
 			<div>
