@@ -6,6 +6,7 @@ You can download the Chrome Extension here: https://chrome.google.com/webstore/d
 This extension was forked from and intended as a successor to: https://github.com/Brian-Lam/Glassdoor-Linkedinator.
 
 Possible features:
+* Support for Firefox mobile
 * Cache ratings with a server and db to avoid throttling Glassdoor API.
 * Add popover showing rating breakdowns by category
 
