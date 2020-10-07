@@ -5,10 +5,7 @@ a hover event onto company names that appear in search results
 
 // Check if company is already in localstorage
 var checkDatabase = function(name) {
-    if(localStorage[name]) {
-		return true;
-    }
-    return false;
+	return localStorage[name] ? true : false;
 }
 
 // Save ratings into local storage, and keep track of how old it is
@@ -52,12 +49,7 @@ function updateRating(element, data){
 		loading.classList.add("display-none");
 		rating.classList.remove("display-none");
 		reviews.classList.remove("display-none");
-		if(data.overallRating !== "0"){
-			rating.innerHTML = `${data.overallRating} ★`;
-		}
-		else{
-			rating.innerHTML = `N/A ★`;
-		}
+		rating.innerHTML = data.overallRating !== "0" ? `${data.overallRating} ★` : `N/A ★`;
 		reviews.innerHTML = `• ${data.numberOfRatings} Reviews`;
 	}
 	else{
@@ -82,13 +74,13 @@ var gdinfo = async function (element, name) {
 		let reqHeader = new Headers();
 		reqHeader.append('Content-Type', 'text/json');
 
-		let initObject = {
+		const initObject = {
 			method: 'GET', headers: reqHeader,
 		};
 		const proxyUrl = 'https://glassdoor-cors-proxy.herokuapp.com/'
 		const url = `https://glassdoor-search.netlify.app/.netlify/functions/gdinfo?company=${name}`;    
 
-		let response = await fetch(proxyUrl + url, initObject);
+		const response = await fetch(proxyUrl + url, initObject);
 		
 		// Convert a tag to span tag
 		function linkToSpan(message){
@@ -120,11 +112,7 @@ var gdinfo = async function (element, name) {
 				if(exactMatchEmployers.length > 1) {
 					// If there are multiple exact matches, choose employer with most number of ratings
 					employer = exactMatchEmployers.reduce(function(prev, current) {
-						if (current.numberOfRatings > prev.numberOfRatings) {
-							return current;
-						} else {
-							return prev;
-						}
+						return current.numberOfRatings > prev.numberOfRatings ? current : prev;
 					});
 				}
 				else{
@@ -160,7 +148,7 @@ var gdinfo = async function (element, name) {
 		}
 		else {
 			// GET Unsuccessful
-			var message = "Could not contact Glassdoor servers"
+			var message = "Could not contact Glassdoor servers";
 			linkToSpan(message);		    
 		}
 	};
