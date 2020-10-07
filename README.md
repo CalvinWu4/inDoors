@@ -5,6 +5,21 @@ You can download the Chrome Extension here: https://chrome.google.com/webstore/d
 
 This extension was forked from and intended as a successor to: https://github.com/Brian-Lam/Glassdoor-Linkedinator.
 
+For users of the [Dark Reader](https://github.com/darkreader/darkreader) extension's dynamic mode, drop this CSS into Dev tools under the linkedin.com section:
+```
+.glassdoor-label {
+    color: rgba(232, 230, 227, 0.6);
+}
+
+#glassdoor-link{
+    color: rgba(232, 230, 227, 0.6);
+}
+
+#glassdoor-link:hover {
+    color: rgb(126, 197, 255);
+}
+```
+
 Possible features:
 * Support for Firefox mobile
 * Cache ratings with a server and db to avoid throttling Glassdoor API.
