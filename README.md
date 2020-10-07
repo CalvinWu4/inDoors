@@ -1,5 +1,5 @@
 ## inDoors
-inDoors is a Google Chrome extension that displays Glassdoor ratings on https://linkedin.com/jobs/, https://linkedin.com/jobs/search/, `https://www.linkedin.com/jobs/view/*`, https://linkedin.com/my-items/saved-jobs/, and `https://www.linkedin.com/company/*`. This Chrome Extension uses the [Glassdoor API](http://www.glassdoor.com/api/index.htm). Ratings are cached in localstorage for a week until they are refreshed. You can click on the rating to go to the reviews page for the company or the search page if the company is not found. Note that the fewer reviews a company has, the less likely Glassdoor will correctly find it.
+inDoors is a Chrome/Firefox extension that displays Glassdoor ratings on https://linkedin.com/jobs/, https://linkedin.com/jobs/search/, `https://www.linkedin.com/jobs/view/*`, https://linkedin.com/my-items/saved-jobs/, and `https://www.linkedin.com/company/*`. This extension uses the [Glassdoor API](http://www.glassdoor.com/api/index.htm). Ratings are cached in localstorage for a week until they are refreshed. You can click on the rating to go to the reviews page for the company or the search page if the company is not found. Note that the fewer reviews a company has, the less likely Glassdoor will correctly find it.
 
 You can download the Chrome Extension here: https://chrome.google.com/webstore/detail/indoors-glassdoor-integra/eapcedpgnlmgkigiieacngkpdjikfgci?hl=en&authuser=0
 
@@ -7,7 +7,6 @@ This extension was forked from and intended as a successor to: https://github.co
 
 Possible features:
 * Cache ratings with a server and db to avoid throttling Glassdoor API.
-* Extension for Firefox
 * Add popover showing rating breakdowns by category
 
 Screenshots:
