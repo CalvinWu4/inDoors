@@ -85,11 +85,16 @@ var gdinfo = async function (element, name) {
 		let initObject = {
 			method: 'GET', headers: reqHeader,
 		};
-		const proxyUrl = 'https://glassdoor-cors-proxy.herokuapp.com/'
-		const url = `https://glassdoor-search.netlify.app/.netlify/functions/gdinfo?company=${name}`;    
 
-		let response = await fetch(proxyUrl + url, initObject);
+		const proxyUrl = 'https://glassdoor-cors-proxy.herokuapp.com/'
+		let url = `https://glassdoor-search.netlify.app/.netlify/functions/gdinfo?company=${name}`;    
 		
+		if (navigator.userAgent.indexOf("Chrome") != -1) {
+			url = proxyUrl + url;
+		}
+		
+		const response = await fetch(url, initObject);
+
 		// Convert a tag to span tag
 		function linkToSpan(message){
 			const link = element.querySelector("#glassdoor-link");
