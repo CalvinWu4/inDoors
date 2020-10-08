@@ -69,20 +69,21 @@ function updateRating(element, data){
 			rating.innerHTML = `N/A ★`;
 		}
 		reviews.innerHTML = `• ${data.numberOfRatings} Reviews`;
-
-		// If company is found, make glassdoor-link an actual link 
-		spanToLink(link);
-		link = element.querySelector("#glassdoor-link");
-		link.setAttribute("href", data.url);
-		link.setAttribute("target", "_blank");
-		link.addEventListener('click', function (e) {
-			e.stopPropagation();
-		});
 	}
 	else{
 		link.innerHTML = ("Company not found");
 	}
+	// Make glassdoor-link an actual link 
+	spanToLink(link);
+	link = element.querySelector("#glassdoor-link");
+	link.setAttribute("href", data.url);
+	link.setAttribute("target", "_blank");
+	link.addEventListener('click', function (e) {
+		e.stopPropagation();
+	});
 }
+
+const parenthesesRegex = /\s*\(.*?\)\s*/g;
 
 // Grab the Glassdoor data for the company name and update the HTML
 var gdinfo = async function (element, name) {
@@ -121,8 +122,7 @@ var gdinfo = async function (element, name) {
 			const employers = data.employers.slice(0, 3);
 			// See which employers exactly match given employer name
 			const exactMatchEmployers = employers.filter(function (e) {
-				// Remove location in parentheses in search results
-				parenthesesRegex = /\s*\(.*?\)\s*/g;
+				// Remove parenthesized location in search results
 				return name.toLowerCase() === e.name.toLowerCase().replace(parenthesesRegex, "");
 			});
 
@@ -227,6 +227,9 @@ function addRating(element, name){
 
 	// Remove company suffixes 
 	name = name.replace(/®|™|(Inc\.)|(Inc)|\sLP|\sPBC/, "");
+
+	// Remove parentheses and text inside of them
+	name = name.replace(parenthesesRegex, "");
 
 	gdinfo(element, name.trim());
 }
