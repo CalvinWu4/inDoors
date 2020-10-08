@@ -49,15 +49,17 @@ a[href="https://www.glassdoor.com/index.htm"]{
 * (Guest UI)
 * Put glassdoor-link in front of a tag 
 */
+
+
 .second-line {
   z-index: -99999
 }
 .result-card__full-card-link {
-  z-index: 1000;
+  z-index: 1;
 }
 
 #glassdoor-link {
-  z-index: 99999;
+  z-index: 2;
 }
 
 /* 
