@@ -36,33 +36,27 @@
   height: unset !important;
 }
 
+.logo-wrapper > .cell {
+  transform: translate(0, .25rem);
+}
+
 /* Remove Glassdoor logo link */
 a[href="https://www.glassdoor.com/index.htm"]{
   pointer-events: none;
 }
 
-/* (Logged out UI) linkedin.com/jobs/search/*
-Left result list
-Match hover effect of parent element */
-.jobs-search__results-list .glassdoor-label-wrapper{
-  cursor: pointer;
-}
-
 /* 
-* (Logged out UI) https://www.linkedin.com/jobs/view/*
+* (Guest UI)
+* Put glassdoor-link in front of a tag 
 */
-/* Put glassdoor-link in front of a tag */
+.second-line {
+  z-index: -99999
+}
 .result-card__full-card-link {
-  z-index: -99999;
+  z-index: 1000;
 }
 
-/* Job tiles */
-.job-result-tile #glassdoor-link {
-  z-index: 99999;
-}
-
-/* Right rail */
-.job-result-card--reduced-whitespace #glassdoor-link{
+#glassdoor-link {
   z-index: 99999;
 }
 
@@ -80,10 +74,6 @@ Match hover effect of parent element */
 
 .padRtSm {
 	padding-right: 10px;
-}
-
-.logo-wrapper > .cell {
-  transform: translate(0, .25rem);
 }
 
 /*

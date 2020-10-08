@@ -184,10 +184,10 @@ function appendWrapper(element, twoLines=false, classes=false){
 						<span class='glassdoor-reviews display-none'>•</span>
 						<span class='loading'><span>.</span><span>.</span><span>.</span></span>
 					</a>
-					<div class='cell middle padRtSm'>
+					<div class='cell middle padRtSm second-line'>
 						powered by
 					</div>
-					<div class='cell middle logo-wrapper'>
+					<div class='cell middle logo-wrapper second-line'>
 						<div class='cell middle'>
 							<a href='https://www.glassdoor.com/index.htm'>
 								<img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search'>
@@ -231,7 +231,7 @@ function appendGlassdoor(element, name, twoLines=false, classes=false){
 	addRating(element.nextSibling, name);
 }
 
-// linkedin.com/jobs/search/*
+/************************************* jobs/search/* *************************************/
 // Left result list
 [...document.querySelectorAll("[data-control-name='job_card_company_link']")]
 	.forEach(element => {
@@ -244,7 +244,7 @@ document.arrive("[data-control-name='job_card_company_link']", function(element)
 	appendGlassdoor(element, name); 
 });
 
-// Right rail
+// Right rail top card
 document.arrive(".jobs-details-top-card__company-url", function(element) {
 	let name = element.textContent;
 	appendGlassdoor(element.parentNode, name, twoLines=true)
@@ -258,19 +258,7 @@ document.arrive(".jobs-details-top-card__company-url", function(element) {
 	observer.observe(element, { attributeFilter: [ "href" ],   subtree: true});
 });
 
-// (Logged out UI) Left result list 
-[...document.querySelectorAll(".jobs-search__results-list .job-result-card__subtitle-link")]
-	.forEach(element => {
-		const name = element.textContent;
-		appendGlassdoor(element, name);
-	});
-
-document.arrive(".jobs-search__results-list .job-result-card__subtitle-link", function(element) {
-	const name = element.textContent;
-	appendGlassdoor(element, name);
-});
-
-// linkedin.com/my-items/saved-jobs/*
+/************************************* /my-items/saved-jobs/* *************************************/
 [...document.querySelectorAll(".entity-result__primary-subtitle")]
 	.forEach(element => {
 		const name = element.childNodes[2].textContent;
@@ -282,7 +270,7 @@ document.arrive(".entity-result__primary-subtitle", function(element) {
 	appendGlassdoor(element, name); 
 });
 
-// linkedin.com/jobs
+/************************************* /jobs *************************************/
 [...document.querySelectorAll(".job-card-square__text--1-line .job-card-container__company-name")]
 	.forEach(element => {
 		const name = element.childNodes[2].wholeText;
@@ -294,19 +282,19 @@ document.arrive(".job-card-square__text--1-line .job-card-container__company-nam
 	appendGlassdoor(element.parentNode, name, twoLines=true, classes="artdeco-entity-lockup__subtitle")
 });
 
-// https://www.linkedin.com/company/*
+/************************************* /company/* *************************************/
 [...document.querySelectorAll(".org-top-card-summary__title")]
 	.forEach(element => {
 		const name = element.textContent;
 		appendGlassdoor(element, name);
 	});
-	
+
 document.arrive(".org-top-card-summary__title", function(element) {
 	const name = element.textContent;
 	appendGlassdoor(element, name);
 });
 
-// https://www.linkedin.com/jobs/view/*
+/************************************* /jobs/view/* *************************************/
 [...document.querySelectorAll(".jobs-top-card__company-url")]
 	.forEach(element => {
 		const name = element.textContent;
@@ -318,7 +306,8 @@ document.arrive(".jobs-top-card__company-url", function(element) {
 	appendGlassdoor(element.parentNode, name);
 });
 
-// (Logged out UI) Top card
+/************************************* Guest UI *************************************/
+// /jobs/view/* Top card
 [...document.querySelectorAll(".topcard__org-name-link")]
 	.forEach(element => {
 		const name = element.textContent;
@@ -330,24 +319,52 @@ document.arrive(".topcard__org-name-link", function(element) {
 	appendGlassdoor(element.parentNode.parentNode, name);
 });
 
-// (Logged out UI) Job tiles
-[...document.querySelectorAll(".job-result-tile .job-result-card__subtitle-link")]
-	.forEach(element => {
-		const name = element.textContent;
-		appendGlassdoor(element.parentNode, name, twoLines=true);
-	});
-
-document.arrive(".job-result-tile .job-result-card__subtitle-link", function(element) {
-	const name = element.textContent;
-	appendGlassdoor(element.parentNode, name, twoLines=true);
-});	
-
-// (Logged out UI) Right rail
-[...document.querySelectorAll(".result-card__subtitle--reduced-whitespace")]
+// /jobs/view/* Right rail
+[...document.querySelectorAll(".people-also-viewed__list .result-card__subtitle--reduced-whitespace")]
 	.forEach(element => {
 		const name = element.textContent;
 		appendGlassdoor(element, name, twoLines=true);
 	});
 
+document.arrive(".people-also-viewed__list .result-card__subtitle--reduced-whitespace", function(element) {
+	const name = element.textContent;
+	appendGlassdoor(element, name, twoLines=true);
+});
+	
+// /jobs/* Left result list and /jobs/view/* Bottom results list  
+[...document.querySelectorAll(".job-result-card__subtitle-link")]
+	.forEach(element => {
+		const name = element.textContent;
+		appendGlassdoor(element, name);
+	});
+
+document.arrive("job-result-card__subtitle-link", function(element) {
+	const name = element.textContent;
+	appendGlassdoor(element, name);
+});
+
+// /organization-guest/company/* Right Rail
+[...document.querySelectorAll(".show-more-less__list .result-card__title--reduced-whitespace")]
+	.forEach(element => {
+		const name = element.textContent;
+		appendGlassdoor(element, name, twoLines=true);
+	});
+
+document.arrive(".show-more-less__list .result-card__title--reduced-whitespace", function(element) {
+	const name = element.textContent;
+	appendGlassdoor(element, name, twoLines=true);
+});
+
+// /organization-guest/company/* Top card
+[...document.querySelectorAll(".top-card-layout__title")]
+	.forEach(element => {
+		const name = element.textContent;
+		appendGlassdoor(element, name);
+	});
+
+document.arrive(".top-card-layout__title", function(element) {
+	const name = element.textContent;
+	appendGlassdoor(element, name);
+});
 
 console.log('Glassdoor-Linkedinator loaded');
