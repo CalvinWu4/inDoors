@@ -172,7 +172,8 @@ var gdinfo = async function (element, name) {
 		}
 		else {
 			// GET Unsuccessful
-			var message = "Could not contact Glassdoor servers"
+			const link = element.querySelector("#glassdoor-link");
+			link.innerHTML = "Could not contact Glassdoor servers"
 		}
 	};
 }
