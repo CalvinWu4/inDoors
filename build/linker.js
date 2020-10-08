@@ -36,13 +36,22 @@ function kFormatter(num) {
 	}
 }
 
+// Convert span element to an anchor element
+function spanToLink(span){
+	let anchor = document.createElement('a');
+	
+	anchor.innerHTML = span.innerHTML;
+	span.getAttributeNames()
+			.forEach(attrName => {
+				const attrValue = span.getAttribute(attrName);
+				anchor.setAttribute(attrName, attrValue);
+			});
+	span.parentNode.replaceChild(anchor, span);
+}
+
 // Update the rating after the Glassdoor data is fetched
 function updateRating(element, data){
-	const link = element.querySelector("#glassdoor-link");
-	link.setAttribute("href", data.url);
-	link.addEventListener('click', function (e) {
-		e.stopPropagation();
-	});
+	let link = element.querySelector("#glassdoor-link");
 
 	if(data.overallRating != null && data.numberOfRatings != null){
 		const rating = element.querySelector(".glassdoor-rating");
@@ -52,6 +61,7 @@ function updateRating(element, data){
 		loading.classList.add("display-none");
 		rating.classList.remove("display-none");
 		reviews.classList.remove("display-none");
+		
 		if(data.overallRating !== "0"){
 			rating.innerHTML = `${data.overallRating} ★`;
 		}
@@ -59,6 +69,15 @@ function updateRating(element, data){
 			rating.innerHTML = `N/A ★`;
 		}
 		reviews.innerHTML = `• ${data.numberOfRatings} Reviews`;
+
+		// If company is found, make glassdoor-link an actual link 
+		spanToLink(link);
+		link = element.querySelector("#glassdoor-link");
+		link.setAttribute("href", data.url);
+		link.setAttribute("target", "_blank");
+		link.addEventListener('click', function (e) {
+			e.stopPropagation();
+		});
 	}
 	else{
 		link.innerHTML = ("Company not found");
@@ -94,18 +113,6 @@ var gdinfo = async function (element, name) {
 		}
 		
 		const response = await fetch(url, initObject);
-
-		// Convert a tag to span tag
-		function linkToSpan(message){
-			const link = element.querySelector("#glassdoor-link");
-			let span = document.createElement('span');
-			span.innerHTML = message;
-
-			if (link) {
-				link.hasAttribute('id') && link.removeAttribute('id');
-				link.parentNode.replaceChild(span, link);
-			}
-		}
 
 		if (response.ok) {
 			const json = await response.json();
@@ -166,7 +173,6 @@ var gdinfo = async function (element, name) {
 		else {
 			// GET Unsuccessful
 			var message = "Could not contact Glassdoor servers"
-			linkToSpan(message);		    
 		}
 	};
 }
@@ -179,11 +185,11 @@ function appendWrapper(element, twoLines=false, classes=false){
 		`<div class='glassdoor-label-wrapper ${classes ? classes : ""}'>
 			<div class='glassdoor-label'>
 				<div class='tbl'>
-					<a id='glassdoor-link' ${!twoLines ? "class='cell middle padRtSm'" : ""}>
+					<span id='glassdoor-link' ${!twoLines ? "class='cell middle padRtSm'" : ""}>
 						<span class='glassdoor-rating display-none'>★</span>
 						<span class='glassdoor-reviews display-none'>•</span>
 						<span class='loading'><span>.</span><span>.</span><span>.</span></span>
-					</a>
+					</span>
 					<div class='cell middle padRtSm second-line'>
 						powered by
 					</div>
