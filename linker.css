@@ -53,17 +53,17 @@ Match hover effect of parent element */
 */
 /* Put glassdoor-link in front of a tag */
 .result-card__full-card-link {
-  z-index: 1;
+  z-index: -99999;
 }
 
 /* Job tiles */
 .job-result-tile #glassdoor-link {
-  z-index: 2;
+  z-index: 99999;
 }
 
 /* Right rail */
 .job-result-card--reduced-whitespace #glassdoor-link{
-  z-index: 2;
+  z-index: 99999;
 }
 
 /* 
