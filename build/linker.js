@@ -44,7 +44,6 @@ function updateRating(element, data){
 
 // Grab the rating data for the company name and insert it into the rating wrapper
 var addRating = async function (element, name) {
-	name = cleanCompanyName(name);
     var currentDate = new Date();
 	var storageTime = new Date(localStorage["gd-retrieval-date"]);
     // Used for calculating how old the data in local storage is
@@ -168,7 +167,7 @@ function appendWrapper(element, twoLines=false, classes=false){
 function appendGlassdoor(element, name, twoLines=false, classesToAdd=false){
 	appendWrapper(element, twoLines, classesToAdd);
 	// Get company name
-	addRating(element.nextSibling, name);
+	addRating(element.nextSibling, cleanCompanyName(name));
 }
 
 /************************************* jobs/search/* *************************************/
@@ -197,20 +196,6 @@ document.arrive(".jobs-details-top-card__company-url", function(element) {
 	});
 	observer.observe(element, { attributeFilter: [ "href" ],   subtree: true});
 });
-
-
-function appendToSelector(selector, _nameSelector){
-	[...document.querySelectorAll(selector)]
-	.forEach(element => {
-		const name = element.nameSelector;
-		appendGlassdoor(element, name);
-	});
-
-	document.arrive(selector, function(element) {
-		const name = element.nameSelector;
-		appendGlassdoor(element, name); 
-	});
-}
 
 /************************************* /my-items/saved-jobs/* *************************************/
 [...document.querySelectorAll(".entity-result__primary-subtitle")]

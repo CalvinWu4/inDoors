@@ -74,4 +74,6 @@ function cleanCompanyName(name){
     name = name.replace(parenthesesRegex, "");
     
     name = name.trim();
+
+    return name;
 }
