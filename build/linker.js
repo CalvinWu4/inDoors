@@ -1,92 +1,50 @@
 /*****************************************************
-This script is activated on Linkedin search pages. It will attach
-a hover event onto company names that appear in search results
+This script is activated on Linkedin pages.
+Adds Glassdoor ratings for companies on LinkedIn
 *****************************************************/
 
-// Check if company is already in localstorage
-var checkDatabase = function(name) {
-    if(localStorage[name]) {
-		return true;
-    }
-    return false;
-}
-
-// Save ratings into local storage, and keep track of how old it is
-var save = function(name, info) {
-	localStorage[name] = info;
-	var date = new Date();
-	localStorage["gd-retrieval-date"] = date.toDateString();
-}
-
-// Load rating
-var load = function(name) {
-    return localStorage[name];
-}
-
-// Convert 2500 to 2.5K
-function kFormatter(num) {
-	if (num > 9999) {
-		return (num/10000).toFixed(1)*10 + 'k'
-	}
-    else if (num > 999) {
-		return (num/1000).toFixed(1) + 'k'
-	}
-	else{
-		return num;
-	}
-}
-
-// Convert span element to an anchor element
-function spanToLink(span){
-	let anchor = document.createElement('a');
-	
-	anchor.innerHTML = span.innerHTML;
-	span.getAttributeNames()
-			.forEach(attrName => {
-				const attrValue = span.getAttribute(attrName);
-				anchor.setAttribute(attrName, attrValue);
-			});
-	span.parentNode.replaceChild(anchor, span);
-}
-
-// Update the rating after the Glassdoor data is fetched
+// Update the glassdoor link after the Glassdoor data is fetched
 function updateRating(element, data){
 	let link = element.querySelector("#glassdoor-link");
 
-	if(data.overallRating != null && data.numberOfRatings != null){
-		const rating = element.querySelector(".glassdoor-rating");
-		const reviews = element.querySelector(".glassdoor-reviews");
-		const loading = element.querySelector(".loading");
+	if(data){
+		if(data.overallRating != null && data.numberOfRatings != null){
+			const rating = element.querySelector(".glassdoor-rating");
+			const reviews = element.querySelector(".glassdoor-reviews");
+			const loading = element.querySelector(".loading");
 
-		loading.classList.add("display-none");
-		rating.classList.remove("display-none");
-		reviews.classList.remove("display-none");
-		
-		if(data.overallRating !== "0"){
-			rating.innerHTML = `${data.overallRating} ★`;
+			loading.classList.add("display-none");
+			rating.classList.remove("display-none");
+			reviews.classList.remove("display-none");
+			
+			if(data.overallRating !== "0"){
+				rating.textContent = `${data.overallRating} ★`;
+			}
+			else{
+				rating.textContent = `N/A ★`;
+			}
+			reviews.textContent = `• ${data.numberOfRatings} Reviews`;
 		}
 		else{
-			rating.innerHTML = `N/A ★`;
+			link.textContent = ("Company not found");
 		}
-		reviews.innerHTML = `• ${data.numberOfRatings} Reviews`;
+		// Make glassdoor-link an actual link 
+		spanToLink(link);
+		link = element.querySelector("#glassdoor-link");
+		link.setAttribute("href", data.url);
+		link.setAttribute("target", "_blank");
+		link.addEventListener('click', function (e) {
+			e.stopPropagation();
+		});
 	}
 	else{
-		link.innerHTML = ("Company not found");
+		link.textContent = "Could not contact Glassdoor servers"
 	}
-	// Make glassdoor-link an actual link 
-	spanToLink(link);
-	link = element.querySelector("#glassdoor-link");
-	link.setAttribute("href", data.url);
-	link.setAttribute("target", "_blank");
-	link.addEventListener('click', function (e) {
-		e.stopPropagation();
-	});
 }
 
-const parenthesesRegex = /\s*\(.*?\)\s*/g;
-
-// Grab the Glassdoor data for the company name and update the HTML
-var gdinfo = async function (element, name) {
+// Grab the rating data for the company name and insert it into the rating wrapper
+var addRating = async function (element, name) {
+	name = cleanCompanyName(name);
     var currentDate = new Date();
 	var storageTime = new Date(localStorage["gd-retrieval-date"]);
     // Used for calculating how old the data in local storage is
@@ -149,12 +107,12 @@ var gdinfo = async function (element, name) {
 			}
 				
 			var reviewsUrl;
-			var info;
+			var returnData;
 
 			if(employer){
 				// Insert link to employer reviews
 				reviewsUrl = `https://www.glassdoor.com/Reviews/${name}-Reviews-E${employer.id}.htm`
-				info = {
+				returnData = {
 					overallRating: employer.overallRating,
 					numberOfRatings: kFormatter(employer.numberOfRatings),
 					url: reviewsUrl,
@@ -163,17 +121,17 @@ var gdinfo = async function (element, name) {
 			else{
 				// Insert link to search page if employer can't be found
 				reviewsUrl = data.attributionURL;
-				info = {
+				returnData = {
 					url: reviewsUrl,
 				}
 			}
-			updateRating(element, info);
-			save(name, JSON.stringify(info));
+			updateRating(element, returnData);
+			save(name, JSON.stringify(returnData));
 		}
 		else {
 			// GET Unsuccessful
+			updateRating(element, null);
 			const link = element.querySelector("#glassdoor-link");
-			link.innerHTML = "Could not contact Glassdoor servers"
 		}
 	};
 }
@@ -207,36 +165,8 @@ function appendWrapper(element, twoLines=false, classes=false){
 	);
 }
 
-// Insert the rating data into the rating wrapper
-function addRating(element, name){
-	// Remove whitespace
-	name = name.trim();
-
-	// To avoid misdirected name searches
-	const replaceManyStr = (obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
-	name = replaceManyStr(misdirectArray, name);
-
-	// Remove ampersands because Glassdoor URL's don't work with them
-	name = name.replace("&", "");
-
-	// Remove accents/diacritics
-	const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-	name = normalize(name);
-
-	// Remove text after colons, and vertical bars and dashes surrounded by spaces
-	name = name.replace(/(\:|(\s\-\s)|(\s\|\s)|(\s\–\s)).*$/, "");
-
-	// Remove company suffixes 
-	name = name.replace(/®|™|(Inc\.)|(Inc)|\sLP|\sPBC/, "");
-
-	// Remove parentheses and text inside of them
-	name = name.replace(parenthesesRegex, "");
-
-	gdinfo(element, name.trim());
-}
-
-function appendGlassdoor(element, name, twoLines=false, classes=false){
-	appendWrapper(element, twoLines, classes);
+function appendGlassdoor(element, name, twoLines=false, classesToAdd=false){
+	appendWrapper(element, twoLines, classesToAdd);
 	// Get company name
 	addRating(element.nextSibling, name);
 }
@@ -267,6 +197,20 @@ document.arrive(".jobs-details-top-card__company-url", function(element) {
 	});
 	observer.observe(element, { attributeFilter: [ "href" ],   subtree: true});
 });
+
+
+function appendToSelector(selector, _nameSelector){
+	[...document.querySelectorAll(selector)]
+	.forEach(element => {
+		const name = element.nameSelector;
+		appendGlassdoor(element, name);
+	});
+
+	document.arrive(selector, function(element) {
+		const name = element.nameSelector;
+		appendGlassdoor(element, name); 
+	});
+}
 
 /************************************* /my-items/saved-jobs/* *************************************/
 [...document.querySelectorAll(".entity-result__primary-subtitle")]
