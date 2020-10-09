@@ -9,7 +9,7 @@
         {
             "matches":["https://*.linkedin.com/*"],
             "css":["linker.css"],
-            "js":["arrive.min.js",  "utils.js", "misdirected-names.js", "build/linker.js"],
+            "js":["lib/arrive.min.js",  "dist/utils.min.js", "dist/misdirected-names.min.js", "dist/linker.min.js"],
             "run_at": "document_end"
         }
     ],
