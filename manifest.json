@@ -1,8 +1,8 @@
 {
-  "name": "inDoors - Glassdoor Integrator for Linkedin",
+  "name": "inDoors - Show Glassdoor ratings on LinkedIn",
   "short_name": "inDoors",
-  "description": "Shows Glassdoor reviews for companies when searching on Linkedin",
-  "version": "3.1.1",
+  "description": "Shows Glassdoor ratings for companies when searching on Linkedin",
+  "version": "3.2.0",
 
   "content_scripts": 
     [
