@@ -32,11 +32,7 @@ a #glassdoor-link:hover {
   display: none;
 }
 
-.org-jobs-recommended-jobs-module__jobs--carousel-card-dimensions{
-  height: unset !important;
-}
-
-.logo-wrapper > .cell {
+.logo-wrapper {
   transform: translate(0, .25rem);
 }
 
@@ -49,8 +45,6 @@ a[href="https://www.glassdoor.com/index.htm"]{
 * (Guest UI)
 * Put glassdoor-link in front of a tag 
 */
-
-
 .second-line {
   z-index: -99999
 }
@@ -74,7 +68,7 @@ a[href="https://www.glassdoor.com/index.htm"]{
 	vertical-align: middle;
 }
 
-.padRtSm {
+.pad-right {
 	padding-right: 10px;
 }
 

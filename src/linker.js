@@ -23,7 +23,7 @@ function updateRating(element, data){
 			else{
 				rating.textContent = `N/A ★`;
 			}
-			reviews.textContent = `• ${data.numberOfRatings} Reviews`;
+			reviews.textContent = ` • ${data.numberOfRatings} Reviews`;
 		}
 		else{
 			link.textContent = ("Company not found");
@@ -136,42 +136,100 @@ var addRating = async function (element, name) {
 }
 
 // Append the rating wrapper after the company name element
-function appendWrapper(element, twoLines=false, classes=false){
+function appendWrapper(element, twoLines=false, classesToAdd=""){
 	element.parentNode.querySelectorAll(".glassdoor-label-wrapper").forEach(e => e.parentNode.removeChild(e));
 
-	element.insertAdjacentHTML('afterend',
-		`<div class='glassdoor-label-wrapper ${classes ? classes : ""}'>
-			<div class='glassdoor-label'>
-				<div class='tbl'>
-					<span id='glassdoor-link' ${!twoLines ? "class='cell middle padRtSm'" : ""}>
-						<span class='glassdoor-rating display-none'>★</span>
-						<span class='glassdoor-reviews display-none'>•</span>
-						<span class='loading'><span>.</span><span>.</span><span>.</span></span>
+	const glassdoorLabelWrapper = document.createElement("div");
+	glassdoorLabelWrapper.className += "glassdoor-label-wrapper " + classesToAdd;
+	element.insertAdjacentElement("afterend", glassdoorLabelWrapper);
+
+	const glassdoorLabel = document.createElement("div");
+	glassdoorLabel.className += "glassdoor-label";
+	glassdoorLabelWrapper.appendChild(glassdoorLabel);
+
+	const table = document.createElement("div");
+	table.className += "tbl";
+	glassdoorLabel.appendChild(table);
+
+	const glassdoorLink = document.createElement("span");
+	glassdoorLink.id = "glassdoor-link";
+	if(!twoLines){
+		glassdoorLink.className += "cell middle pad-right";
+	}
+	table.appendChild(glassdoorLink);
+
+	const glassdoorRating = document.createElement("span");
+	glassdoorRating.className += "glassdoor-rating display-none";
+	glassdoorRating.textContent = "★";
+	glassdoorLink.appendChild(glassdoorRating);
+
+	const glassdoorReviews = document.createElement("span");
+	glassdoorReviews.className += "glassdoor-reviews display-none";
+	glassdoorReviews.textContent = "•";
+	glassdoorLink.appendChild(glassdoorReviews);
+
+	const loading = document.createElement("span");
+	loading.className += "loading";
+	glassdoorLink.appendChild(loading);
+
+	for(i=0; i<3; i++){
+		const loadingDot = document.createElement("span");
+		loadingDot.textContent = ".";
+		loading.appendChild(loadingDot);
+	}
+
+	const poweredBy = document.createElement("div");
+	poweredBy.className += "second-line cell middle pad-right";
+	poweredBy.textContent = "powered by";
+	table.appendChild(poweredBy);
+
+	const logoWrapper = document.createElement("div");
+	logoWrapper.className += "logo-wrapper second-line cell middle";
+	table.appendChild(logoWrapper);
+
+	const glassdoorHomeLink = document.createElement("a");
+	glassdoorHomeLink.href = "https://www.glassdoor.com/index.htm";
+	logoWrapper.appendChild(glassdoorHomeLink);
+
+	const img = document.createElement("img");
+	img.src = "https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png";
+	img.title = "Job Search";
+	glassdoorHomeLink.appendChild(img);
+
+	//  Final HTML of above code
+	`<div class='glassdoor-label-wrapper ${classesToAdd ? classesToAdd : ""}'>
+		<div class='glassdoor-label'>
+			<div class='tbl'>
+				<span id='glassdoor-link' ${!twoLines ? "class='cell middle pad-right'" : ""}>
+					<span class='glassdoor-rating display-none'>★</span>
+					<span class='glassdoor-reviews display-none'>•</span>
+					<span class='loading'>
+						<span>.</span>
+						<span>.</span>
+						<span>.</span>
 					</span>
-					<div class='cell middle padRtSm second-line'>
-						powered by
-					</div>
-					<div class='cell middle logo-wrapper second-line'>
-						<div class='cell middle'>
-							<a href='https://www.glassdoor.com/index.htm'>
-								<img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search'>
-							</a>
-						</div>
-					</div>
+				</span>
+				<div class='cell middle pad-right second-line'>
+					powered by
 				</div>
-			<div>
-		</div>`
-	);
+				<div class='cell middle logo-wrapper second-line'>
+					<a href='https://www.glassdoor.com/index.htm'>
+						<img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search'>
+					</a>
+				</div>
+			</div>
+		<div>
+	</div>`
 }
 
-function appendGlassdoor(element, name, twoLines=false, classesToAdd=false){
+function appendGlassdoor(element, name, twoLines=false, classesToAdd=""){
 	appendWrapper(element, twoLines, classesToAdd);
 	// Get company name
 	addRating(element.nextSibling, cleanCompanyName(name));
 }
 
-/************************************* jobs/search/* *************************************/
-// Left result list
+/************************************* Logged in UI *************************************/
+// /jobs/search/* Left result list
 [...document.querySelectorAll("[data-control-name='job_card_company_link']")]
 	.forEach(element => {
 		const name = element.childNodes[2].wholeText;
@@ -183,7 +241,7 @@ document.arrive("[data-control-name='job_card_company_link']", function(element)
 	appendGlassdoor(element, name); 
 });
 
-// Right rail top card
+// /jobs/search/* Right rail top card
 document.arrive(".jobs-details-top-card__company-url", function(element) {
 	let name = element.textContent;
 	appendGlassdoor(element.parentNode, name, twoLines=true)
@@ -197,7 +255,7 @@ document.arrive(".jobs-details-top-card__company-url", function(element) {
 	observer.observe(element, { attributeFilter: [ "href" ],   subtree: true});
 });
 
-/************************************* /my-items/saved-jobs/* *************************************/
+// /my-items/saved-jobs/*
 [...document.querySelectorAll(".entity-result__primary-subtitle")]
 	.forEach(element => {
 		const name = element.childNodes[2].textContent;
@@ -209,40 +267,53 @@ document.arrive(".entity-result__primary-subtitle", function(element) {
 	appendGlassdoor(element, name); 
 });
 
-/************************************* /jobs *************************************/
-[...document.querySelectorAll(".job-card-square__text--1-line .job-card-container__company-name")]
+// /jobs
+[...document.querySelectorAll(".jobs-blended-container .job-card-square__text--1-line .job-card-container__company-name")]
 	.forEach(element => {
 		const name = element.childNodes[2].wholeText;
-		appendGlassdoor(element.parentNode, name, twoLines=true, classes="artdeco-entity-lockup__subtitle")
+		appendGlassdoor(element.parentNode, name, twoLines=true)
 });
 
-document.arrive(".job-card-square__text--1-line .job-card-container__company-name", function(element) {
+document.arrive(".jobs-blended-container .job-card-square__text--1-line .job-card-container__company-name", function(element) {
 	const name = element.childNodes[2].wholeText;
-	appendGlassdoor(element.parentNode, name, twoLines=true, classes="artdeco-entity-lockup__subtitle")
+	appendGlassdoor(element.parentNode, name, twoLines=true)
 });
 
-/************************************* /company/* *************************************/
+// /company/*/jobs/ (Recently posted jobs)
+[...document.querySelectorAll(".org-jobs-recently-posted-jobs-module .job-card-square__text--1-line .job-card-container__company-name")]
+	.forEach(element => {
+		const name = element.childNodes[2].wholeText;
+		appendGlassdoor(element.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle")
+});
+
+document.arrive(".org-jobs-recently-posted-jobs-module .job-card-square__text--1-line .job-card-container__company-name", function(element) {
+	const name = element.childNodes[2].wholeText;
+	appendGlassdoor(element.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle")
+});
+
+// /company/*
 [...document.querySelectorAll(".org-top-card-summary__title")]
 	.forEach(element => {
 		const name = element.textContent;
-		appendGlassdoor(element, name);
+		appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14");
 	});
 
 document.arrive(".org-top-card-summary__title", function(element) {
 	const name = element.textContent;
-	appendGlassdoor(element, name);
+	appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14");
 });
 
-/************************************* /jobs/view/* *************************************/
+
+// /jobs/view/*
 [...document.querySelectorAll(".jobs-top-card__company-url")]
 	.forEach(element => {
 		const name = element.textContent;
-		appendGlassdoor(element.parentNode, name);
+		appendGlassdoor(element.parentNode, name, twoLines=false, classesToAdd="t-14");
 	});
 
 document.arrive(".jobs-top-card__company-url", function(element) {
 	const name = element.textContent;
-	appendGlassdoor(element.parentNode, name);
+	appendGlassdoor(element.parentNode, name, twoLines=false, classesToAdd="t-14");
 });
 
 /************************************* Guest UI *************************************/
@@ -277,7 +348,7 @@ document.arrive(".people-also-viewed__list .result-card__subtitle--reduced-white
 		appendGlassdoor(element, name);
 	});
 
-document.arrive("job-result-card__subtitle-link", function(element) {
+document.arrive(".job-result-card__subtitle-link", function(element) {
 	const name = element.textContent;
 	appendGlassdoor(element, name);
 });
