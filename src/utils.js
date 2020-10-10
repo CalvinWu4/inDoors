@@ -39,7 +39,7 @@ function kFormatter(num) {
 function spanToLink(span){
 	let anchor = document.createElement('a');
 	
-	anchor.textContent = span.textContent;
+	anchor.innerHTML = DOMPurify.sanitize(span.innerHTML);
 	span.getAttributeNames()
 			.forEach(attrName => {
 				const attrValue = span.getAttribute(attrName);

@@ -138,88 +138,31 @@ var addRating = async function (element, name) {
 // Append the rating wrapper after the company name element
 function appendWrapper(element, twoLines=false, classesToAdd=""){
 	element.parentNode.querySelectorAll(".glassdoor-label-wrapper").forEach(e => e.parentNode.removeChild(e));
-
-	const glassdoorLabelWrapper = document.createElement("div");
-	glassdoorLabelWrapper.className += "glassdoor-label-wrapper " + classesToAdd;
-	element.insertAdjacentElement("afterend", glassdoorLabelWrapper);
-
-	const glassdoorLabel = document.createElement("div");
-	glassdoorLabel.className += "glassdoor-label";
-	glassdoorLabelWrapper.appendChild(glassdoorLabel);
-
-	const table = document.createElement("div");
-	table.className += "tbl";
-	glassdoorLabel.appendChild(table);
-
-	const glassdoorLink = document.createElement("span");
-	glassdoorLink.id = "glassdoor-link";
-	if(!twoLines){
-		glassdoorLink.className += "cell middle pad-right";
-	}
-	table.appendChild(glassdoorLink);
-
-	const glassdoorRating = document.createElement("span");
-	glassdoorRating.className += "glassdoor-rating display-none";
-	glassdoorRating.textContent = "★";
-	glassdoorLink.appendChild(glassdoorRating);
-
-	const glassdoorReviews = document.createElement("span");
-	glassdoorReviews.className += "glassdoor-reviews display-none";
-	glassdoorReviews.textContent = "•";
-	glassdoorLink.appendChild(glassdoorReviews);
-
-	const loading = document.createElement("span");
-	loading.className += "loading";
-	glassdoorLink.appendChild(loading);
-
-	for(i=0; i<3; i++){
-		const loadingDot = document.createElement("span");
-		loadingDot.textContent = ".";
-		loading.appendChild(loadingDot);
-	}
-
-	const poweredBy = document.createElement("div");
-	poweredBy.className += "second-line cell middle pad-right";
-	poweredBy.textContent = "powered by";
-	table.appendChild(poweredBy);
-
-	const logoWrapper = document.createElement("div");
-	logoWrapper.className += "logo-wrapper second-line cell middle";
-	table.appendChild(logoWrapper);
-
-	const glassdoorHomeLink = document.createElement("a");
-	glassdoorHomeLink.href = "https://www.glassdoor.com/index.htm";
-	logoWrapper.appendChild(glassdoorHomeLink);
-
-	const img = document.createElement("img");
-	img.src = "https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png";
-	img.title = "Job Search";
-	glassdoorHomeLink.appendChild(img);
-
-	//  Final HTML of above code
-	`<div class='glassdoor-label-wrapper ${classesToAdd ? classesToAdd : ""}'>
-		<div class='glassdoor-label'>
-			<div class='tbl'>
-				<span id='glassdoor-link' ${!twoLines ? "class='cell middle pad-right'" : ""}>
-					<span class='glassdoor-rating display-none'>★</span>
-					<span class='glassdoor-reviews display-none'>•</span>
-					<span class='loading'>
-						<span>.</span>
-						<span>.</span>
-						<span>.</span>
+	element.insertAdjacentHTML("afterend", DOMPurify.sanitize(
+		`<div class='glassdoor-label-wrapper ${classesToAdd ? classesToAdd : ""}'>
+			<div class='glassdoor-label'>
+				<div class='tbl'>
+					<span id='glassdoor-link' ${!twoLines ? "class='cell middle pad-right'" : ""}>
+						<span class='glassdoor-rating display-none'>★</span>
+						<span class='glassdoor-reviews display-none'>•</span>
+						<span class='loading'>
+							<span>.</span>
+							<span>.</span>
+							<span>.</span>
+						</span>
 					</span>
-				</span>
-				<div class='cell middle pad-right second-line'>
-					powered by
+					<div class='cell middle pad-right second-line'>
+						powered by
+					</div>
+					<div class='cell middle logo-wrapper second-line'>
+						<a href='https://www.glassdoor.com/index.htm'>
+							<img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search'>
+						</a>
+					</div>
 				</div>
-				<div class='cell middle logo-wrapper second-line'>
-					<a href='https://www.glassdoor.com/index.htm'>
-						<img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search'>
-					</a>
-				</div>
-			</div>
-		<div>
-	</div>`
+			<div>
+		</div>`
+	));
 }
 
 function appendGlassdoor(element, name, twoLines=false, classesToAdd=""){
