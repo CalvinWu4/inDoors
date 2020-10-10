@@ -222,7 +222,7 @@ document.arrive(".jobs-blended-container .job-card-square__text--1-line .job-car
 	appendGlassdoor(element.parentNode, name, twoLines=true)
 });
 
-// /company/*/jobs/ (Recently posted jobs)
+// /company/*/jobs/ Recently posted jobs
 [...document.querySelectorAll(".org-jobs-recently-posted-jobs-module .job-card-square__text--1-line .job-card-container__company-name")]
 	.forEach(element => {
 		const name = element.childNodes[2].wholeText;
@@ -247,7 +247,7 @@ document.arrive(".org-top-card-summary__title", function(element) {
 });
 
 
-// /jobs/view/*
+// /jobs/view/* Top card
 [...document.querySelectorAll(".jobs-top-card__company-url")]
 	.forEach(element => {
 		const name = element.textContent;
@@ -257,6 +257,19 @@ document.arrive(".org-top-card-summary__title", function(element) {
 document.arrive(".jobs-top-card__company-url", function(element) {
 	const name = element.textContent;
 	appendGlassdoor(element.parentNode, name, twoLines=false, classesToAdd="t-14");
+});
+
+
+// /jobs/view/* Similar jobs
+[...document.querySelectorAll(".job-card--tile .t-14")]
+	.forEach(element => {
+		const name = element.wholeText;
+		appendGlassdoor(element, name, twoLines=true, classesToAdd="t-12")
+});
+
+document.arrive(".job-card--tile .t-14", function(element) {
+	const name = element.textContent;
+	appendGlassdoor(element, name, twoLines=true, classesToAdd="t-12"); 
 });
 
 /************************************* Guest UI *************************************/
