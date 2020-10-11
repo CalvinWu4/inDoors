@@ -31,9 +31,9 @@ Screenshots:
 
 <img src="https://i.imgur.com/9BfzFbq.jpg" width="900">
 <img src="https://i.imgur.com/hURylW7.jpg" width="700">
-<img src="https://i.imgur.com/0NXzz7T.jpg" width="300">
-<img src="https://i.imgur.com/F7FIpwv.jpg" width="500">
-<img src="https://i.imgur.com/PIv5KKl.jpg" width="700">
+<img src="https://i.imgur.com/0NXzz7T.jpg" width="200">
+<img src="https://i.imgur.com/F7FIpwv.jpg" width="350">
+<img src="https://i.imgur.com/PIv5KKl.jpg" width="500">
 
 
 If you would like to show your appreciation:
