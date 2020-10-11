@@ -34,3 +34,8 @@ Screenshots:
 <img src="https://i.imgur.com/hrN1Mq5.jpg" width="500">
 <img src="https://i.imgur.com/kx5S6co.jpg" width="500">
 <img src="https://i.imgur.com/AaU2Lt3.jpg" height="350">
+
+
+If you would like to show your appreciation:
+
+<a href="https://www.buymeacoffee.com/calvinwu" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
