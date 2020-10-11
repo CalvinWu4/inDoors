@@ -322,13 +322,13 @@ document.arrive(".show-more-less__list .result-card__title--reduced-whitespace",
 });
 
 // /organization-guest/company/* Top card
-[...document.querySelectorAll(".top-card-layout__title")]
+[...document.querySelectorAll(":not(.profile) .top-card-layout__title")]
 	.forEach(element => {
 		const name = element.textContent;
 		appendGlassdoor(element, name);
 	});
 
-document.arrive(".top-card-layout__title", function(element) {
+document.arrive(":not(.profile) .top-card-layout__title", function(element) {
 	const name = element.textContent;
 	appendGlassdoor(element, name);
 });
