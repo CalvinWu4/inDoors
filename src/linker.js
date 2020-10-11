@@ -202,24 +202,24 @@ document.arrive(".jobs-details-top-card__company-url", function(element) {
 [...document.querySelectorAll(".entity-result__primary-subtitle")]
 	.forEach(element => {
 		const name = element.childNodes[2].textContent;
-		appendGlassdoor(element, name);
+		appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14");
 	});
 
 document.arrive(".entity-result__primary-subtitle", function(element) {
 	const name = element.childNodes[2].textContent;
-	appendGlassdoor(element, name); 
+	appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14"); 
 });
 
 // /jobs
 [...document.querySelectorAll(".jobs-blended-container .job-card-square__text--1-line .job-card-container__company-name")]
 	.forEach(element => {
 		const name = element.childNodes[2].wholeText;
-		appendGlassdoor(element.parentNode, name, twoLines=true)
+		appendGlassdoor(element.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle")
 });
 
 document.arrive(".jobs-blended-container .job-card-square__text--1-line .job-card-container__company-name", function(element) {
 	const name = element.childNodes[2].wholeText;
-	appendGlassdoor(element.parentNode, name, twoLines=true)
+	appendGlassdoor(element.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle")
 });
 
 // /company/*/jobs/ Recently posted jobs
@@ -289,12 +289,12 @@ document.arrive(".topcard__org-name-link", function(element) {
 [...document.querySelectorAll(".people-also-viewed__list .result-card__subtitle--reduced-whitespace")]
 	.forEach(element => {
 		const name = element.textContent;
-		appendGlassdoor(element, name, twoLines=true);
+		appendGlassdoor(element, name, twoLines=true, classesToAdd="result-card__subtitle--reduced-whitespace");
 	});
 
 document.arrive(".people-also-viewed__list .result-card__subtitle--reduced-whitespace", function(element) {
 	const name = element.textContent;
-	appendGlassdoor(element, name, twoLines=true);
+	appendGlassdoor(element, name, twoLines=true, classesToAdd="result-card__subtitle--reduced-whitespace");
 });
 	
 // /jobs/* Left result list and /jobs/view/* Bottom results list  
@@ -309,19 +309,19 @@ document.arrive(".job-result-card__subtitle-link", function(element) {
 	appendGlassdoor(element, name);
 });
 
-// /organization-guest/company/* Right Rail
+// /company/* Right Rail
 [...document.querySelectorAll(".show-more-less__list .result-card__title--reduced-whitespace")]
 	.forEach(element => {
 		const name = element.textContent;
-		appendGlassdoor(element, name, twoLines=true);
+		appendGlassdoor(element, name, twoLines=true, "result-card__subtitle result-card__subtitle--reduced-whitespace");
 	});
 
 document.arrive(".show-more-less__list .result-card__title--reduced-whitespace", function(element) {
 	const name = element.textContent;
-	appendGlassdoor(element, name, twoLines=true);
+	appendGlassdoor(element, name, twoLines=true, "result-card__subtitle result-card__subtitle--reduced-whitespace");
 });
 
-// /organization-guest/company/* Top card
+// /company/* Top card
 [...document.querySelectorAll(":not(.profile) .top-card-layout__title")]
 	.forEach(element => {
 		const name = element.textContent;
