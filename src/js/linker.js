@@ -53,7 +53,7 @@ var addRating = async function (element, name) {
     	Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7) {
 			// Database entry hit - Use recent data from in localstorage.
 			var storageData = JSON.parse(load(name));
-			updateRating(element, storageData);
+			// updateRating(element, storageData);
     } else {
     	// Database entry miss - Send new HTTP Request to Glassdoor API for rating info
 		let reqHeader = new Headers();
@@ -124,7 +124,7 @@ var addRating = async function (element, name) {
 					url: reviewsUrl,
 				}
 			}
-			updateRating(element, returnData);
+			// updateRating(element, returnData);
 			save(name, JSON.stringify(returnData));
 		}
 		else {

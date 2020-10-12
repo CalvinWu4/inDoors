@@ -2,14 +2,14 @@
   "name": "inDoors - Show Glassdoor ratings on LinkedIn",
   "short_name": "inDoors",
   "description": "Shows Glassdoor ratings for companies when searching on Linkedin",
-  "version": "3.3.4",
+  "version": "3.3.5",
 
   "content_scripts": 
     [
         {
             "matches":["https://*.linkedin.com/*"],
-            "css":["linker.css"],
-            "js":["node_modules/dompurify/dist/purify.min.js", "lib/arrive.min.js",  "dist/utils.min.js", "dist/misdirected-names.min.js", "dist/linker.min.js"],
+            "css":["src/css/linker.css", "src/css/loading.css"],
+            "js":["node_modules/dompurify/dist/purify.min.js", "lib/arrive.min.js",  "src/js/utils.js", "src/js/misdirected-names.js", "src/js/linker.js"],
             "run_at": "document_end"
         }
     ],
@@ -18,9 +18,9 @@
     "https://glassdoor-search.netlify.app/.netlify/functions/gdinfo?company=*"
   ],
   "icons": {
-    "16":"icon/icon16.png",
-    "48":"icon/icon48.png",
-    "128":"icon/icon128.png" 
+    "16":"src/icon/icon16.png",
+    "48":"src/icon/icon48.png",
+    "128":"src/icon/icon128.png" 
   },
   "manifest_version": 2
 }

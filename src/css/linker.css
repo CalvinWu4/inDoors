@@ -1,0 +1,73 @@
+/* 
+* === General styles ===
+*/
+.glassdoor-label-wrapper {
+	position: relative;
+}
+
+.glassdoor-label {
+  font-weight: 400;
+  color: rgba(0,0,0,.6);
+}
+
+#glassdoor-link {
+  position: relative;
+}
+
+#glassdoor-link, :visited {
+	font-weight: 400;
+	color: rgba(0, 0, 0, 0.6);
+}
+
+a #glassdoor-link:hover {
+	color: var(--color-action-active);
+}
+
+.glassdoor-rating {
+  color: #0caa41;
+  font-weight: bold;
+}
+
+.display-none {
+  display: none;
+}
+
+.logo-wrapper {
+  transform: translate(0, .25rem);
+}
+
+/* Remove Glassdoor logo link */
+a[href="https://www.glassdoor.com/index.htm"]{
+  pointer-events: none;
+}
+
+/* 
+* (Guest UI)
+* Put glassdoor-link in front of a tag 
+*/
+.second-line {
+  z-index: -99999
+}
+.result-card__full-card-link {
+  z-index: 1;
+}
+
+#glassdoor-link {
+  z-index: 2;
+}
+
+/* 
+* === Columnate Glassdoor wrapper ===
+*/
+.cell {
+	display: table-cell;
+	float: none;
+}
+
+.middle {
+	vertical-align: middle;
+}
+
+.pad-right {
+	padding-right: 10px;
+}
