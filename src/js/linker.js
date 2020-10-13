@@ -177,36 +177,72 @@ function appendGlassdoor(element, name, twoLines=false, classesToAdd=""){
 		appendGlassdoor(element, name);
 	});
 
-document.arrive("[data-control-name='job_card_company_link']", function(element) {
-	const name = element.childNodes[2].wholeText;
-	appendGlassdoor(element, name); 
-});
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+				// check the inserted element
+				if (node.matches("[data-control-name='job_card_company_link']")) {
+					const name = node.childNodes[2].wholeText;
+					appendGlassdoor(node, name);
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
 
 // /jobs/search/* Right rail top card
-document.arrive(".jobs-details-top-card__company-url", function(element) {
-	let name = element.textContent;
-	appendGlassdoor(element.parentNode, name, twoLines=true)
+var observer = new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		if (mutation.type == "childList") {
+			for(let node of mutation.addedNodes) {
+				node = node.parentNode;
+				if (!(node instanceof HTMLElement)) continue;	// We track only elements, skip other nodes (e.g. text nodes)
+			
+				// Check the inserted element
+				if (node.matches(".jobs-details-top-card__company-url") ||
+					node.matches(".jobs-details-top-card__company-info")) {	// Company names w/o hrefs
+					let name = node.innerText.split(/\r?\n/)[1];
+					appendGlassdoor(node, name, twoLines=true)
+				}
+			}
+		}
+		// On text change
+		else if (mutation.type == "characterData") {
+			let node = mutation.target.parentNode;
+			if (!(node instanceof HTMLElement)) continue;	// We track only elements, skip other nodes (e.g. text nodes)
 
-	var observer = new MutationObserver(function(mutations) {
-	mutations.forEach(function() {
-			name = element.textContent;
-			appendGlassdoor(element.parentNode, name, twoLines=true)
-		});
-	});
-	observer.observe(element, { attributeFilter: [ "href" ],   subtree: true});
-});
+			// Check changed element
+			if (node.matches(".jobs-details-top-card__company-url") ||
+				node.matches(".jobs-details-top-card__company-info")) {	// Company names w/o hrefs
+				let name = node.innerText.split(/\r?\n/)[1];
+				appendGlassdoor(node, name, twoLines=true)
+			}
+		}
+	}
+}).observe(document, {characterData: true, attributeFilter: [ "href" ], subtree: true, childList: true});
 
 // /my-items/saved-jobs/*
-[...document.querySelectorAll(".entity-result__primary-subtitle")]
+[...document.querySelectorAll(".reusable-search__entity-results-list .entity-result__primary-subtitle")]
 	.forEach(element => {
 		const name = element.childNodes[2].textContent;
 		appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14");
 	});
 
-document.arrive(".entity-result__primary-subtitle", function(element) {
-	const name = element.childNodes[2].textContent;
-	appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14"); 
-});
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+				// check the inserted element
+				if (node.matches(".reusable-search__entity-results-list .entity-result__primary-subtitle")) {	
+					const name = node.childNodes[2].textContent;
+					appendGlassdoor(node, name, twoLines=false, classesToAdd="t-14"); 
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
+
 
 // /jobs
 [...document.querySelectorAll(".jobs-blended-container .job-card-square__text--1-line .job-card-container__company-name")]
@@ -215,10 +251,19 @@ document.arrive(".entity-result__primary-subtitle", function(element) {
 		appendGlassdoor(element.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle")
 });
 
-document.arrive(".jobs-blended-container .job-card-square__text--1-line .job-card-container__company-name", function(element) {
-	const name = element.childNodes[2].wholeText;
-	appendGlassdoor(element.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle")
-});
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+				// check the inserted element
+				if (node.matches(".jobs-blended-container .job-card-square__text--1-line .job-card-container__company-name")) {
+					const name = node.childNodes[2].wholeText;
+					appendGlassdoor(node.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle")
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
 
 // /company/*/jobs/ Recently posted jobs
 [...document.querySelectorAll(".org-jobs-recently-posted-jobs-module .job-card-square__text--1-line .job-card-container__company-name")]
@@ -227,10 +272,19 @@ document.arrive(".jobs-blended-container .job-card-square__text--1-line .job-car
 		appendGlassdoor(element.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle")
 });
 
-document.arrive(".org-jobs-recently-posted-jobs-module .job-card-square__text--1-line .job-card-container__company-name", function(element) {
-	const name = element.childNodes[2].wholeText;
-	appendGlassdoor(element.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle")
-});
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+				// check the inserted element
+				if (node.matches(".org-jobs-recently-posted-jobs-module .job-card-square__text--1-line .job-card-container__company-name")) {
+					const name = node.childNodes[2].wholeText;
+					appendGlassdoor(node.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle")
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
 
 // /company/*
 [...document.querySelectorAll(".org-top-card-summary__title")]
@@ -239,11 +293,19 @@ document.arrive(".org-jobs-recently-posted-jobs-module .job-card-square__text--1
 		appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14");
 	});
 
-document.arrive(".org-top-card-summary__title", function(element) {
-	const name = element.textContent;
-	appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14");
-});
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
+				// check the inserted element
+				if (node.matches(".org-top-card-summary__title")) {
+					const name = node.textContent;
+					appendGlassdoor(node, name, twoLines=false, classesToAdd="t-14");
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
 
 // /jobs/view/* Top card
 [...document.querySelectorAll(".jobs-top-card__company-url")]
@@ -252,11 +314,19 @@ document.arrive(".org-top-card-summary__title", function(element) {
 		appendGlassdoor(element.parentNode, name, twoLines=false, classesToAdd="t-14");
 	});
 
-document.arrive(".jobs-top-card__company-url", function(element) {
-	const name = element.textContent;
-	appendGlassdoor(element.parentNode, name, twoLines=false, classesToAdd="t-14");
-});
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
+				// check the inserted element
+				if (node.matches(".jobs-top-card__company-url")) {
+					const name = node.textContent;
+					appendGlassdoor(node.parentNode, name, twoLines=false, classesToAdd="t-14");
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
 
 // /jobs/view/* Similar jobs
 [...document.querySelectorAll(".job-card--tile .t-14")]
@@ -265,36 +335,21 @@ document.arrive(".jobs-top-card__company-url", function(element) {
 		appendGlassdoor(element, name, twoLines=true, classesToAdd="t-12")
 });
 
-document.arrive(".job-card--tile .t-14", function(element) {
-	const name = element.textContent;
-	appendGlassdoor(element, name, twoLines=true, classesToAdd="t-12"); 
-});
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+				// check the inserted element
+				if (node.matches(".job-card--tile .t-14")) {
+					const name = node.textContent;
+					appendGlassdoor(node, name, twoLines=true, classesToAdd="t-12"); 
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
 
 /************************************* Guest UI *************************************/
-// /jobs/view/* Top card
-[...document.querySelectorAll(".topcard__org-name-link")]
-	.forEach(element => {
-		const name = element.textContent;
-		appendGlassdoor(element.parentNode.parentNode, name);
-	});
-
-document.arrive(".topcard__org-name-link", function(element) {
-	const name = element.textContent;
-	appendGlassdoor(element.parentNode.parentNode, name);
-});
-
-// /jobs/view/* Right rail
-[...document.querySelectorAll(".people-also-viewed__list .result-card__subtitle--reduced-whitespace")]
-	.forEach(element => {
-		const name = element.textContent;
-		appendGlassdoor(element, name, twoLines=true, classesToAdd="result-card__subtitle--reduced-whitespace");
-	});
-
-document.arrive(".people-also-viewed__list .result-card__subtitle--reduced-whitespace", function(element) {
-	const name = element.textContent;
-	appendGlassdoor(element, name, twoLines=true, classesToAdd="result-card__subtitle--reduced-whitespace");
-});
-	
 // /jobs/* Left result list and /jobs/view/* Bottom results list  
 [...document.querySelectorAll(".job-result-card__subtitle-link")]
 	.forEach(element => {
@@ -302,10 +357,64 @@ document.arrive(".people-also-viewed__list .result-card__subtitle--reduced-white
 		appendGlassdoor(element, name);
 	});
 
-document.arrive(".job-result-card__subtitle-link", function(element) {
-	const name = element.textContent;
-	appendGlassdoor(element, name);
-});
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+				// check the inserted element
+				if (node.matches(".job-result-card")) {
+					const nameNode = node.querySelector(".job-result-card__subtitle-link");
+					const name = nameNode.textContent;
+					appendGlassdoor(nameNode, name);
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
+
+// /jobs/* Right top card
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+				// check the inserted element
+				if (node.matches(".topcard")) {
+					const nameNode = node.querySelector(".topcard__org-name-link")
+					const name = nameNode.textContent;
+					appendGlassdoor(nameNode.parentNode.parentNode, name);
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true, attributes: true});
+
+// /jobs/view/* Top card
+[...document.querySelectorAll(".topcard__org-name-link")]
+	.forEach(element => {
+		const name = element.textContent;
+		appendGlassdoor(element.parentNode.parentNode, name);
+	});
+	
+// /jobs/view/* Right rail
+[...document.querySelectorAll(".people-also-viewed__list .result-card__subtitle--reduced-whitespace")]
+	.forEach(element => {
+		const name = element.textContent;
+		appendGlassdoor(element, name, twoLines=true, classesToAdd="result-card__subtitle--reduced-whitespace");
+	});
+
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+				// check the inserted element
+				if (node.matches(".people-also-viewed__list .result-card__subtitle--reduced-whitespace")) {
+					const name = node.textContent;
+					appendGlassdoor(node, name, twoLines=true, classesToAdd="result-card__subtitle--reduced-whitespace");
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
 
 // /company/* Right Rail
 [...document.querySelectorAll(".show-more-less__list .result-card__title--reduced-whitespace")]
@@ -314,11 +423,20 @@ document.arrive(".job-result-card__subtitle-link", function(element) {
 		appendGlassdoor(element, name, twoLines=true, "result-card__subtitle result-card__subtitle--reduced-whitespace");
 	});
 
-document.arrive(".show-more-less__list .result-card__title--reduced-whitespace", function(element) {
-	const name = element.textContent;
-	appendGlassdoor(element, name, twoLines=true, "result-card__subtitle result-card__subtitle--reduced-whitespace");
-});
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
+				// check the inserted element
+				if (node.matches(".show-more-less__list .result-card__title--reduced-whitespace")) {
+					const name = node.textContent;
+					appendGlassdoor(node, name, twoLines=true, "result-card__subtitle result-card__subtitle--reduced-whitespace");
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
+	
 // /company/* Top card
 [...document.querySelectorAll(":not(.profile) .top-card-layout__title")]
 	.forEach(element => {
@@ -326,9 +444,18 @@ document.arrive(".show-more-less__list .result-card__title--reduced-whitespace",
 		appendGlassdoor(element, name);
 	});
 
-document.arrive(":not(.profile) .top-card-layout__title", function(element) {
-	const name = element.textContent;
-	appendGlassdoor(element, name);
-});
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
+				// check the inserted element
+				if (node.matches(":not(.profile) .top-card-layout__title")) {
+					const name = node.textContent;
+					appendGlassdoor(node, name);
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
+	
 console.log('Glassdoor-Linkedinator loaded');
