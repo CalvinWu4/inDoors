@@ -203,7 +203,12 @@ var observer = new MutationObserver(function(mutations) {
 				if (node.matches(".jobs-details-top-card__company-url") ||
 					node.matches(".jobs-details-top-card__company-info")) {	// Company names w/o hrefs
 					let name = node.innerText.split(/\r?\n/)[1];
-					appendGlassdoor(node, name, twoLines=true)
+					if (name !== 'Company Location') {	// No company name
+						appendGlassdoor(node, name, twoLines=true);
+					}
+					else{
+						node.parentNode.querySelectorAll(".glassdoor-label-wrapper").forEach(e => e.parentNode.removeChild(e));
+					}
 				}
 			}
 		}
@@ -216,7 +221,12 @@ var observer = new MutationObserver(function(mutations) {
 			if (node.matches(".jobs-details-top-card__company-url") ||
 				node.matches(".jobs-details-top-card__company-info")) {	// Company names w/o hrefs
 				let name = node.innerText.split(/\r?\n/)[1];
-				appendGlassdoor(node, name, twoLines=true)
+				if (name !== 'Company Location') {	// No company name
+					appendGlassdoor(node, name, twoLines=true)
+				}
+				else{
+					node.parentNode.querySelectorAll(".glassdoor-label-wrapper").forEach(e => e.parentNode.removeChild(e));
+				}
 			}
 		}
 	}
