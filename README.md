@@ -3,7 +3,7 @@ inDoors is a Chrome/Firefox extension that displays Glassdoor ratings for compan
 
 Note that the fewer reviews a company has, the less likely Glassdoor will correctly find it. To improve chances of the finding the correct company, inDoors will remove company suffixes and text after colons, dashes, vertical bars, parentheses, etc. in names, only look at the top 3 search results, prioritize exact matches over the number of reviews, and finally use the mappings in `misdirected-names.js` (e.g. Hearst Magazines on Linkedin should refer to Hearst on Glassdoor). Pull requests on that file are welcome.
 
-You can download the Chrome extension [here](https://chrome.google.com/webstore/detail/indoors-glassdoor-integra/eapcedpgnlmgkigiieacngkpdjikfgci?hl=en&authuser=0) and the Firefox extension [here](https://github.com/CalvinWu4/inDoors/releases).
+You can download the Chrome extension [here](https://chrome.google.com/webstore/detail/indoors-glassdoor-integra/eapcedpgnlmgkigiieacngkpdjikfgci?hl=en&authuser=0) and the Firefox extension [here](https://addons.mozilla.org/en-US/firefox/addon/indoors-glassdoor-on-linkedin/).
 
 This extension was forked from and intended as a successor to: https://github.com/Brian-Lam/Glassdoor-Linkedinator.
 
