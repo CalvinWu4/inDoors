@@ -34,3 +34,4 @@ Screenshots:
 <img src="https://i.imgur.com/0NXzz7T.jpg" width="200">
 <img src="https://i.imgur.com/F7FIpwv.jpg" width="350">
 <img src="https://i.imgur.com/PIv5KKl.jpg" width="500">
+<img src="https://i.imgur.com/0LHQu2r.png" width="700">
