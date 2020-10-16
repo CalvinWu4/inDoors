@@ -1,13 +1,13 @@
 {
-  "name": "inDoors - Show Glassdoor ratings on LinkedIn",
+  "name": "inDoors - Show Glassdoor ratings on LinkedIn and other sites",
   "short_name": "inDoors",
-  "description": "Shows Glassdoor ratings for companies when searching on Linkedin",
-  "version": "3.4.1",
+  "description": "Shows Glassdoor ratings for companies when searching on Linkedin and other sites",
+  "version": "4.0.0",
 
   "content_scripts": 
     [
         {
-            "matches":["https://*.linkedin.com/*"],
+            "matches":["https://*.linkedin.com/*", "https://www.google.com/search?*ibp=htl;jobs*"],
             "css":["src/css/linker.css", "src/css/loading.css"],
             "js":["node_modules/dompurify/dist/purify.min.js", "src/js/utils.js", "src/js/misdirected-names.js", "src/js/linker.js"],
             "run_at": "document_end"

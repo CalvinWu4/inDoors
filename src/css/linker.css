@@ -19,8 +19,9 @@
 	color: rgba(0, 0, 0, 0.6);
 }
 
-a #glassdoor-link:hover {
-	color: var(--color-action-active);
+a#glassdoor-link:hover {
+  color: var(--color-action-active);
+  text-decoration: underline;
 }
 
 .glassdoor-rating {
@@ -30,10 +31,6 @@ a #glassdoor-link:hover {
 
 .display-none {
   display: none;
-}
-
-.logo-wrapper {
-  transform: translate(0, .25rem);
 }
 
 /* Remove Glassdoor logo link */
