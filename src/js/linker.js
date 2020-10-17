@@ -437,7 +437,7 @@ new MutationObserver(function(mutations) {
 	for(let mutation of mutations) {
 		for(let node of mutation.addedNodes) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
-
+				
 				// check the inserted element
 				if (node.matches(".show-more-less__list .result-card__title--reduced-whitespace")) {
 					const name = node.textContent;
@@ -481,14 +481,13 @@ function addRatingsToGoogleResults(node){
 // Initial left results list load
 addRatingsToGoogleResults(document);
 
-// Add ratings for new jobs that come in as you scroll
+// Add ratings when jobs load
 new MutationObserver(function(mutations) {
 	for(let mutation of mutations) {
 		for(let node of mutation.addedNodes) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
-				// When new batch of jobs load
-				if (node.matches('[decode-data-ved="1"]')) {
+				if (node.querySelector('.gws-plugins-horizon-jobs__li-ed')) {
 					addRatingsToGoogleResults(node);
 				}
 			}
@@ -524,7 +523,7 @@ new MutationObserver(function(mutations) {
 		if(mutation.attributeName === 'class'){
 			if(mutation.target.classList.contains('tl-item-selected')){
 				addRatingsToGoogleDetails(document);
-				addRatingsToGoogleResults(document); // Add ratings to left results list when you switch to saved jobs
+				// addRatingsToGoogleResults(document); // Add ratings to left results list when you switch to saved jobs
 			}
 		}
 	}
