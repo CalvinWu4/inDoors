@@ -15,7 +15,7 @@
     ],
   "permissions": [
     "storage",
-    "https://glassdoor-search.netlify.app/.netlify/functions/gdinfo?company=*"
+    "https://glassdoor-api-proxy.azurewebsites.net/api/gdinfo?company=*"
   ],
   "icons": {
     "16":"src/icon/icon16.png",
