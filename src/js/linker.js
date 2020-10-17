@@ -64,7 +64,7 @@ var addRating = async function (element, name) {
 		};
 
 		const proxyUrl = 'https://glassdoor-cors-proxy.herokuapp.com/'
-		let url = `https://glassdoor-search.netlify.app/.netlify/functions/gdinfo?company=${name}`;    
+		let url = `https://glassdoor-api-proxy.azurewebsites.net/api/gdinfo?company=${name}`;    
 		
 		if (navigator.userAgent.indexOf("Chrome") != -1) {
 			url = proxyUrl + url;
