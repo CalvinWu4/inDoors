@@ -23,8 +23,9 @@ For users of [Dark Reader](https://github.com/darkreader/darkreader)'s dynamic m
 ```
 
 Possible features:
+* Support for Indeed.com
 * Support for Firefox mobile
-* Cache ratings with a server and db to avoid throttling Glassdoor API.
+* Cache ratings to avoid throttling Glassdoor API
 * Add popover showing rating breakdowns by category
 
 Screenshots:
