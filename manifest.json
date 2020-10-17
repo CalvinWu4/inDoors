@@ -2,7 +2,7 @@
   "name": "inDoors - Show Glassdoor ratings on LinkedIn",
   "short_name": "inDoors",
   "description": "Shows Glassdoor ratings for companies when searching on Linkedin and Google for Jobs",
-  "version": "4.0.0",
+  "version": "4.1.0",
 
   "content_scripts": 
     [
