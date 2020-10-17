@@ -208,7 +208,7 @@
             "js":["node_modules/dompurify/dist/purify.min.js",
                   "src/js/utils.js",
                   "src/js/misdirected-names.js",
-                  "src/js/indoors.js",
+                  "src/js/inDoors.js",
                   "src/js/linkedin.js",
                   "src/js/indeed.js",
                   "src/js/google.js"],
