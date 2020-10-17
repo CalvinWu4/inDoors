@@ -30,8 +30,12 @@ Possible features:
 Screenshots:
 
 <img src="https://i.imgur.com/9BfzFbq.jpg" width="900">
+<img src="https://i.imgur.com/dP4Iv3u.jpg" width="350">
+<img src="https://i.imgur.com/0LHQu2r.png" width="700">
 <img src="https://i.imgur.com/hURylW7.jpg" width="700">
 <img src="https://i.imgur.com/0NXzz7T.jpg" width="200">
 <img src="https://i.imgur.com/F7FIpwv.jpg" width="350">
 <img src="https://i.imgur.com/PIv5KKl.jpg" width="500">
-<img src="https://i.imgur.com/0LHQu2r.png" width="700">
+<img src="https://i.imgur.com/Y1Uz5JA.jpg" width="700">
+<img src="https://i.imgur.com/MbxfHgv.jpg" width="500">
+
