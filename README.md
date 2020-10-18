@@ -14,10 +14,10 @@ This extension uses the [Glassdoor API]. Ratings are cached in browser's `locals
 This extension was forked from and intended as a successor to [Glassdoor-Linkedinator](https://github.com/Brian-Lam/Glassdoor-Linkedinator).
 
 ## Notes
+This extension works on the LinkedIn urls: `https://linkedin.com/jobs/`, `https://linkedin.com/jobs/search/`, `https://linkedin.com/my-items/saved-jobs/`, `https://www.linkedin.com/jobs/view/*`, and `https://www.linkedin.com/company/*` on both the logged in and guest sessions.
 
 The fewer reviews a company has, the less likely Glassdoor will correctly find it. To improve chances of the finding the correct company, inDoors will strip the company name of company suffixes and text after colons, dashes, vertical bars, parentheses, and commas (except for Inc), only look at the top 3 search results, prioritize exact matches over the number of reviews, retry a fetch with region names from [`company-region.js`]("/src/js/company-region.js") stripped (if applicable), and finally use the mappings in [`misdirected-names.js`]("/src/js/misdirected-names.js") (e.g. Hearst Magazines on Linkedin should refer to Hearst on Glassdoor). Pull requests on those files are welcome.
 
-This extension also works on urls like: `https://linkedin.com/jobs/`, `https://linkedin.com/jobs/search/`, `https://linkedin.com/my-items/saved-jobs/`, `https://www.linkedin.com/jobs/view/*`, and `https://www.linkedin.com/company/*` on both the logged in and guest sessions.
 
 ### Dark Reader
 
