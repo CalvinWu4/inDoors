@@ -48,6 +48,7 @@ For users of [Dark Reader](https://github.com/darkreader/darkreader)'s dynamic m
 <img src="https://i.imgur.com/9BfzFbq.jpg" width="900">
 <img src="https://i.imgur.com/dP4Iv3u.jpg" width="350">
 <img src="https://i.imgur.com/0LHQu2r.png" width="700">
+<img src="https://i.imgur.com/OButwa3.png" width="350">
 <img src="https://i.imgur.com/hURylW7.jpg" width="700">
 <img src="https://i.imgur.com/0NXzz7T.jpg" width="200">
 <img src="https://i.imgur.com/F7FIpwv.jpg" width="350">
