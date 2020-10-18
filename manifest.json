@@ -1,8 +1,8 @@
 {
   "name": "inDoors - Show Glassdoor ratings on LinkedIn",
   "short_name": "inDoors",
-  "description": "Shows Glassdoor ratings for companies when searching on Linkedin, Indeed, Google for Jobs and Stackoverflow.",
-  "version": "5.1.0",
+  "description": "Shows Glassdoor ratings for companies when searching on Linkedin, Indeed, Google for Jobs and Stack Overflow.",
+  "version": "6.0.0",
 
   "content_scripts": 
     [
