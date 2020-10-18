@@ -152,7 +152,7 @@ function appendWrapper(element, twoLines=false, classesToAdd=""){
 					<div class='cell middle pad-right second-line'>
 						powered by
 					</div>
-					<div class='cell middle logo-wrapper second-line'>
+					<div class='cell middle logowrapper second-line'>
 						<a href='https://www.glassdoor.com/index.htm'>
 							<img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search'>
 						</a>
