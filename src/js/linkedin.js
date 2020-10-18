@@ -256,7 +256,7 @@ new MutationObserver(function(mutations) {
 }).observe(document, {subtree: true, childList: true});
 
 // /company/* Right Rail
-[...document.querySelectorAll(".show-more-less__list .result-card__title--reduced-whitespace")]
+[...document.querySelectorAll(".similar-pages .show-more-less__list .result-card__title--reduced-whitespace")]
 	.forEach(element => {
 		const name = element.textContent;
 		appendGlassdoor(element, name, twoLines=true, "result-card__subtitle result-card__subtitle--reduced-whitespace");
@@ -268,7 +268,7 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 				
 				// check the inserted element
-				if (node.matches(".show-more-less__list .result-card__title--reduced-whitespace")) {
+				if (node.matches(".similar-pages .show-more-less__list .result-card__title--reduced-whitespace")) {
 					const name = node.textContent;
 					appendGlassdoor(node, name, twoLines=true, "result-card__subtitle result-card__subtitle--reduced-whitespace");
 				}
