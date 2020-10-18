@@ -18,16 +18,16 @@
 
 /* /jobs/ */
 
-.listResults .-job .logo-wrapper {
+.listResults .-job .logowrapper {
   transform: translate(0, 0.2rem);
 }
 
 /* /jobs/companies */
 
-.company-list .-company .logo-wrapper {
+.company-list .-company .logowrapper {
   transform: translate(0, 0.2rem);
 }
 
-.company-name-tagline .logo-wrapper {
+.company-name-tagline .logowrapper {
   transform: translate(0, 0.2rem);
 }
