@@ -33,7 +33,7 @@ var observer = new MutationObserver(function(mutations) {
 					node.matches(".jobs-details-top-card__company-info")) {	// Company names w/o hrefs
 					let name = node.innerText.split(/\r?\n/)[1];
 					if (name !== 'Company Location') {	// No company name
-						appendGlassdoor(node, name, twoLines=true);
+						appendGlassdoor(node, name, twoLines=true, classesToAdd="t-14");
 					}
 					else{
 						node.parentNode.querySelectorAll(".glassdoor-label-wrapper").forEach(e => e.parentNode.removeChild(e));
@@ -51,7 +51,7 @@ var observer = new MutationObserver(function(mutations) {
 				node.matches(".jobs-details-top-card__company-info")) {	// Company names w/o hrefs
 				let name = node.innerText.split(/\r?\n/)[1];
 				if (name !== 'Company Location') {	// No company name
-					appendGlassdoor(node, name, twoLines=true)
+					appendGlassdoor(node, name, twoLines=true, classesToAdd="t-14")
 				}
 				else{
 					node.parentNode.querySelectorAll(".glassdoor-label-wrapper").forEach(e => e.parentNode.removeChild(e));
@@ -256,7 +256,7 @@ new MutationObserver(function(mutations) {
 }).observe(document, {subtree: true, childList: true});
 
 // /company/* Right Rail
-[...document.querySelectorAll(".show-more-less__list .result-card__title--reduced-whitespace")]
+[...document.querySelectorAll(".similar-pages .show-more-less__list .result-card__title--reduced-whitespace")]
 	.forEach(element => {
 		const name = element.textContent;
 		appendGlassdoor(element, name, twoLines=true, "result-card__subtitle result-card__subtitle--reduced-whitespace");
@@ -268,7 +268,7 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 				
 				// check the inserted element
-				if (node.matches(".show-more-less__list .result-card__title--reduced-whitespace")) {
+				if (node.matches(".similar-pages .show-more-less__list .result-card__title--reduced-whitespace")) {
 					const name = node.textContent;
 					appendGlassdoor(node, name, twoLines=true, "result-card__subtitle result-card__subtitle--reduced-whitespace");
 				}

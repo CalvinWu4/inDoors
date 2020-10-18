@@ -67,8 +67,13 @@ function cleanCompanyName(name){
 	// Remove text after colons, and vertical bars and dashes surrounded by spaces
 	name = name.replace(/(\:|(\s\-\s)|(\s\|\s)|(\s\–\s)).*$/, "");
 
+	// Remove text after commas if Inc or Inc. doesn't come after it
+	if (name.match(/(^((?!\Inc\.?\b).)*$)/i)) {
+		name.replace(/(\,).*$/, "");
+	}
+
 	// Remove company suffixes 
-	name = name.replace(/®|™|(Inc\.)|(Inc)|\sLP|\sPBC/, "");
+	name = name.replace(/®|™|\sLP|\sPBC/, "");
 
 	// Remove parentheses and text inside of them
     name = name.replace(parenthesesRegex, "");

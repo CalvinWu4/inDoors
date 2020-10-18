@@ -33,6 +33,10 @@ a#glassdoor-link:hover {
   display: none;
 }
 
+.logowrapper {
+  transform: translate(0, .25rem);
+}
+
 /* Remove Glassdoor logo link */
 a[href="https://www.glassdoor.com/index.htm"]{
   pointer-events: none;
@@ -89,15 +93,11 @@ a[href="https://www.glassdoor.com/index.htm"]{
   text-decoration-color: #2d2d2d !important;
 }
 
-.jobsearch-SerpJobCard .logo-wrapper {
+.jobsearch-SerpJobCard .logowrapper {
   transform: translate(0, .15rem);
 }
 
 /* /cmp/ */
-/* .cmp-CompactHeaderLayout-companyInfo .glassdoor-label-wrapper {
-  font-size: initial;
-} */
-
 .cmp-CompactHeaderLayout-companyInfo .glassdoor-label {
   color: #2d2d2d !important;
 }
@@ -110,15 +110,16 @@ a[href="https://www.glassdoor.com/index.htm"]{
   text-decoration-color: #2d2d2d !important;
 }
 
-.cmp-CompactHeaderLayout-companyInfo .logo-wrapper {
-  transform: translate(0, .15rem);
+.cmp-CompactHeaderLayout-companyInfo .logowrapper {
+  transform: unset;
+}
+
+/* /event */
+.event-page .logowrapper {
+  transform: translate(0, -.1rem);
 }
 
 /* /viewjob */
-/* .jobsearch-ViewJobLayout-jobDisplay .glassdoor-label-wrapper {
-  font-size: initial;
-} */
-
 .jobsearch-ViewJobLayout-jobDisplay .glassdoor-label {
   color: #2d2d2d !important;
 }
@@ -131,6 +132,6 @@ a[href="https://www.glassdoor.com/index.htm"]{
   text-decoration-color: #2d2d2d !important;
 }
 
-.jobsearch-ViewJobLayout-jobDisplay .logo-wrapper {
+.jobsearch-ViewJobLayout-jobDisplay .logowrapper {
   transform: translate(0, .15rem);
 }

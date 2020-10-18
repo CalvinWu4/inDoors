@@ -43,7 +43,7 @@ function updateRating(element, data){
 }
 
 // Grab the rating data for the company name and insert it into the rating wrapper
-var addRating = async function (element, name) {
+async function addRating(element, name) {
     var currentDate = new Date();
 	var storageTime = new Date(localStorage["gd-retrieval-date"]);
     // Used for calculating how old the data in local storage is
@@ -118,6 +118,14 @@ var addRating = async function (element, name) {
 				}
 			}
 			else{
+				// Try again with the company name stripped of region names
+				let regionStrippedName = name;
+				regions.forEach(region =>
+					regionStrippedName = regionStrippedName.replace(` ${region}`, ""));
+				if (regionStrippedName !== name) {
+					return await addRating(element, regionStrippedName);
+				}
+
 				// Insert link to search page if employer can't be found
 				reviewsUrl = data.attributionURL;
 				returnData = {
@@ -152,7 +160,7 @@ function appendWrapper(element, twoLines=false, classesToAdd=""){
 					<div class='cell middle pad-right second-line'>
 						powered by
 					</div>
-					<div class='cell middle logo-wrapper second-line'>
+					<div class='cell middle logowrapper second-line'>
 						<a href='https://www.glassdoor.com/index.htm'>
 							<img src='https://www.glassdoor.com/static/img/api/glassdoor_logo_80.png' title='Job Search'>
 						</a>

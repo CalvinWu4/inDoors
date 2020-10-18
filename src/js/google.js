@@ -29,7 +29,7 @@ function addRatingsToGoogleDetails(node) {
 	[...node.querySelectorAll('#gws-plugins-horizon-jobs__job_details_page > div > div > div > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)')]
 	.forEach(nameNode => {
 		const name = nameNode.textContent;
-		appendGlassdoor(nameNode, name, twoLines=true);
+		appendGlassdoor(nameNode, name);
 	});
 }
 
