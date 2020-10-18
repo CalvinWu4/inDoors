@@ -1,0 +1,33 @@
+/* 
+* === stackoverflow.com styles ===
+*/
+/* Handle dark theme */
+
+.theme-dark .glassdoor-label {
+  color: white !important;
+}
+
+.theme-dark .glassdoor-reviews {
+  color: white !important;
+}
+
+.theme-dark #glassdoor-link {
+  color: white !important;
+  text-decoration-color: white !important;
+}
+
+/* /jobs/ */
+
+.listResults .-job .logo-wrapper {
+  transform: translate(0, 0.2rem);
+}
+
+/* /jobs/companies */
+
+.company-list .-company .logo-wrapper {
+  transform: translate(0, 0.2rem);
+}
+
+.company-name-tagline .logo-wrapper {
+  transform: translate(0, 0.2rem);
+}
