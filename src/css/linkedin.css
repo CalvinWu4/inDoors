@@ -1,0 +1,33 @@
+/* 
+* === Indeed.com styles ===
+*/
+.linkedin .logowrapper {
+    transform: translate(0, .25rem);
+  }
+
+/* 
+* (Guest UI)
+* Put glassdoor-link in front of a tag 
+*/
+.people-also-viewed__list .second-line {
+    z-index: -99999
+  }
+  .people-also-viewed__list .result-card__full-card-link {
+    z-index: 1;
+  }
+  
+  .people-also-viewed__list #glassdoor-link {
+    z-index: 2;
+  }
+  
+  .show-more-less__list .second-line {
+    z-index: -99999
+  }
+  .show-more-less__list .result-card__full-card-link {
+    z-index: 1;
+  }
+  
+  .show-more-less__list #glassdoor-link {
+    z-index: 2;
+  }
+  

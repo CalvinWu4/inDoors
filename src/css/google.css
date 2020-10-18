@@ -1,0 +1,22 @@
+/* 
+* === Google for Jobs styles ===
+*/
+.gws-plugins-horizon-jobs__li-ed .glassdoor-label  {
+    color: #70757a;
+    font-weight: unset;
+}
+
+.gws-plugins-horizon-jobs__li-ed #glassdoor-link, :visited {
+    color: #70757a;
+    font-weight: unset;
+}
+
+#gws-plugins-horizon-jobs__job_details_page .glassdoor-label {
+    color: rgba(0,0,0,.54);
+    font-weight: unset;
+}
+
+#gws-plugins-horizon-jobs__job_details_page #glassdoor-link, :visited {
+    color: rgba(0,0,0,.54);
+    font-weight: unset;
+}

@@ -1,0 +1,62 @@
+/* 
+* === Indeed.com styles ===
+*/
+/* /jobs */
+.jobsearch-SerpJobCard .glassdoor-label-wrapper {
+    font-size: initial;
+  }
+  
+  .jobsearch-SerpJobCard .glassdoor-label {
+    color: #2d2d2d !important;
+  }
+  
+  .jobsearch-SerpJobCard .glassdoor-reviews {
+    color: #2d2d2d !important
+  }
+  
+  .jobsearch-SerpJobCard #glassdoor-link {
+    text-decoration-color: #2d2d2d !important;
+  }
+  
+  .jobsearch-SerpJobCard .logowrapper {
+    transform: translate(0, .15rem);
+  }
+  
+  /* /cmp/ */
+  .cmp-CompactHeaderLayout-companyInfo .glassdoor-label {
+    color: #2d2d2d !important;
+  }
+  
+  .cmp-CompactHeaderLayout-companyInfo .glassdoor-reviews {
+    color: #2d2d2d !important
+  }
+  
+  .cmp-CompactHeaderLayout-companyInfo #glassdoor-link {
+    text-decoration-color: #2d2d2d !important;
+  }
+  
+  .cmp-CompactHeaderLayout-companyInfo .logowrapper {
+    transform: unset;
+  }
+  
+  /* /event */
+  .event-page .logowrapper {
+    transform: translate(0, -.1rem);
+  }
+  
+  /* /viewjob */
+  .jobsearch-ViewJobLayout-jobDisplay .glassdoor-label {
+    color: #2d2d2d !important;
+  }
+  
+  .jobsearch-ViewJobLayout-jobDisplay .glassdoor-reviews {
+    color: #2d2d2d !important
+  }
+  
+  .jobsearch-ViewJobLayout-jobDisplay #glassdoor-link {
+    text-decoration-color: #2d2d2d !important;
+  }
+  
+  .jobsearch-ViewJobLayout-jobDisplay .logowrapper {
+    transform: translate(0, .15rem);
+  }

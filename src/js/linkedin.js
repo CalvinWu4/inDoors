@@ -3,7 +3,7 @@
 [...document.querySelectorAll("[data-control-name='job_card_company_link']")]
 	.forEach(element => {
 		const name = element.childNodes[2].wholeText;
-		appendGlassdoor(element, name);
+		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin");
 	});
 
 new MutationObserver(function(mutations) {
@@ -14,7 +14,7 @@ new MutationObserver(function(mutations) {
 				// check the inserted element
 				if (node.matches("[data-control-name='job_card_company_link']")) {
 					const name = node.childNodes[2].wholeText;
-					appendGlassdoor(node, name);
+					appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin");
 				}
 			}
 		}
@@ -33,7 +33,7 @@ var observer = new MutationObserver(function(mutations) {
 					node.matches(".jobs-details-top-card__company-info")) {	// Company names w/o hrefs
 					let name = node.innerText.split(/\r?\n/)[1];
 					if (name !== 'Company Location') {	// No company name
-						appendGlassdoor(node, name, twoLines=true, classesToAdd="t-14");
+						appendGlassdoor(node, name, twoLines=true, classesToAdd="t-14 linkedin");
 					}
 					else{
 						node.parentNode.querySelectorAll(".glassdoor-label-wrapper").forEach(e => e.parentNode.removeChild(e));
@@ -51,7 +51,7 @@ var observer = new MutationObserver(function(mutations) {
 				node.matches(".jobs-details-top-card__company-info")) {	// Company names w/o hrefs
 				let name = node.innerText.split(/\r?\n/)[1];
 				if (name !== 'Company Location') {	// No company name
-					appendGlassdoor(node, name, twoLines=true, classesToAdd="t-14")
+					appendGlassdoor(node, name, twoLines=true, classesToAdd="t-14 linkedin")
 				}
 				else{
 					node.parentNode.querySelectorAll(".glassdoor-label-wrapper").forEach(e => e.parentNode.removeChild(e));
@@ -59,13 +59,13 @@ var observer = new MutationObserver(function(mutations) {
 			}
 		}
 	}
-}).observe(document, {characterData: true, attributeFilter: [ "href" ], subtree: true, childList: true});
+}).observe(document, {characterData: true, subtree: true, childList: true});
 
 // /my-items/saved-jobs/*
 [...document.querySelectorAll(".reusable-search__entity-results-list .entity-result__primary-subtitle")]
 	.forEach(element => {
 		const name = element.childNodes[2].textContent;
-		appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14");
+		appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14 linkedin");
 	});
 
 new MutationObserver(function(mutations) {
@@ -76,7 +76,7 @@ new MutationObserver(function(mutations) {
 				// check the inserted element
 				if (node.matches(".reusable-search__entity-results-list .entity-result__primary-subtitle")) {	
 					const name = node.childNodes[2].textContent;
-					appendGlassdoor(node, name, twoLines=false, classesToAdd="t-14"); 
+					appendGlassdoor(node, name, twoLines=false, classesToAdd="t-14 linkedin"); 
 				}
 			}
 		}
@@ -87,7 +87,7 @@ new MutationObserver(function(mutations) {
 [...document.querySelectorAll(".jobs-blended-container .job-card-square__text--1-line .job-card-container__company-name")]
 	.forEach(element => {
 		const name = element.childNodes[2].wholeText;
-		appendGlassdoor(element.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle")
+		appendGlassdoor(element.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle linkedin")
 });
 
 new MutationObserver(function(mutations) {
@@ -98,7 +98,7 @@ new MutationObserver(function(mutations) {
 				// check the inserted element
 				if (node.matches(".jobs-blended-container .job-card-square__text--1-line .job-card-container__company-name")) {
 					const name = node.childNodes[2].wholeText;
-					appendGlassdoor(node.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle")
+					appendGlassdoor(node.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle linkedin")
 				}
 			}
 		}
@@ -108,7 +108,7 @@ new MutationObserver(function(mutations) {
 [...document.querySelectorAll(".org-jobs-recently-posted-jobs-module .job-card-square__text--1-line .job-card-container__company-name")]
 	.forEach(element => {
 		const name = element.childNodes[2].wholeText;
-		appendGlassdoor(element.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle")
+		appendGlassdoor(element.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle linkedin")
 });
 
 new MutationObserver(function(mutations) {
@@ -119,7 +119,7 @@ new MutationObserver(function(mutations) {
 				// check the inserted element
 				if (node.matches(".org-jobs-recently-posted-jobs-module .job-card-square__text--1-line .job-card-container__company-name")) {
 					const name = node.childNodes[2].wholeText;
-					appendGlassdoor(node.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle")
+					appendGlassdoor(node.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle linkedin")
 				}
 			}
 		}
@@ -129,7 +129,7 @@ new MutationObserver(function(mutations) {
 [...document.querySelectorAll(".org-top-card-summary__title")]
 	.forEach(element => {
 		const name = element.textContent;
-		appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14");
+		appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14 linkedin");
 	});
 
 new MutationObserver(function(mutations) {
@@ -140,7 +140,7 @@ new MutationObserver(function(mutations) {
 				// check the inserted element
 				if (node.matches(".org-top-card-summary__title")) {
 					const name = node.textContent;
-					appendGlassdoor(node, name, twoLines=false, classesToAdd="t-14");
+					appendGlassdoor(node, name, twoLines=false, classesToAdd="t-14 linkedin");
 				}
 			}
 		}
@@ -150,7 +150,7 @@ new MutationObserver(function(mutations) {
 [...document.querySelectorAll(".jobs-top-card__company-url")]
 	.forEach(element => {
 		const name = element.textContent;
-		appendGlassdoor(element.parentNode, name, twoLines=false, classesToAdd="t-14");
+		appendGlassdoor(element.parentNode, name, twoLines=false, classesToAdd="t-14 linkedin");
 	});
 
 new MutationObserver(function(mutations) {
@@ -161,7 +161,7 @@ new MutationObserver(function(mutations) {
 				// check the inserted element
 				if (node.matches(".jobs-top-card__company-url")) {
 					const name = node.textContent;
-					appendGlassdoor(node.parentNode, name, twoLines=false, classesToAdd="t-14");
+					appendGlassdoor(node.parentNode, name, twoLines=false, classesToAdd="t-14 linkedin");
 				}
 			}
 		}
@@ -171,7 +171,7 @@ new MutationObserver(function(mutations) {
 [...document.querySelectorAll(".job-card--tile .t-14")]
 	.forEach(element => {
 		const name = element.wholeText;
-		appendGlassdoor(element, name, twoLines=true, classesToAdd="t-12")
+		appendGlassdoor(element, name, twoLines=true, classesToAdd="t-12 linkedin")
 });
 
 new MutationObserver(function(mutations) {
@@ -182,7 +182,7 @@ new MutationObserver(function(mutations) {
 				// check the inserted element
 				if (node.matches(".job-card--tile .t-14")) {
 					const name = node.textContent;
-					appendGlassdoor(node, name, twoLines=true, classesToAdd="t-12"); 
+					appendGlassdoor(node, name, twoLines=true, classesToAdd="t-12 linkedin"); 
 				}
 			}
 		}
@@ -193,7 +193,7 @@ new MutationObserver(function(mutations) {
 [...document.querySelectorAll(".job-result-card__subtitle-link")]
 	.forEach(element => {
 		const name = element.textContent;
-		appendGlassdoor(element, name);
+		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin");
 	});
 
 new MutationObserver(function(mutations) {
@@ -205,7 +205,7 @@ new MutationObserver(function(mutations) {
 				if (node.matches(".job-result-card")) {
 					const nameNode = node.querySelector(".job-result-card__subtitle-link");
 					const name = nameNode.textContent;
-					appendGlassdoor(nameNode, name);
+					appendGlassdoor(nameNode, name, twoLines=false, classesToAdd="linkedin");
 				}
 			}
 		}
@@ -221,7 +221,7 @@ new MutationObserver(function(mutations) {
 				if (node.matches(".topcard")) {
 					const nameNode = node.querySelector(".topcard__org-name-link")
 					const name = nameNode.textContent;
-					appendGlassdoor(nameNode.parentNode.parentNode, name);
+					appendGlassdoor(nameNode.parentNode.parentNode, name, twoLines=false, classesToAdd="linkedin");
 				}
 			}
 		}
@@ -231,14 +231,14 @@ new MutationObserver(function(mutations) {
 [...document.querySelectorAll(".topcard__org-name-link")]
 	.forEach(element => {
 		const name = element.textContent;
-		appendGlassdoor(element.parentNode.parentNode, name);
+		appendGlassdoor(element.parentNode.parentNode, twoLines=false, classesToAdd="linkedin");
 	});
 	
 // /jobs/view/* Right rail
 [...document.querySelectorAll(".people-also-viewed__list .result-card__subtitle--reduced-whitespace")]
 	.forEach(element => {
 		const name = element.textContent;
-		appendGlassdoor(element, name, twoLines=true, classesToAdd="result-card__subtitle--reduced-whitespace");
+		appendGlassdoor(element, name, twoLines=true, classesToAdd="result-card__subtitle--reduced-whitespace linkedin");
 	});
 
 new MutationObserver(function(mutations) {
@@ -249,7 +249,7 @@ new MutationObserver(function(mutations) {
 				// check the inserted element
 				if (node.matches(".people-also-viewed__list .result-card__subtitle--reduced-whitespace")) {
 					const name = node.textContent;
-					appendGlassdoor(node, name, twoLines=true, classesToAdd="result-card__subtitle--reduced-whitespace");
+					appendGlassdoor(node, name, twoLines=true, classesToAdd="result-card__subtitle--reduced-whitespace linkedin");
 				}
 			}
 		}
@@ -259,7 +259,7 @@ new MutationObserver(function(mutations) {
 [...document.querySelectorAll(".similar-pages .show-more-less__list .result-card__title--reduced-whitespace")]
 	.forEach(element => {
 		const name = element.textContent;
-		appendGlassdoor(element, name, twoLines=true, "result-card__subtitle result-card__subtitle--reduced-whitespace");
+		appendGlassdoor(element, name, twoLines=true, "result-card__subtitle result-card__subtitle--reduced-whitespace linkedin");
 	});
 
 new MutationObserver(function(mutations) {
@@ -270,7 +270,7 @@ new MutationObserver(function(mutations) {
 				// check the inserted element
 				if (node.matches(".similar-pages .show-more-less__list .result-card__title--reduced-whitespace")) {
 					const name = node.textContent;
-					appendGlassdoor(node, name, twoLines=true, "result-card__subtitle result-card__subtitle--reduced-whitespace");
+					appendGlassdoor(node, name, twoLines=true, "result-card__subtitle result-card__subtitle--reduced-whitespace linkedin");
 				}
 			}
 		}
@@ -280,7 +280,7 @@ new MutationObserver(function(mutations) {
 [...document.querySelectorAll(":not(.profile) .top-card-layout__title")]
 	.forEach(element => {
 		const name = element.textContent;
-		appendGlassdoor(element, name);
+		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin");
 	});
 
 new MutationObserver(function(mutations) {
@@ -291,7 +291,7 @@ new MutationObserver(function(mutations) {
 				// check the inserted element
 				if (node.matches(":not(.profile) .top-card-layout__title")) {
 					const name = node.textContent;
-					appendGlassdoor(node, name);
+					appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin");
 				}
 			}
 		}
