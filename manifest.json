@@ -1,7 +1,7 @@
 {
   "name": "inDoors - Show Glassdoor ratings on LinkedIn",
   "short_name": "inDoors",
-  "description": "Shows Glassdoor ratings for companies when searching on Linkedin, Indeed, and Google for Jobs",
+  "description": "Shows Glassdoor ratings for companies when searching on Linkedin, Indeed, Google for Jobs and Stackoverflow.",
   "version": "5.1.0",
 
   "content_scripts": 
@@ -17,6 +17,7 @@
                         "https://*.indeed.ch/*",
                         "https://*.indeed.ae/*",
                         "https://*.indeed.co.uk/*",
+                        "https://*.stackoverflow.com/jobs*",
                         "*://www.google.com/search?*ibp=htl;jobs*",
                         "*://www.google.ad/search?*ibp=htl;jobs*",
                         "*://www.google.ae/search?*ibp=htl;jobs*",
@@ -204,7 +205,7 @@
                         "*://www.google.co.zm/search?*ibp=htl;jobs*",
                         "*://www.google.co.zw/search?*ibp=htl;jobs*",
                         "*://www.google.cat/search?*ibp=htl;jobs*"],
-            "css":["src/css/linker.css", "src/css/loading.css"],
+            "css":["src/css/linker.css", "src/css/loading.css", "src/css/stackoverflow.css"],
             "js":["node_modules/dompurify/dist/purify.min.js",
                   "src/js/utils.js",
                   "src/js/misdirected-names.js",
@@ -212,6 +213,7 @@
                   "src/js/inDoors.js",
                   "src/js/linkedin.js",
                   "src/js/indeed.js",
+                  "src/js/stackoverflow.js",
                   "src/js/google.js"],
             "run_at": "document_end"
         }
