@@ -33,7 +33,7 @@ var observer = new MutationObserver(function(mutations) {
 					node.matches(".jobs-details-top-card__company-info")) {	// Company names w/o hrefs
 					let name = node.innerText.split(/\r?\n/)[1];
 					if (name !== 'Company Location') {	// No company name
-						appendGlassdoor(node, name, twoLines=true);
+						appendGlassdoor(node, name, twoLines=true, classesToAdd="t-14");
 					}
 					else{
 						node.parentNode.querySelectorAll(".glassdoor-label-wrapper").forEach(e => e.parentNode.removeChild(e));
@@ -51,7 +51,7 @@ var observer = new MutationObserver(function(mutations) {
 				node.matches(".jobs-details-top-card__company-info")) {	// Company names w/o hrefs
 				let name = node.innerText.split(/\r?\n/)[1];
 				if (name !== 'Company Location') {	// No company name
-					appendGlassdoor(node, name, twoLines=true)
+					appendGlassdoor(node, name, twoLines=true, classesToAdd="t-14")
 				}
 				else{
 					node.parentNode.querySelectorAll(".glassdoor-label-wrapper").forEach(e => e.parentNode.removeChild(e));

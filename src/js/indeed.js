@@ -12,6 +12,13 @@ if(cmpNode) {
     appendGlassdoor(cmpNode.parentNode.nextElementSibling, cmpNode.textContent);
 }
 
+// /event/
+const eventNode = document.querySelector('.card-subtitle');
+
+if(eventNode) {
+    appendGlassdoor(eventNode.parentNode, eventNode.textContent);
+}
+
 // /viewjob
 const viewjobNode = document.querySelector('.jobsearch-InlineCompanyRating a');
 
