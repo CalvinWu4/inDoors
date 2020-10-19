@@ -62,7 +62,7 @@ var observer = new MutationObserver(function(mutations) {
 }).observe(document, {characterData: true, subtree: true, childList: true});
 
 // /my-items/saved-jobs/*
-[...document.querySelectorAll(".reusable-search__entity-results-list .entity-result__primary-subtitle")]
+[...document.querySelectorAll(".workflow-results-container .reusable-search__entity-results-list .entity-result__primary-subtitle")]
 	.forEach(element => {
 		const name = element.childNodes[2].textContent;
 		appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14 linkedin");
@@ -74,7 +74,7 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				if (node.matches(".reusable-search__entity-results-list .entity-result__primary-subtitle")) {	
+				if (node.matches(".workflow-results-container .reusable-search__entity-results-list .entity-result__primary-subtitle")) {	
 					const name = node.childNodes[2].textContent;
 					appendGlassdoor(node, name, twoLines=false, classesToAdd="t-14 linkedin"); 
 				}
