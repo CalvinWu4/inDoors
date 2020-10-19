@@ -43,7 +43,7 @@ function updateRating(element, data){
 }
 
 // Grab the rating data for the company name and insert it into the rating wrapper
-async function addRating(element, name) {
+async function addRating(element, name, originalName=null) {
     var currentDate = new Date();
 	var storageTime = new Date(localStorage["gd-retrieval-date"]);
     // Used for calculating how old the data in local storage is
@@ -118,12 +118,13 @@ async function addRating(element, name) {
 				}
 			}
 			else{
-				// Try again with the company name stripped of region names
-				let regionStrippedName = name;
-				regions.forEach(region =>
-					regionStrippedName = regionStrippedName.replace(` ${region}`, ""));
-				if (regionStrippedName !== name) {
-					return await addRating(element, regionStrippedName);
+				// Try again with the company name stripped of any place names
+				if (!originalName) {
+					const placeName = nlp(name).places().last().text();
+					const locationStrippedName = name.replace(placeName, "");
+					if (locationStrippedName !== name) {
+						return await addRating(element, locationStrippedName, name);
+					}
 				}
 
 				// Insert link to search page if employer can't be found
@@ -133,12 +134,11 @@ async function addRating(element, name) {
 				}
 			}
 			updateRating(element, returnData);
-			save(name, JSON.stringify(returnData));
+			save(originalName ? originalName: name, JSON.stringify(returnData));
 		}
 		else {
 			// GET Unsuccessful
 			updateRating(element, null);
-			const link = element.querySelector("#glassdoor-link");
 		}
 	};
 }
