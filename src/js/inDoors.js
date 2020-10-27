@@ -1,6 +1,6 @@
 /*****************************************************
-This script is activated on Linkedin pages.
-Adds Glassdoor ratings for companies on LinkedIn
+This script is activated on all pages.
+Adds Glassdoor ratings to companies.
 *****************************************************/
 
 // Update the glassdoor link after the Glassdoor data is fetched
@@ -55,92 +55,79 @@ async function addRating(element, name, originalName=null) {
 			var storageData = JSON.parse(load(name));
 			updateRating(element, storageData);
     } else {
-    	// Database entry miss - Send new HTTP Request to Glassdoor API for rating info
-		let reqHeader = new Headers();
-		reqHeader.append('Content-Type', 'text/json');
+    	// Database entry miss - Send new HTTP Request to Glassdoor API for rating info		
+		chrome.runtime.sendMessage(name, async function (JSONresponse) { 
+			// const response = await fetch(url, initObject);
+			if (JSONresponse.status === "OK") {
+				// const json = await response.json();
+				const data = JSONresponse.response;
+				// Take first three employers from search
+				const employers = data.employers.slice(0, 3);
+				// See which employers exactly match given employer name
+				const exactMatchEmployers = employers.filter(function (e) {
+					// Remove parenthesized location in search results
+					return name.toLowerCase() === e.name.toLowerCase().replace(parenthesesRegex, "");
+				});
 
-		let initObject = {
-			method: 'GET', headers: reqHeader,
-		};
-
-		const proxyUrl = 'https://glassdoor-cors-proxy.herokuapp.com/'
-		let url = `https://glassdoor-api-proxy.azurewebsites.net/api/gdinfo?company=${name}`;    
-		
-		if (navigator.userAgent.indexOf("Chrome") != -1) {
-			url = proxyUrl + url;
-		}
-		
-		const response = await fetch(url, initObject);
-
-		if (response.ok) {
-			const json = await response.json();
-			const data = json.response;
-			// Take first three employers from search
-			const employers = data.employers.slice(0, 3);
-			// See which employers exactly match given employer name
-			const exactMatchEmployers = employers.filter(function (e) {
-				// Remove parenthesized location in search results
-				return name.toLowerCase() === e.name.toLowerCase().replace(parenthesesRegex, "");
-			});
-
-			// Prioritize exact matches over first in Glassdoor search results
-			let employer;
-			if(exactMatchEmployers.length > 0) {
-				if(exactMatchEmployers.length > 1) {
-					// If there are multiple exact matches, choose employer with most number of ratings
-					employer = exactMatchEmployers.reduce(function(prev, current) {
-						if (current.numberOfRatings > prev.numberOfRatings) {
-							return current;
-						} else {
-							return prev;
-						}
-					});
-				}
-				else{
-					employer = exactMatchEmployers[0];
-				}
-			}
-			// If there are no exact matches, choose the first one
-			else{
-				employer = employers[0];
-			}
-				
-			var reviewsUrl;
-			var returnData;
-
-			if(employer){
-				// Insert link to employer reviews
-				reviewsUrl = `https://www.glassdoor.com/Reviews/${name}-Reviews-E${employer.id}.htm`
-				returnData = {
-					overallRating: employer.overallRating,
-					numberOfRatings: kFormatter(employer.numberOfRatings),
-					url: reviewsUrl,
-				}
-			}
-			else{
-				// Try again with the company name stripped of any place names
-				if (!originalName) {
-					const placeName = nlp(name).places().last().text();
-					const locationStrippedName = name.replace(placeName, "");
-					if (locationStrippedName !== name) {
-						return await addRating(element, locationStrippedName, name);
+				// Prioritize exact matches over first in Glassdoor search results
+				let employer;
+				if(exactMatchEmployers.length > 0) {
+					if(exactMatchEmployers.length > 1) {
+						// If there are multiple exact matches, choose employer with most number of ratings
+						employer = exactMatchEmployers.reduce(function(prev, current) {
+							if (current.numberOfRatings > prev.numberOfRatings) {
+								return current;
+							} else {
+								return prev;
+							}
+						});
+					}
+					else{
+						employer = exactMatchEmployers[0];
 					}
 				}
-
-				// Insert link to search page if employer can't be found
-				reviewsUrl = data.attributionURL;
-				returnData = {
-					url: reviewsUrl,
+				// If there are no exact matches, choose the first one
+				else{
+					employer = employers[0];
 				}
+					
+				var reviewsUrl;
+				var returnData;
+
+				if(employer){
+					// Insert link to employer reviews
+					reviewsUrl = `https://www.glassdoor.com/Reviews/${name}-Reviews-E${employer.id}.htm`
+					returnData = {
+						overallRating: employer.overallRating,
+						numberOfRatings: kFormatter(employer.numberOfRatings),
+						url: reviewsUrl,
+					}
+				}
+				else{
+					// Try again with the company name stripped of any place names
+					if (!originalName) {
+						const placeName = nlp(name).places().last().text();
+						const locationStrippedName = name.replace(placeName, "");
+						if (locationStrippedName !== name) {
+							return await addRating(element, locationStrippedName, name);
+						}
+					}
+
+					// Insert link to search page if employer can't be found
+					reviewsUrl = data.attributionURL;
+					returnData = {
+						url: reviewsUrl,
+					}
+				}
+				updateRating(element, returnData);
+				save(originalName ? originalName: name, JSON.stringify(returnData));
 			}
-			updateRating(element, returnData);
-			save(originalName ? originalName: name, JSON.stringify(returnData));
-		}
-		else {
-			// GET Unsuccessful
-			updateRating(element, null);
-		}
-	};
+			else {
+				// GET Unsuccessful
+				updateRating(element, null);
+			}
+		});
+	}
 }
 
 // Append the rating wrapper after the company name element
