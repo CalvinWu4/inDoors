@@ -276,7 +276,7 @@ new MutationObserver(function(mutations) {
 }).observe(document, {subtree: true, childList: true});
 	
 // /company/* Top card
-[...document.querySelectorAll(":not(.profile) .top-card-layout__title")]
+[...document.querySelectorAll(":not(.profile) > .top-card-layout > .top-card-layout__card > .top-card-layout__entity-info-container > .top-card-layout__entity-info > .top-card-layout__title")]
 	.forEach(element => {
 		const name = element.textContent;
 		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin");
@@ -288,7 +288,7 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				if (node.matches(":not(.profile) .top-card-layout__title")) {
+				if (node.matches(":not(.profile) > .top-card-layout > .top-card-layout__card > .top-card-layout__entity-info-container > .top-card-layout__entity-info > .top-card-layout__title")) {
 					const name = node.textContent;
 					appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin");
 				}
