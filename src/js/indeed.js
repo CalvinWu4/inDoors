@@ -1,5 +1,5 @@
 // /jobs
-[...document.querySelectorAll('.company')]
+[...document.querySelectorAll('td#resultsCol div.jobsearch-SerpJobCard span.company')]
     .forEach(nameNode => {
         const name = nameNode.textContent;
         appendGlassdoor(nameNode.parentNode, name);
