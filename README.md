@@ -11,8 +11,6 @@
 
 This extension uses the [Glassdoor API]. Ratings are cached in browser's `localstorage` for a week until they are refreshed. You can click on the rating to open up the Glassdoor reviews page for the company or the search page if the company is not found.
 
-This extension was forked from and intended as a successor to [Glassdoor-Linkedinator](https://github.com/Brian-Lam/Glassdoor-Linkedinator).
-
 ## Notes
 This extension works on the LinkedIn urls: `https://linkedin.com/jobs/`, `https://linkedin.com/jobs/search/`, `https://linkedin.com/my-items/saved-jobs/`, `https://www.linkedin.com/jobs/view/*`, and `https://www.linkedin.com/company/*` on both the logged in and guest sessions.
 
