@@ -57,9 +57,7 @@ async function addRating(element, name, originalName=null) {
     } else {
     	// Database entry miss - Send new HTTP Request to Glassdoor API for rating info		
 		chrome.runtime.sendMessage(name, async function (JSONresponse) { 
-			// const response = await fetch(url, initObject);
 			if (JSONresponse.status === "OK") {
-				// const json = await response.json();
 				const data = JSONresponse.response;
 				// Take first three employers from search
 				const employers = data.employers.slice(0, 3);
