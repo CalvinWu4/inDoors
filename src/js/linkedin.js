@@ -212,7 +212,7 @@ new MutationObserver(function(mutations) {
 }).observe(document, {subtree: true, childList: true});
 
 // /jobs/search and /jobs/view Top card
-[...document.querySelectorAll(".topcard__flavor")]
+[...document.querySelectorAll("span[class=topcard__flavor]")]
 	.forEach(element => {
 		const name = element.textContent;
 		appendGlassdoor(element.parentNode, name, twoLines=false, classesToAdd="linkedin");
@@ -224,7 +224,7 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				const nameNode = node.querySelector(".topcard__flavor");
+				const nameNode = node.querySelector("span[class=topcard__flavor]");
 				if (nameNode) {
 					const name = nameNode.textContent;
 					appendGlassdoor(nameNode.parentNode, name, twoLines=false, classesToAdd="linkedin");
