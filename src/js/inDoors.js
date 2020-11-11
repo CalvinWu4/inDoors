@@ -49,10 +49,10 @@ async function addRating(element, name, originalName=null) {
     // Used for calculating how old the data in local storage is
 	var oneDay = 24*60*60*1000;
 
-    if(checkDatabase(name) && 
+    if(checkDatabase(name.toLowerCase()) && 
     	Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7) {
 			// Database entry hit - Use recent data from in localstorage.
-			var storageData = JSON.parse(load(name));
+			var storageData = JSON.parse(load(name.toLowerCase()));
 			updateRating(element, storageData);
     } else {
     	// Database entry miss - Send new HTTP Request to Glassdoor API for rating info		
@@ -118,7 +118,7 @@ async function addRating(element, name, originalName=null) {
 					}
 				}
 				updateRating(element, returnData);
-				save(originalName ? originalName: name, JSON.stringify(returnData));
+				save(originalName ? originalName.toLowerCase() : name.toLowerCase(), JSON.stringify(returnData));
 			}
 			else {
 				// GET Unsuccessful
