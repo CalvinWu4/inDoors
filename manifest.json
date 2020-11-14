@@ -2,7 +2,7 @@
   "name": "inDoors - Show Glassdoor ratings on job sites",
   "short_name": "inDoors",
   "description": "Shows Glassdoor ratings for companies when searching on Linkedin, Indeed, Google for Jobs and Stack Overflow.",
-  "version": "6.2.4",
+  "version": "6.2.5",
 	"background": {
 		"scripts": ["src/js/background.js"],
 		"persistent": false
@@ -228,7 +228,7 @@
     ],
   "permissions": [
     "storage",
-    "https://glassdoor-api-proxy.azurewebsites.net/api/gdinfo?company=*"
+    "https://glassdoor.calvinwu4.workers.dev/*"
   ],
   "icons": {
     "16":"src/icon/icon16.png",
