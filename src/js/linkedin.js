@@ -189,8 +189,8 @@ new MutationObserver(function(mutations) {
 }).observe(document, {subtree: true, childList: true});
 
 /************************************* Guest UI *************************************/
-// /jobs/* Left result list and /jobs/view/* Bottom results list  
-[...document.querySelectorAll(".job-result-card__subtitle")]
+// /jobs/* Left result list
+[...document.querySelectorAll(".job-result-card__subtitle:not(.job-result-tile__subtitle)")]
 	.forEach(element => {
 		const name = element.textContent;
 		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin");
@@ -206,6 +206,28 @@ new MutationObserver(function(mutations) {
 				if (nameNode) {
 					const name = nameNode.textContent;
 					appendGlassdoor(nameNode, name, twoLines=false, classesToAdd="linkedin");
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
+
+// /jobs/view/* Bottom results list  
+[...document.querySelectorAll(".job-result-tile__subtitle")]
+	.forEach(element => {
+		const name = element.textContent;
+		appendGlassdoor(element, name, twoLines=true, classesToAdd="linkedin");
+	});
+
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+				// check the inserted element
+				const nameNode = node.querySelector(".job-result-card__subtitle");
+				if (nameNode) {
+					const name = nameNode.textContent;
+					appendGlassdoor(nameNode, name, twoLines=true, classesToAdd="linkedin");
 				}
 			}
 		}
