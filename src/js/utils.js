@@ -69,7 +69,7 @@ function cleanCompanyName(name){
 
 	// Remove text after commas if Inc or Inc. doesn't come after it
 	if (name.match(/(^((?!\Inc\.?\b).)*$)/i)) {
-		name.replace(/(\,).*$/, "");
+		name = name.replace(/(\,).*$/, "");
 	}
 
 	// Remove company suffixes 
