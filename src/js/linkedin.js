@@ -49,7 +49,7 @@ var observer = new MutationObserver(function(mutations) {
 			// Check changed element
 			if (node.matches(".jobs-details-top-card__company-url") ||
 				node.matches(".jobs-details-top-card__company-info")) {	// Company names w/o hrefs
-				let name = node.innerText.split(/\r?\n/)[1];
+				let name = node.innerText;
 				if (name !== 'Company Location') {	// No company name
 					appendGlassdoor(node, name, twoLines=true, classesToAdd="t-14 linkedin")
 				}
