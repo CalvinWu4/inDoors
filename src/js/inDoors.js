@@ -157,9 +157,11 @@ function appendWrapper(element, twoLines=false, classesToAdd=""){
 }
 
 function appendGlassdoor(element, name, twoLines=false, classesToAdd=""){
-	appendWrapper(element, twoLines, classesToAdd);
-	// Get company name
-	addRating(element.nextSibling, cleanCompanyName(name));
+	if (name) {
+		appendWrapper(element, twoLines, classesToAdd);
+		// Get company name
+		addRating(element.nextSibling, cleanCompanyName(name));
+	}
 }
 
 console.log('inDoors loaded');
