@@ -38,7 +38,7 @@ function updateRating(element, data){
 		});
 	}
 	else{
-		link.textContent = "Could not contact Glassdoor servers"
+		link.textContent = "Error retrieving rating";
 	}
 }
 
@@ -120,8 +120,11 @@ async function addRating(element, name, originalName=null) {
 				updateRating(element, returnData);
 				save(originalName ? originalName.toLowerCase() : name.toLowerCase(), JSON.stringify(returnData));
 			}
+			else if (JSONresponse.status === "Access-Denied") {
+				// Retry fetch to bypass throttling
+				addRating(element, name);
+			}
 			else {
-				// GET Unsuccessful
 				updateRating(element, null);
 			}
 		});
