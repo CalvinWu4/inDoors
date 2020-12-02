@@ -202,7 +202,7 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				const nameNode = node.querySelector(".job-result-card__subtitle");
+				const nameNode = node.querySelector(".job-result-card__subtitle:not(.job-result-tile__subtitle)");
 				if (nameNode) {
 					const name = nameNode.textContent;
 					appendGlassdoor(nameNode, name, twoLines=false, classesToAdd="linkedin");
