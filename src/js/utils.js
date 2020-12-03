@@ -1,9 +1,13 @@
 /*****************************************************
-Utility functions for linker.js
+Utility functions for inDoors.js
 *****************************************************/
 
 // Check if company is already in localstorage
 var checkDatabase = function(name) {
+	// Handle any companies named 'clear' or 'key'
+	if (typeof(localStorage[name]) === 'function') {
+		name += ' ';
+	}
     if(localStorage[name]) {
 		return true;
     }
@@ -12,9 +16,13 @@ var checkDatabase = function(name) {
 
 // Save ratings into local storage, and keep track of how old it is
 var save = function(name, info) {
+	// Handle any companies named 'clear' or 'key'
+	if (typeof(localStorage[name]) === 'function') {
+		name += ' ';
+	}
 	localStorage[name] = info;
 	var date = new Date();
-	localStorage["gd-retrieval-date"] = date.toDateString();
+	localStorage[`gd-${name}-retrieval-date`] = date.toDateString();
 }
 
 // Load rating

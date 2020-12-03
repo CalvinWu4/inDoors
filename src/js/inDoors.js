@@ -44,15 +44,16 @@ function updateRating(element, data){
 
 // Grab the rating data for the company name and insert it into the rating wrapper
 async function addRating(element, name, originalName=null) {
+	name = name.toLowerCase();
     var currentDate = new Date();
-	var storageTime = new Date(localStorage["gd-retrieval-date"]);
-    // Used for calculating how old the data in local storage is
+	var storageTime = new Date(localStorage[`gd-${originalName ? originalName: name}-retrieval-date`]);
+    // Used for calculating how old this company's data in local storage is
 	var oneDay = 24*60*60*1000;
 
-    if(checkDatabase(name.toLowerCase()) && 
+    if(checkDatabase(name) && 
     	Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7) {
 			// Database entry hit - Use recent data from in localstorage.
-			var storageData = JSON.parse(load(name.toLowerCase()));
+			var storageData = JSON.parse(load(name));
 			updateRating(element, storageData);
     } else {
     	// Database entry miss - Send new HTTP Request to Glassdoor API for rating info		
@@ -64,7 +65,7 @@ async function addRating(element, name, originalName=null) {
 				// See which employers exactly match given employer name
 				const exactMatchEmployers = employers.filter(function (e) {
 					// Remove parenthesized location in search results
-					return name.toLowerCase() === e.name.toLowerCase().replace(parenthesesRegex, "");
+					return name === e.name.toLowerCase().replace(parenthesesRegex, "");
 				});
 
 				// Prioritize exact matches over first in Glassdoor search results
@@ -118,7 +119,7 @@ async function addRating(element, name, originalName=null) {
 					}
 				}
 				updateRating(element, returnData);
-				save(originalName ? originalName.toLowerCase() : name.toLowerCase(), JSON.stringify(returnData));
+				save(originalName ? originalName : name, JSON.stringify(returnData));
 			}
 			else if (JSONresponse.status === "Access-Denied") {
 				// Retry fetch to bypass throttling
