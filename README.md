@@ -35,11 +35,6 @@ For users of [Dark Reader](https://github.com/darkreader/darkreader)'s dynamic m
 }
 ```
 
-## Possible features
-
-- Support for Firefox mobile
-- Cache ratings server-side to avoid throttling Glassdoor API
-- Add popover showing rating breakdowns by category
 
 ## Screenshots
 
