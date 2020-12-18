@@ -104,27 +104,6 @@ new MutationObserver(function(mutations) {
 		}
 }).observe(document, {subtree: true, childList: true});
 
-// /company/*/jobs/ Recently posted jobs
-[...document.querySelectorAll(".org-jobs-recently-posted-jobs-module .job-card-square__text--1-line .job-card-container__company-name")]
-	.forEach(element => {
-		const name = element.childNodes[2].wholeText;
-		appendGlassdoor(element.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle linkedin")
-});
-
-new MutationObserver(function(mutations) {
-	for(let mutation of mutations) {
-		for(let node of mutation.addedNodes) {
-				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
-
-				// check the inserted element
-				if (node.matches(".org-jobs-recently-posted-jobs-module .job-card-square__text--1-line .job-card-container__company-name")) {
-					const name = node.childNodes[2].wholeText;
-					appendGlassdoor(node.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle linkedin")
-				}
-			}
-		}
-}).observe(document, {subtree: true, childList: true});
-
 // /company/*
 [...document.querySelectorAll(".org-top-card-summary__title")]
 	.forEach(element => {
