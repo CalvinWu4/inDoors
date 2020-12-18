@@ -62,11 +62,13 @@ var observer = new MutationObserver(function(mutations) {
 }).observe(document, {characterData: true, subtree: true, childList: true});
 
 // /my-items/saved-jobs/*
-[...document.querySelectorAll(".workflow-results-container .reusable-search__entity-results-list .entity-result__primary-subtitle")]
-	.forEach(element => {
-		const name = element.childNodes[2].textContent;
-		appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14 linkedin");
-	});
+if (document.querySelector('.ph5')?.textContent?.includes('My Jobs')) {
+	[...document.querySelectorAll(".workflow-results-container .reusable-search__entity-results-list .entity-result__primary-subtitle")]
+		.forEach(element => {
+				const name = element.childNodes[2].textContent;
+				appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14 linkedin");
+		});
+}
 
 new MutationObserver(function(mutations) {
 	for(let mutation of mutations) {
@@ -75,13 +77,14 @@ new MutationObserver(function(mutations) {
 
 				// check the inserted element
 				if (node.matches(".workflow-results-container .reusable-search__entity-results-list .entity-result__primary-subtitle")) {	
-					const name = node.childNodes[2].textContent;
-					appendGlassdoor(node, name, twoLines=false, classesToAdd="t-14 linkedin"); 
+					if (document.querySelector('.ph5').textContent.includes('My Jobs')) {
+						const name = node.childNodes[2].textContent;
+						appendGlassdoor(node, name, twoLines=false, classesToAdd="t-14 linkedin"); 
+					}
 				}
 			}
 		}
 }).observe(document, {subtree: true, childList: true});
-
 
 // /jobs
 [...document.querySelectorAll(".jobs-blended-container .job-card-square__text--1-line .job-card-container__company-name")]
