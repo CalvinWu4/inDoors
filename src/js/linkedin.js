@@ -129,7 +129,7 @@ new MutationObserver(function(mutations) {
 }).observe(document, {subtree: true, childList: true});
 
 // /jobs/view/* Top card
-[...document.querySelectorAll(".jobs-top-card__company-url")]
+[...document.querySelectorAll(".jobs-unified-top-card__subtitle-primary-grouping > span:first-of-type")]
 	.forEach(element => {
 		const name = element.textContent;
 		appendGlassdoor(element.parentNode, name, twoLines=false, classesToAdd="t-14 linkedin");
@@ -141,7 +141,7 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				if (node.matches(".jobs-top-card__company-url")) {
+				if (node.matches(".jobs-unified-top-card__subtitle-primary-grouping > span:first-of-type")) {
 					const name = node.textContent;
 					appendGlassdoor(node.parentNode, name, twoLines=false, classesToAdd="t-14 linkedin");
 				}
