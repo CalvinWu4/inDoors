@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "compromise": "^13.7.0",
-    "dompurify": "^2.2.2"
+    "dompurify": "^2.2.6"
   },
   "devDependencies": {},
   "repository": {
