@@ -47,7 +47,7 @@ new MutationObserver(function(mutations) {
                           
                             const viewjobNode = iframe.contentDocument.querySelector('.jobsearch-InlineCompanyRating > div:first-child');
                             if (viewjobNode) {
-                                appendGlassdoor(viewjobNode.parentNode.parentNode, viewjobNode.textContent);
+                                appendGlassdoor(viewjobNode.parentNode, viewjobNode.textContent);
                             }
                         });
                     }
