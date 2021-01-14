@@ -61,38 +61,33 @@ async function addRating(element, name, originalName=null) {
 			if (JSONresponse.status === "OK") {
 				const data = JSONresponse.response;
 				// Take first three employers from search
-				const employers = data.employers.slice(0, 3);
+				let employers = data.employers.slice(0, 3);
 				// See which employers exactly match given employer name
 				const exactMatchEmployers = employers.filter(function (e) {
 					// Remove parenthesized location in search results
 					return name === e.name.toLowerCase().replace(parenthesesRegex, "");
 				});
-
-				// Prioritize exact matches over first in Glassdoor search results
-				let employer;
-				if(exactMatchEmployers.length > 0) {
-					if(exactMatchEmployers.length > 1) {
-						// If there are multiple exact matches, choose employer with most number of ratings
-						employer = exactMatchEmployers.reduce(function(prev, current) {
-							if (current.numberOfRatings > prev.numberOfRatings) {
-								return current;
-							} else {
-								return prev;
-							}
-						});
-					}
-					else{
-						employer = exactMatchEmployers[0];
-					}
+				// Prioritize exact matches over first results in Glassdoor search results
+				if (exactMatchEmployers.length > 0) {
+					employers = exactMatchEmployers;
 				}
-				// If there are no exact matches, choose the first one
-				else{
+				// If there are multiple matches, choose employer with most number of ratings
+				let employer;
+				if (employers.length > 0) {
+					employer = employers.reduce(function(prev, current) {
+						if (current.numberOfRatings > prev.numberOfRatings) {
+							return current;
+						} else {
+							return prev;
+						}
+					});
+				}
+				else {
 					employer = employers[0];
 				}
-					
+								
 				var reviewsUrl;
 				var returnData;
-
 				if(employer){
 					// Insert link to employer reviews
 					reviewsUrl = `https://www.glassdoor.com/Reviews/${name}-Reviews-E${employer.id}.htm`
