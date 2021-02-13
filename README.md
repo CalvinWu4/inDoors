@@ -37,17 +37,16 @@ For users of [Dark Reader](https://github.com/darkreader/darkreader)'s dynamic m
 
 
 ## Screenshots
-
-<img src="https://i.imgur.com/9BfzFbq.jpg" width="900">
-<img src="https://i.imgur.com/dP4Iv3u.jpg" width="350">
-<img src="https://i.imgur.com/0LHQu2r.png" width="700">
-<img src="https://i.imgur.com/OButwa3.png" width="350">
-<img src="https://i.imgur.com/hURylW7.jpg" width="700">
-<img src="https://i.imgur.com/0NXzz7T.jpg" width="200">
-<img src="https://i.imgur.com/F7FIpwv.jpg" width="350">
-<img src="https://i.imgur.com/PIv5KKl.jpg" width="500">
-<img src="https://i.imgur.com/Y1Uz5JA.jpg" width="700">
-<img src="https://i.imgur.com/MbxfHgv.jpg" width="500">
+![Screenshot](images/linkedin-jobs-search.png)
+![Screenshot](images/googleforjobs.png)
+![Screenshot](images/indeed-jobs.png)
+![Screenshot](images/stackoverflow.png)
+![Screenshot](images/linkedin-jobs.png)
+![Screenshot](images/linkedin-savedjobs.png)
+![Screenshot](images/linkedin-jobsview.png)
+![Screenshot](images/linkedin-company.png)
+![Screenshot](images/indeed-viewjob.png)
+![Screenshot](images/indeed-cmp.png)
 
 [link-chrome]: https://chrome.google.com/webstore/detail/indoors-glassdoor-integra/eapcedpgnlmgkigiieacngkpdjikfgci?hl=en&authuser=0 "Version published on Chrome Web Store"
 [link-firefox]: https://addons.mozilla.org/en-US/firefox/addon/indoors/ "Version published on Mozilla Add-ons"
