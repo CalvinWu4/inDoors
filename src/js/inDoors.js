@@ -60,8 +60,7 @@ async function addRating(element, name, originalName=null) {
 		chrome.runtime.sendMessage(name, async function (JSONresponse) { 
 			if (JSONresponse.status === "OK") {
 				const data = JSONresponse.response;
-				// Take first three employers from search
-				let employers = data.employers.slice(0, 3);
+				let employers = data.employers;
 				// See which employers exactly match given employer name
 				const exactMatchEmployers = employers.filter(function (e) {
 					// Remove parenthesized location in search results
@@ -71,20 +70,12 @@ async function addRating(element, name, originalName=null) {
 				if (exactMatchEmployers.length > 0) {
 					employers = exactMatchEmployers;
 				}
-				// If there are multiple matches, choose employer with most number of ratings
 				let employer;
-				if (employers.length > 0) {
-					employer = employers.reduce(function(prev, current) {
-						if (current.numberOfRatings > prev.numberOfRatings) {
-							return current;
-						} else {
-							return prev;
-						}
-					});
+				if (employers.length > 1) {
+					// Remove companies with no reviews in search results
+					employers = employers.filter(e => e.numberOfRatings > 0);
 				}
-				else {
-					employer = employers[0];
-				}
+				employer = employers[0];
 								
 				var reviewsUrl;
 				var returnData;
