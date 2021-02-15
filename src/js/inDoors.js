@@ -40,12 +40,17 @@ function updateRating(element, data){
 		});
 		addTooltip &&
 		tippy(link, {
-			content: '<strong>Bolded content</strong>',
+			content: 
+			`<img id='inDoors-tippy-logo'>`,
 			allowHTML: true,
 			arrow: false,
 			placement: 'bottom-start',
 			offset: [0, 0],
-			interactive: true
+			interactive: true,
+			onShow: function(instance) {
+				var img = instance.popper.querySelector('img');
+				img.src = data.squareLogo;
+			  }			
 		});
 	}
 	else{
@@ -97,6 +102,10 @@ async function addRating(element, name, originalName=null) {
 						overallRating: employer.overallRating,
 						numberOfRatings: kFormatter(employer.numberOfRatings),
 						url: reviewsUrl,
+						name: employer.name,
+						website: employer.website,
+						squareLogo: employer.squareLogo,
+						industryName: employer.industryName
 					}
 				}
 				else{
