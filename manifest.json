@@ -215,6 +215,7 @@
                   "src/css/loading.css"],
             "js":["node_modules/dompurify/dist/purify.min.js",
                   "node_modules/compromise/builds/compromise.js",
+                  "node_modules/thenby/thenBy.min.js",
                   "src/js/utils.js",
                   "src/js/misdirected-names.js",
                   "src/js/inDoors.js"],
