@@ -4,7 +4,8 @@
   "description": "Shows Glassdoor ratings for companies when searching on Linkedin, Indeed, Google for Jobs and Stack Overflow.",
   "version": "6.4.3",
   "web_accessible_resources": [
-		"src/css/*"
+		"src/css/*",
+    "node_modules/*"
 	],
 	"background": {
 		"scripts": ["src/js/background.js"],

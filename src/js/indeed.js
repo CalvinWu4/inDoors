@@ -41,6 +41,10 @@ new MutationObserver(function(mutations) {
                                 loadCSS('src/css/inDoors.css', iframe.contentDocument);
                                 unloadCSS('src/css/loading.css', iframe.contentDocument);
                                 loadCSS('src/css/loading.css', iframe.contentDocument);
+                                unloadCSS('node_modules/tippy.js/dist/tippy.css', iframe.contentDocument);
+                                loadCSS('node_modules/tippy.js/dist/tippy.css', iframe.contentDocument);
+                                unloadCSS('src/css/inDoors-tippy.css', iframe.contentDocument);
+                                loadCSS('src/css/inDoors-tippy.css', iframe.contentDocument);
                                 unloadCSS('src/css/indeed.css', iframe.contentDocument);
                                 loadCSS('src/css/indeed.css', iframe.contentDocument);
                             } 
