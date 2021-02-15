@@ -40,8 +40,7 @@ function updateRating(element, data){
 		});
 		addTooltip &&
 		tippy(link, {
-			content: 
-			`<img id='inDoors-tippy-logo'>`,
+			content: `<img id='inDoors-tippy-logo'>`,
 			allowHTML: true,
 			arrow: false,
 			placement: 'bottom-start',
@@ -103,9 +102,9 @@ async function addRating(element, name, originalName=null) {
 						numberOfRatings: kFormatter(employer.numberOfRatings),
 						url: reviewsUrl,
 						name: employer.name,
-						website: employer.website,
-						squareLogo: employer.squareLogo,
-						industryName: employer.industryName
+						website: employer.website ?? null,
+						squareLogo: employer.squareLogo ?? null,
+						industryName: employer.industryName ?? null
 					}
 				}
 				else{
@@ -121,7 +120,7 @@ async function addRating(element, name, originalName=null) {
 					// Insert link to search page if employer can't be found
 					reviewsUrl = data.attributionURL;
 					returnData = {
-						url: reviewsUrl,
+						url: reviewsUrl
 					}
 				}
 				updateRating(element, returnData);
