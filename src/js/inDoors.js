@@ -76,7 +76,7 @@ async function addRating(element, name, originalName=null) {
 				);
 
 				let employer;
-				if (employers.length > 1) {
+				if (employers.filter(e => e.numberOfRatings > 0) > 1) {
 					// Remove companies with no reviews in search results
 					employers = employers.filter(e => e.numberOfRatings > 0);
 				}
