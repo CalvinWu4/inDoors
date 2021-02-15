@@ -6,17 +6,9 @@ Adds Glassdoor ratings to companies.
 // Update the glassdoor link after the Glassdoor data is fetched
 function updateRating(element, data){
 	let link = element.querySelector("#glassdoor-link");
+	let addTooltip = false;
 
 	if(data){
-		tippy('#glassdoor-link', {
-			content: '<strong>Bolded content</strong>',
-			allowHTML: true,
-			arrow: false,
-			placement: 'bottom-start',
-			offset: [0, 0],
-			interactive: true
-		  });
-
 		if(data.overallRating != null && data.numberOfRatings != null){
 			const rating = element.querySelector(".glassdoor-rating");
 			const reviews = element.querySelector(".glassdoor-reviews");
@@ -33,17 +25,27 @@ function updateRating(element, data){
 				rating.textContent = `N/A ★`;
 			}
 			reviews.textContent = ` • ${data.numberOfRatings} Reviews`;
+			addTooltip = true;
 		}
 		else{
 			link.textContent = ("Company not found");
 		}
 		// Make glassdoor-link an actual link 
-		spanToLink(link);
+		spanToAnchor(link);
 		link = element.querySelector("#glassdoor-link");
 		link.setAttribute("href", data.url);
 		link.setAttribute("target", "_blank");
 		link.addEventListener('click', function (e) {
 			e.stopPropagation();
+		});
+		addTooltip &&
+		tippy(link, {
+			content: '<strong>Bolded content</strong>',
+			allowHTML: true,
+			arrow: false,
+			placement: 'bottom-start',
+			offset: [0, 0],
+			interactive: true
 		});
 	}
 	else{

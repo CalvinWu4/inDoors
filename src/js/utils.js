@@ -44,7 +44,7 @@ function kFormatter(num) {
 }
 
 // Convert span element to an anchor element
-function spanToLink(span){
+function spanToAnchor(span){
 	let anchor = document.createElement('a');
 	
 	anchor.innerHTML = DOMPurify.sanitize(span.innerHTML);
