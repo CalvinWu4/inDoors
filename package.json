@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "dependencies": {
     "compromise": "^13.7.0",
-    "dompurify": "^2.2.6"
+    "dompurify": "^2.2.6",
+    "popper.js": "^1.16.1",
+    "tippy.js": "^6.2.7"
   },
   "devDependencies": {},
   "repository": {

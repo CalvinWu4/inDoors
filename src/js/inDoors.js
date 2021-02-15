@@ -8,6 +8,15 @@ function updateRating(element, data){
 	let link = element.querySelector("#glassdoor-link");
 
 	if(data){
+		tippy('#glassdoor-link', {
+			content: '<strong>Bolded content</strong>',
+			allowHTML: true,
+			arrow: false,
+			placement: 'bottom-start',
+			offset: [0, 0],
+			interactive: true
+		  });
+
 		if(data.overallRating != null && data.numberOfRatings != null){
 			const rating = element.querySelector(".glassdoor-rating");
 			const reviews = element.querySelector(".glassdoor-reviews");
