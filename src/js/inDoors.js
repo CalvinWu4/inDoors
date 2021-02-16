@@ -40,7 +40,14 @@ function updateRating(element, data){
 		});
 		addTooltip &&
 		tippy(link, {
-			content: `<img id='inDoors-tippy-logo'>`,
+			content: `
+			<div>
+				<img id='inDoors-tippy-logo'>
+			</div>
+			<div>
+				<a href='${data.website}'>${data.name}</a>
+			</div>
+			`,
 			allowHTML: true,
 			arrow: false,
 			placement: 'bottom-start',
@@ -107,7 +114,7 @@ async function addRating(element, name, originalName=null) {
 						numberOfRatings: kFormatter(employer.numberOfRatings),
 						url: reviewsUrl,
 						name: employer.name,
-						website: employer.website ?? null,
+						website: `http://${employer.website}` ?? null,
 						squareLogo: employer.squareLogo ?? null,
 						industryName: employer.industryName ?? null
 					}
