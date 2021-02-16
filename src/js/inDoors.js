@@ -60,28 +60,22 @@ async function addRating(element, name, originalName=null) {
 			if (JSONresponse.status === "OK") {
 				const data = JSONresponse.response;
 				let employers = data.employers.sort(
-					// Prioritize exact matches, case-sensitive first then non-case-senstive, in search results
+					// Prioritize exact matches (case-sensitive first then non-case-senstive) then companies with reviews
 					firstBy(function (x) {
-						// Remove parenthesized location in search results
 						const currName = x.name.replace(parenthesesRegex, "");
 						const targetName = name.replace(parenthesesRegex, "");
 						return currName === targetName ? -1 : 1;
 					})
 					.thenBy(function (x) {
-						// Remove parenthesized location in search results
 						const currName = x.name.toLowerCase().replace(parenthesesRegex, "");
 						const targetName = name.toLowerCase().replace(parenthesesRegex, "");
 						return currName === targetName ? -1 : 1;
 					})
+					.thenBy(function (x) {
+						return x.numberOfRatings > 0 ? -1 : 1;
+					})
 				);
-
-				let employer;
-				if (employers.length > 1) {
-					// Remove companies with no reviews in search results
-					employers = employers.filter(e => e.numberOfRatings > 0);
-				}
-				employer = employers[0];
-								
+				const employer = employers[0];
 				var reviewsUrl;
 				var returnData;
 				if(employer){
