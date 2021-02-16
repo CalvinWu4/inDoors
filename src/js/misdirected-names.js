@@ -4,6 +4,8 @@ const misdirectArray = [
     {'Hearst Magazines': 'Hearst'},
     {'Zappos Family of Companies': 'The Zappos Family'},
     {'Just Eat Takeaway.com': 'Just Eat'},
-    {'Chick-fil-A-Franchise': 'Chick-fil-A'}
+    {'Chick-fil-A-Franchise': 'Chick-fil-A'},
+    {'X, the moonshot factory': 'X Development'},
+    {'Jobs via eFinancialCareers': 'eFinancialCareers'}
   ]
   

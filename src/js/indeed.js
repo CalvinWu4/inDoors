@@ -20,10 +20,10 @@ if(eventNode) {
 }
 
 // /viewjob left list
-const viewjobNode = document.querySelector('.jobsearch-InlineCompanyRating a');
+const viewjobNode = document.querySelector('.jobsearch-InlineCompanyRating > div');
 
 if(viewjobNode) {
-    appendGlassdoor(viewjobNode.parentNode.parentNode, viewjobNode.textContent);
+    appendGlassdoor(viewjobNode.parentNode, viewjobNode.textContent);
 }
 
 // /viewjob right iframe

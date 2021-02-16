@@ -59,7 +59,6 @@ function updateRating(element, data){
 
 // Grab the rating data for the company name and insert it into the rating wrapper
 async function addRating(element, name, originalName=null) {
-	name = name.toLowerCase();
     var currentDate = new Date();
 	var storageTime = new Date(localStorage[`gd-${originalName ? originalName: name}-retrieval-date`]);
     // Used for calculating how old this company's data in local storage is
@@ -75,18 +74,24 @@ async function addRating(element, name, originalName=null) {
 		chrome.runtime.sendMessage(name, async function (JSONresponse) { 
 			if (JSONresponse.status === "OK") {
 				const data = JSONresponse.response;
-				let employers = data.employers;
-				// See which employers exactly match given employer name
-				const exactMatchEmployers = employers.filter(function (e) {
-					// Remove parenthesized location in search results
-					return name === e.name.toLowerCase().replace(parenthesesRegex, "");
-				});
-				// Prioritize exact matches over first results in Glassdoor search results
-				if (exactMatchEmployers.length > 0) {
-					employers = exactMatchEmployers;
-				}
+				let employers = data.employers.sort(
+					// Prioritize exact matches, case-sensitive first then non-case-senstive, in search results
+					firstBy(function (x) {
+						// Remove parenthesized location in search results
+						const currName = x.name.replace(parenthesesRegex, "");
+						const targetName = name.replace(parenthesesRegex, "");
+						return currName === targetName ? -1 : 1;
+					})
+					.thenBy(function (x) {
+						// Remove parenthesized location in search results
+						const currName = x.name.toLowerCase().replace(parenthesesRegex, "");
+						const targetName = name.toLowerCase().replace(parenthesesRegex, "");
+						return currName === targetName ? -1 : 1;
+					})
+				);
+
 				let employer;
-				if (employers.length > 1) {
+				if (employers.filter(e => e.numberOfRatings > 0) > 1) {
 					// Remove companies with no reviews in search results
 					employers = employers.filter(e => e.numberOfRatings > 0);
 				}

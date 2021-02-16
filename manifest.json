@@ -2,7 +2,7 @@
   "name": "inDoors - Show Glassdoor ratings on job sites",
   "short_name": "inDoors",
   "description": "Shows Glassdoor ratings for companies when searching on Linkedin, Indeed, Google for Jobs and Stack Overflow.",
-  "version": "6.4.3",
+  "version": "6.4.4",
   "web_accessible_resources": [
 		"src/css/*",
     "node_modules/*"
@@ -220,6 +220,7 @@
                   "node_modules/compromise/builds/compromise.js",
                   "node_modules/@popperjs/core/dist/umd/popper.min.js",
                   "node_modules/tippy.js/dist/tippy-bundle.umd.min.js",
+                  "node_modules/thenby/thenBy.min.js",
                   "src/js/utils.js",
                   "src/js/misdirected-names.js",
                   "src/js/inDoors.js"],
