@@ -37,7 +37,7 @@ For users of [Dark Reader](https://github.com/darkreader/darkreader)'s dynamic m
 
 
 ## Screenshots
-![Screenshot](images/linkedin-jobs-search.png)
+![Screenshot](images/linkedin-jobssearch.png)
 ![Screenshot](images/googleforjobs.png)
 ![Screenshot](images/indeed-jobs.png)
 ![Screenshot](images/stackoverflow.png)
