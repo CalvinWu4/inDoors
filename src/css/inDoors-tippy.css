@@ -1,4 +1,13 @@
+#inDoors-tippy {
+    display: flex;
+}
+
+#inDoors-tippy a {
+    color: #58a6ff;
+}
+
 #inDoors-tippy-logo {
     width: 56px;
     height: 56x;
+    padding-right: 9px;
 }

@@ -41,11 +41,15 @@ function updateRating(element, data){
 		addTooltip &&
 		tippy(link, {
 			content: `
-			<div>
-				<img id='inDoors-tippy-logo'>
-			</div>
-			<div>
-				<a href='${data.website}'>${data.name}</a>
+			<div id='inDoors-tippy'>
+				<div>
+					<img id='inDoors-tippy-logo'>
+				</div>
+				<div>
+					<h3>
+						<a href='${data.website}'>${data.name}</a>
+					</h3>
+				</div>
 			</div>
 			`,
 			allowHTML: true,
