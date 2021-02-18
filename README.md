@@ -9,7 +9,7 @@
 
 ## About
 
-This extension uses the [Glassdoor API]. Ratings are cached in browser's `localstorage` for a week until they are refreshed. You can click on the rating to open up the Glassdoor reviews page for the company or the search page if the company is not found.
+This extension uses the [Glassdoor API]. Ratings are cached in browser's `localstorage` for a week until they are refreshed. Clicking on the rating opens up the reviews page for the company or the search page if the company is not found. Hovering over the rating brings up a tooltip with the company's website and industry name.
 
 ## Notes
 This extension works on the LinkedIn urls: `https://linkedin.com/jobs/`, `https://linkedin.com/jobs/search/`, `https://linkedin.com/my-items/saved-jobs/`, `https://www.linkedin.com/jobs/view/*`, and `https://www.linkedin.com/company/*` on both the logged in and guest sessions.
