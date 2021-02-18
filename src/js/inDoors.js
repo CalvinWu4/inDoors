@@ -17,7 +17,7 @@ function updateRating(element, data){
 			rating.classList.remove("display-none");
 			reviews.classList.remove("display-none");
 			
-			if(data.overallRating !== "0"){
+			if(data.overallRating != 0){
 				rating.textContent = `${data.overallRating} ★`;
 			}
 			else{
