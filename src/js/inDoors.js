@@ -42,13 +42,12 @@ function updateRating(element, data){
 		tippy(link, {
 			content: `
 			<div id='inDoors-tippy'>
+				${data.squareLogo ? "<img id='inDoors-tippy-logo'>" : ""}
 				<div>
-					<img id='inDoors-tippy-logo'>
-				</div>
-				<div>
-					<h3>
-						<a href='${data.website}'>${data.name}</a>
-					</h3>
+					<div id='inDoors-tippy-company'>
+						${data.website ? `<a href="${data.website}" target="_blank">${data.name}</a>` : `${data.name}`}
+					</div>
+					${data.industryName ? `<div>Industry: ${data.industryName}</div>` : ""}
 				</div>
 			</div>
 			`,
@@ -59,8 +58,11 @@ function updateRating(element, data){
 			interactive: true,
 			onShow: function(instance) {
 				var img = instance.popper.querySelector('img');
-				img.src = data.squareLogo;
-			  }			
+				data.squareLogo &&= img.src = data.squareLogo;
+				instance.popper.addEventListener('click', function (e) {
+					e.stopPropagation();
+				});
+			  }
 		});
 	}
 	else{
