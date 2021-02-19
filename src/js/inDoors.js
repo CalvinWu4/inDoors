@@ -40,25 +40,23 @@ function updateRating(element, data){
 		});
 		addTooltip &&
 		tippy(link, {
-			content: `
-			<div id='inDoors-tippy'>
-				${data.squareLogo ? "<img id='inDoors-tippy-logo'>" : ""}
-				<div>
-					<div id='inDoors-tippy-company'>
-						${data.website ? `<a href="${data.website}" target="_blank">${data.name}</a>` : `${data.name}`}
-					</div>
-					${data.industryName ? `<div>Industry: ${data.industryName}</div>` : ""}
-				</div>
-			</div>
-			`,
 			allowHTML: true,
 			arrow: false,
 			placement: 'bottom-start',
 			offset: [0, 0],
 			interactive: true,
 			onShow: function(instance) {
-				var img = instance.popper.querySelector('img');
-				data.squareLogo &&= img.src = data.squareLogo;
+				instance.setContent(`
+				<div id='inDoors-tippy'>
+					${data.squareLogo ? `<img id='inDoors-tippy-logo' src=${data.squareLogo}>` : ""}
+					<div>
+						<div id='inDoors-tippy-company'>
+							${data.website ? `<a href="${data.website}" target="_blank">${data.name}</a>` : `${data.name}`}
+						</div>
+						${data.industryName ? `<div>Industry: ${data.industryName}</div>` : ""}
+					</div>
+				</div>
+				`);
 				instance.popper.addEventListener('click', function (e) {
 					e.stopPropagation();
 				});
