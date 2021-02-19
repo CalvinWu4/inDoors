@@ -60,19 +60,20 @@ async function addRating(element, name, originalName=null) {
 			if (JSONresponse.status === "OK") {
 				const data = JSONresponse.response;
 				let employers = data.employers.sort(
-					// Prioritize exact matches (case-sensitive first then non-case-senstive) then companies with reviews
+					// Prioritize companies with at least five reviews
+					// then exact matches (case-sensitive first then non-case-senstive)
 					firstBy(function (x) {
+						return x.numberOfRatings >= 5 ? -1 : 0;
+					})
+					.thenBy(function (x) {
 						const currName = x.name.replace(parenthesesRegex, "");
 						const targetName = name.replace(parenthesesRegex, "");
-						return currName === targetName ? -1 : 1;
+						return currName === targetName ? -1 : 0;
 					})
 					.thenBy(function (x) {
 						const currName = x.name.toLowerCase().replace(parenthesesRegex, "");
 						const targetName = name.toLowerCase().replace(parenthesesRegex, "");
-						return currName === targetName ? -1 : 1;
-					})
-					.thenBy(function (x) {
-						return x.numberOfRatings > 0 ? -1 : 1;
+						return currName === targetName ? -1 : 0;
 					})
 				);
 				const employer = employers[0];
