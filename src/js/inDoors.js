@@ -51,7 +51,7 @@ function updateRating(element, data){
 					${data.squareLogo ? `<img id='inDoors-tippy-logo' src=${data.squareLogo}>` : ""}
 					<div>
 						<div id='inDoors-tippy-company'>
-							${data.website ? `<a href="${data.website}" target="_blank">${data.name}</a>` : `${data.name}`}
+							${data.website ? `<a href="http://${data.website}" target="_blank">${data.name}</a>` : `${data.name}`}
 						</div>
 						${data.industryName ? `<div>Industry: ${data.industryName}</div>` : ""}
 					</div>
@@ -118,7 +118,7 @@ async function addRating(element, name, originalName=null) {
 						numberOfRatings: kFormatter(employer.numberOfRatings),
 						url: reviewsUrl,
 						name: employer.name,
-						website: `http://${employer.website}` ?? null,
+						website: employer.website ?? null,
 						squareLogo: employer.squareLogo ?? null,
 						industryName: employer.industryName ?? null
 					}
