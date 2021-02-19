@@ -7,6 +7,7 @@ const misdirectArray = [
     {'Chick-fil-A-Franchise': 'Chick-fil-A'},
     {'X, the moonshot factory': 'X Development'},
     {'WB Games': 'Warner Bros.'},
+    {'Staples Stores': 'Staples'},
     {'Jobs via eFinancialCareers': 'eFinancialCareers'}
   ]
   
