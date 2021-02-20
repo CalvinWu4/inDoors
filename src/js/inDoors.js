@@ -77,7 +77,7 @@ async function addRating(element, name, originalName=null) {
 	// Data schema for the rating wrapper
 	const returnDataKeys = 
 		['overallRating', 'numberOfRatings', 'url', 'name', 'website', 'squareLogo', 'industryName'];
-	const storageData = JSON.parse(load(name));
+	const storageData = load(name) && JSON.parse(load(name));
 
     if(checkDatabase(name) 
 		// Entry was saved less than a week ago
