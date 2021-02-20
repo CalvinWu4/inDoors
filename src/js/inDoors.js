@@ -18,7 +18,7 @@ function updateRating(element, data){
 			rating.classList.remove("display-none");
 			reviews.classList.remove("display-none");
 			
-			if(data.overallRating !== "0"){
+			if(data.overallRating != 0){
 				rating.textContent = `${data.overallRating} ★`;
 			}
 			else{
@@ -86,28 +86,23 @@ async function addRating(element, name, originalName=null) {
 			if (JSONresponse.status === "OK") {
 				const data = JSONresponse.response;
 				let employers = data.employers.sort(
-					// Prioritize exact matches, case-sensitive first then non-case-senstive, in search results
+					// Prioritize companies with at least five reviews
+					// then exact matches (case-sensitive first then non-case-senstive)
 					firstBy(function (x) {
-						// Remove parenthesized location in search results
-						const currName = x.name.replace(parenthesesRegex, "");
-						const targetName = name.replace(parenthesesRegex, "");
-						return currName === targetName ? -1 : 1;
+						return x.numberOfRatings >= 5 ? -1 : 0;
 					})
 					.thenBy(function (x) {
-						// Remove parenthesized location in search results
+						const currName = x.name.replace(parenthesesRegex, "");
+						const targetName = name.replace(parenthesesRegex, "");
+						return currName === targetName ? -1 : 0;
+					})
+					.thenBy(function (x) {
 						const currName = x.name.toLowerCase().replace(parenthesesRegex, "");
 						const targetName = name.toLowerCase().replace(parenthesesRegex, "");
-						return currName === targetName ? -1 : 1;
+						return currName === targetName ? -1 : 0;
 					})
 				);
-
-				let employer;
-				if (employers.filter(e => e.numberOfRatings > 0) > 1) {
-					// Remove companies with no reviews in search results
-					employers = employers.filter(e => e.numberOfRatings > 0);
-				}
-				employer = employers[0];
-								
+				const employer = employers[0];
 				var reviewsUrl;
 				var returnData;
 				if(employer){

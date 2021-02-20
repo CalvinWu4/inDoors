@@ -65,8 +65,8 @@ function cleanCompanyName(name){
 	const replaceManyStr = (obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
 	name = replaceManyStr(misdirectArray, name);
 
-	// Remove ampersands because Glassdoor URL's don't work with them
-	name = name.replace("&", "");
+	// Remove ampersands and apostrophes because Glassdoor URL's don't work with them
+	name = name.replace("&", "").replace("'", " ").replace("’", " ");
 
 	// Remove accents/diacritics
 	const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
