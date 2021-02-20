@@ -217,7 +217,7 @@
                   "node_modules/tippy.js/dist/tippy.css",
                   "src/css/inDoors-tippy.css"],
             "js":["node_modules/dompurify/dist/purify.min.js",
-                  "node_modules/compromise/builds/compromise.js",
+                  "node_modules/compromise/builds/compromise.min.js",
                   "node_modules/@popperjs/core/dist/umd/popper.min.js",
                   "node_modules/tippy.js/dist/tippy-bundle.umd.min.js",
                   "node_modules/thenby/thenBy.min.js",
