@@ -45,6 +45,7 @@ function updateRating(element, data){
 			placement: 'bottom-start',
 			offset: [0, 0],
 			interactive: true,
+			delay: 500,
 			onShow: function(instance) {
 				instance.setContent(`
 				<div id='inDoors-tippy'>
