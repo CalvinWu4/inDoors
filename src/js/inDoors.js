@@ -74,11 +74,17 @@ async function addRating(element, name, originalName=null) {
 	var storageTime = new Date(localStorage[`gd-${originalName ? originalName: name}-retrieval-date`]);
     // Used for calculating how old this company's data in local storage is
 	var oneDay = 24*60*60*1000;
+	// Data schema for the rating wrapper
+	const returnDataKeys = 
+		['overallRating', 'numberOfRatings', 'url', 'name', 'website', 'squareLogo', 'industryName'];
+	const storageData = JSON.parse(load(name));
 
-    if(checkDatabase(name) && 
-    	Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7) {
+    if(checkDatabase(name) 
+		// Entry was saved less than a week ago
+		&& Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7
+		//  Data schema wasn't changed
+		&& JSON.stringify(Object.keys(storageData)) === JSON.stringify(returnDataKeys)) {
 			// Database entry hit - Use recent data from in localstorage.
-			var storageData = JSON.parse(load(name));
 			updateRating(element, storageData);
     } else {
     	// Database entry miss - Send new HTTP Request to Glassdoor API for rating info		
@@ -107,7 +113,7 @@ async function addRating(element, name, originalName=null) {
 				var returnData;
 				if(employer){
 					// Insert link to employer reviews
-					reviewsUrl = `https://www.glassdoor.com/Reviews/${name}-Reviews-E${employer.id}.htm`
+					reviewsUrl = `https://www.glassdoor.com/Reviews/${name}-Reviews-E${employer.id}.htm`;
 					returnData = {
 						overallRating: employer.overallRating,
 						numberOfRatings: kFormatter(employer.numberOfRatings),
