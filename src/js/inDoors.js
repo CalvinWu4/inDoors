@@ -52,15 +52,22 @@ function updateRating(element, data){
 					${data.squareLogo ? `<img id='inDoors-tippy-logo' src=${data.squareLogo}>` : ""}
 					<div>
 						<div id='inDoors-tippy-company'>
-							${data.website ? `<a href="http://${data.website}" target="_blank">${data.name}</a>` : `${data.name}`}
+							${data.website ? `<a href="http://${data.website}">${data.name}</a>` : `${data.name}`}
 						</div>
 						${data.industryName ? `<div>Industry: ${data.industryName}</div>` : ""}
 					</div>
 				</div>
 				`);
+				// Prevent clicking on tooltip background from triggering any events 
 				instance.popper.addEventListener('click', function (e) {
+					e.preventDefault();
 					e.stopPropagation();
 				});
+				const companyWebsiteLink = instance.popper.querySelector('#inDoors-tippy-company > a');
+				companyWebsiteLink.addEventListener('click', function () {
+					window.open(companyWebsiteLink.href);
+				});
+
 			  }
 		});
 	}
