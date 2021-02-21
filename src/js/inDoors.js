@@ -84,7 +84,8 @@ async function addRating(element, name, originalName=null) {
 		// Entry was saved less than a week ago
 		&& Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7
 		//  Data schema wasn't changed
-		&& JSON.stringify(Object.keys(storageData)) === JSON.stringify(returnDataKeys)) {
+		&& (JSON.stringify(Object.keys(storageData)) === JSON.stringify(returnDataKeys) 
+		|| JSON.stringify(Object.keys(storageData)) === JSON.stringify(["url"]))) {
 			// Database entry hit - Use recent data from in localstorage.
 			updateRating(element, storageData);
     } else {
