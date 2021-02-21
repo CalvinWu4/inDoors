@@ -110,10 +110,18 @@ async function addRating(element, name, originalName=null) {
 						return currName === targetName ? -1 : 0;
 					})
 				);
-				const employer = employers[0];
-				var reviewsUrl;
-				var returnData;
-				if(employer){
+				let employer = employers[0];
+				let reviewsUrl;
+				let returnData;
+				// Remove ampersands and apostrophes because they don't work in a Glassdoor URL
+				const normalizedName = name.replace("&", "").replace("'", "-").replace("’","-").replace(" ", "-");
+
+				// Handle Glassdoor sometimes showing the Explore page when company not found
+				if (data.attributionURL.startsWith("https://www.glassdoor.com/Explore/")) {
+					employer = null;
+					data.attributionURL = `https://www.glassdoor.com/Reviews/${normalizedName}-reviews-SRCH_KE0,${normalizedName.length}.htm`;
+				}
+				if (employer) {
 					// Insert link to employer reviews
 					// Remove ampersands and apostrophes because they don't work in a Glassdoor URL
 					const normalizedName = name.replace("'", "-").replace("’","-").replace(" ", "-");
@@ -128,7 +136,7 @@ async function addRating(element, name, originalName=null) {
 						industryName: employer.industryName ?? null
 					}
 				}
-				else{
+				else {
 					// Try again with the company name stripped of any place names
 					if (!originalName) {
 						const placeName = nlp(name).places().last().text();
