@@ -114,7 +114,9 @@ async function addRating(element, name, originalName=null) {
 				var returnData;
 				if(employer){
 					// Insert link to employer reviews
-					reviewsUrl = `https://www.glassdoor.com/Reviews/${name}-Reviews-E${employer.id}.htm`;
+					// Remove ampersands and apostrophes because they don't work in a Glassdoor URL
+					const normalizedName = name.replace("'", "-").replace("’","-").replace(" ", "-");
+					reviewsUrl = `https://www.glassdoor.com/Reviews/${normalizedName}-Reviews-E${employer.id}.htm`;
 					returnData = {
 						overallRating: employer.overallRating,
 						numberOfRatings: kFormatter(employer.numberOfRatings),
@@ -187,7 +189,7 @@ function appendGlassdoor(element, name, twoLines=false, classesToAdd=""){
 	if (name) {
 		appendWrapper(element, twoLines, classesToAdd);
 		// Get company name
-		addRating(element.nextSibling, cleanCompanyName(name));
+		addRating(element.nextSibling, normalizeCompanyName(name));
 	}
 }
 

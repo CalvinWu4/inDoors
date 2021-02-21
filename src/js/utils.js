@@ -58,19 +58,19 @@ function spanToAnchor(span){
 
 const parenthesesRegex = /\s*\(.*?\)\s*/g;
 
-function cleanCompanyName(name){
+function normalizeCompanyName(name){
     name = name.trim();
 
 	// To avoid misdirected name searches
 	const replaceManyStr = (obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
 	name = replaceManyStr(misdirectArray, name);
 
-	// Remove ampersands and apostrophes because Glassdoor URL's don't work with them
-	name = name.replace("&", "").replace("'", " ").replace("’", " ");
-
 	// Remove accents/diacritics
 	const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 	name = normalize(name);
+
+	// Remove ampersands for Glassdoor API
+	name = name.replace("&", "");
 
 	// Remove text after colons, and vertical bars and dashes surrounded by spaces
 	name = name.replace(/(\:|(\s\-\s)|(\s\|\s)|(\s\I\s)|(\s\–\s)).*$/i, "");
