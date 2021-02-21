@@ -5,7 +5,12 @@ chrome.runtime.onMessage.addListener(
         xhr.open("GET", url, true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
-                sendResponse(JSON.parse(xhr.responseText));
+                if (tryParseJSON(xhr.responseText)) {
+                    sendResponse(JSON.parse(xhr.responseText));
+                }
+                else {
+                    sendResponse({status: "Bad Request"});
+                }
             }
         }
         xhr.send();

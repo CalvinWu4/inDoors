@@ -8,7 +8,7 @@
     "node_modules/*"
 	],
 	"background": {
-		"scripts": ["src/js/background.js"],
+		"scripts": ["src/js/utils.js", "src/js/background.js"],
 		"persistent": false
 		},
   "content_scripts": 
