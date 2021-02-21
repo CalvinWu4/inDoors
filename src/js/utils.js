@@ -69,9 +69,6 @@ function normalizeCompanyName(name){
 	const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 	name = normalize(name);
 
-	// Remove ampersands for Glassdoor API
-	name = name.replace("&", "");
-
 	// Remove text after colons, and vertical bars and dashes surrounded by spaces
 	name = name.replace(/(\:|(\s\-\s)|(\s\|\s)|(\s\I\s)|(\s\–\s)).*$/i, "");
 
@@ -85,11 +82,15 @@ function normalizeCompanyName(name){
 
 	// Remove parentheses and text inside of them
     name = name.replace(parenthesesRegex, "");
+
+	// Remove any reminaing non-ASCII characters
+	name = name.replace(/[^\x00-\x7F]/, "");
     
     name = name.trim();
 
     return name;
 }
+
 function loadCSS(filename, document) {
     var head = document.head;
     var link = document.createElement("link");

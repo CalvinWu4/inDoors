@@ -120,19 +120,17 @@ async function addRating(element, name, originalName=null) {
 				let employer = employers[0];
 				let reviewsUrl;
 				let returnData;
-				// Remove ampersands and apostrophes because they don't work in a Glassdoor URL
-				const normalizedName = name.replace("&", "").replace("'", "-").replace("’","-").replace(" ", "-");
 
 				// Handle Glassdoor sometimes showing the Explore page when company not found
 				if (data.attributionURL.startsWith("https://www.glassdoor.com/Explore/")) {
 					employer = null;
-					data.attributionURL = `https://www.glassdoor.com/Reviews/${normalizedName}-reviews-SRCH_KE0,${normalizedName.length}.htm`;
+					data.attributionURL = 
+					`https://www.glassdoor.com/Reviews/${name.replace(" ", "-")}-reviews-SRCH_KE0,${name.length}.htm`;
 				}
 				if (employer) {
 					// Insert link to employer reviews
-					// Remove ampersands and apostrophes because they don't work in a Glassdoor URL
-					const normalizedName = name.replace("'", "-").replace("’","-").replace(" ", "-");
-					reviewsUrl = `https://www.glassdoor.com/Reviews/${normalizedName}-Reviews-E${employer.id}.htm`;
+					reviewsUrl = 
+					`https://www.glassdoor.com/Reviews/${name.replace(" ", "-")}-Reviews-E${name.id}.htm`;
 					returnData = {
 						overallRating: employer.overallRating,
 						numberOfRatings: kFormatter(employer.numberOfRatings),
