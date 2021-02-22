@@ -6,7 +6,7 @@ function addRatingsToJobs(){
     ),
   ].forEach((node) => {
     const name = node.childNodes[1].textContent;
-    appendGlassdoor(node, name, (twoLines = true));
+    appendGlassdoor(node, name);
   });
 }
 
@@ -31,7 +31,7 @@ var observer = new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// We track only elements, skip other nodes (e.g. text nodes)
 			
 				// Check the inserted element
-          const nameNode = node.querySelector('.job-details--header > .grid--cell > div:nth-of-type(1) > a');
+          const nameNode = node.querySelector('.fc-black-700.mb4 > a');
           if(nameNode){
             appendGlassdoor(nameNode.parentNode, nameNode.textContent);
           }
@@ -41,22 +41,19 @@ var observer = new MutationObserver(function(mutations) {
 }).observe(document, {subtree: true, childList: true});
 
 // /jobs/?id
-[
-  ...document.querySelectorAll(
-    ".main-columns > #mainbar.job-details--content > header > div:nth-child(2) > div:nth-child(2)"
-  ),
-].forEach((node) => {
-  const name = node.childNodes[1].textContent;
-  appendGlassdoor(node, name);
+[...document.querySelectorAll(
+    // ".main-columns > #mainbar.job-details--content .fc-black-700 :is(.employer, [href*='/jobs/companies/'])")]
+    ".main-columns > #mainbar.job-details--content .fc-black-700.mb4 > a")]
+    .forEach((node) => {
+  const name = node.textContent;
+  appendGlassdoor(node.parentNode, name);
 });
 
 // /jobs/companies
 function addRatingstoCompanies(){
-  [
-    ...document.querySelectorAll(
-      "div.company-list > div > div:nth-child(3) > div.grid--cell.fl1.text > h2"
-    ),
-  ].forEach((node) => {
+  [...document.querySelectorAll(
+    "div.company-list > div > div:nth-child(3) > div.grid--cell.fl1.text > h2")]
+    .forEach((node) => {
     const name = node.childNodes[1].textContent;
     appendGlassdoor(node, name);
   });
