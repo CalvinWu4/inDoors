@@ -8,7 +8,7 @@ var checkDatabase = function(name) {
 	if (typeof(localStorage[name]) === 'function') {
 		name += ' ';
 	}
-    if(localStorage[name]) {
+    if(localStorage[name] && tryParseJSON(localStorage[name])) {
 		return true;
     }
     return false;

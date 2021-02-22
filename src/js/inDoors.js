@@ -85,16 +85,17 @@ async function addRating(element, name, originalName=null) {
 	// Data schema for the rating wrapper
 	const returnDataKeys = 
 		['overallRating', 'numberOfRatings', 'url', 'name', 'website', 'squareLogo', 'industryName'];
-	const storageData = load(name) && JSON.parse(load(name));
 
-    if(checkDatabase(name) 
+    if (checkDatabase(name)) {
+		const storageData = JSON.parse(load(name));
 		// Entry was saved less than a week ago
-		&& Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7
+		if (Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7
 		//  Data schema wasn't changed
 		&& (JSON.stringify(Object.keys(storageData)) === JSON.stringify(returnDataKeys) 
 		|| JSON.stringify(Object.keys(storageData)) === JSON.stringify(["url"]))) {
 			// Database entry hit - Use recent data from in localstorage.
 			updateRating(element, storageData);
+		}
     } else {
     	// Database entry miss - Send new HTTP Request to Glassdoor API for rating info		
 		chrome.runtime.sendMessage(name, async function (JSONresponse) { 
