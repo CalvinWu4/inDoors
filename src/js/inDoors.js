@@ -131,7 +131,7 @@ async function addRating(element, name, originalName=null) {
 				if (employer) {
 					// Insert link to employer reviews
 					reviewsUrl = 
-					`https://www.glassdoor.com/Reviews/${name.replace(" ", "-")}-Reviews-E${name.id}.htm`;
+					`https://www.glassdoor.com/Reviews/${name.replace(" ", "-")}-Reviews-E${employer.id}.htm`;
 					returnData = {
 						overallRating: employer.overallRating,
 						numberOfRatings: kFormatter(employer.numberOfRatings),
