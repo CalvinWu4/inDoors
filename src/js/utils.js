@@ -70,21 +70,21 @@ function normalizeCompanyName(name){
 	name = normalize(name);
 
 	// Remove text after colons, and vertical bars and dashes surrounded by spaces
-	name = name.replace(/(\:|(\s\-\s)|(\s\|\s)|(\s\I\s)|(\s\–\s)).*$/i, "");
+	name = name.replace(/(\:|(\s\-\s)|(\s\|\s)|(\s\I\s)|(\s\–\s)).*$/gi, "");
 
 	// Remove text after commas if Inc or Inc. doesn't come after it
-	if (name.match(/(^((?!\Inc\.?\b).)*$)/i)) {
+	if (name.match(/(^((?!\Inc\.?\b).)*$)/gi)) {
 		name = name.replace(/(\,).*$/, "");
 	}
 
 	// Remove company suffixes 
-	name = name.replace(/®|™|\sLP|\sPBC/i, "");
+	name = name.replace(/\sLP|\sPBC/gi, "");
 
 	// Remove parentheses and text inside of them
     name = name.replace(parenthesesRegex, "");
 
 	// Remove any reminaing non-ASCII characters
-	name = name.replace(/[^\x00-\x7F]/, "");
+	name = name.replace(/[^\x00-\x7F]/g, "");
     
     name = name.trim();
 
