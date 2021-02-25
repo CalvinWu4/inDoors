@@ -63,9 +63,12 @@ function updateRating(element, data){
 					e.preventDefault();
 					e.stopPropagation();
 				});
+				// Restore clicking for company website link in tooltip
 				const companyWebsiteLink = instance.popper.querySelector('#inDoors-tippy-company > a');
-				companyWebsiteLink.addEventListener('click', function () {
-					window.open(companyWebsiteLink.href);
+				companyWebsiteLink.addEventListener('click', function (e) {
+					window.open(companyWebsiteLink.href, "_blank");
+					e.stopImmediatePropagation();
+					e.preventDefault();
 				});
 
 			  }
