@@ -105,20 +105,22 @@ async function addRating(element, name, originalName=null) {
 			if (JSONresponse.status === "OK") {
 				const data = JSONresponse.response;
 				let employers = data.employers.sort(
-					// Prioritize companies with at least five reviews
-					// then exact matches (case-sensitive first then non-case-senstive)
+					// Prioritize exact word matches (case-sensitive first then non-case-senstive)
+					// Then matches that don't contain "The " if the the name doesn't					
 					firstBy(function (x) {
-						return x.numberOfRatings >= 5 ? -1 : 0;
-					})
-					.thenBy(function (x) {
 						const currName = x.name.replace(parenthesesRegex, "");
 						const targetName = name.replace(parenthesesRegex, "");
-						return currName === targetName ? -1 : 0;
+						return -currName.split(" ").includes(targetName);
 					})
 					.thenBy(function (x) {
 						const currName = x.name.toLowerCase().replace(parenthesesRegex, "");
 						const targetName = name.toLowerCase().replace(parenthesesRegex, "");
-						return currName === targetName ? -1 : 0;
+						return -currName.split(" ").includes(targetName);
+					})
+					.thenBy(function (x) {
+						const currName = x.name.replace(parenthesesRegex, "");
+						const targetName = name.replace(parenthesesRegex, "");
+						return currName.includes("The ") && !targetName.includes("The ");
 					})
 				);
 				let employer = employers[0];
