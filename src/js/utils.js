@@ -2,14 +2,14 @@
 Utility functions for inDoors.js
 *****************************************************/
 
-// Check if company is already in localstorage
-var checkDatabase = function(name) {
+// Load company rating if saved in localstorage
+var load = function(name) {
 	// Handle any companies named 'clear' or 'key'
 	if (typeof(localStorage[name]) === 'function') {
 		name += ' ';
 	}
     if(localStorage[name] && tryParseJSON(localStorage[name])) {
-		return true;
+		return JSON.parse(localStorage[name]);
     }
     return false;
 }
@@ -23,11 +23,6 @@ var save = function(name, info) {
 	localStorage[name] = info;
 	var date = new Date();
 	localStorage[`gd-${name}-retrieval-date`] = date.toDateString();
-}
-
-// Load rating
-var load = function(name) {
-    return localStorage[name];
 }
 
 // Convert 2500 to 2.5K

@@ -89,16 +89,15 @@ async function addRating(element, name, originalName=null) {
 	const returnDataKeys = 
 		['overallRating', 'numberOfRatings', 'url', 'name', 'website', 'squareLogo', 'industryName'];
 
-    if (checkDatabase(name)) {
-		const storageData = JSON.parse(load(name));
+	const storageData = load(name);
+    if (storageData &&
 		// Entry was saved less than a week ago
-		if (Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7
+		(Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7
 		//  Data schema wasn't changed
 		&& (JSON.stringify(Object.keys(storageData)) === JSON.stringify(returnDataKeys) 
-		|| JSON.stringify(Object.keys(storageData)) === JSON.stringify(["url"]))) {
-			// Database entry hit - Use recent data from in localstorage.
-			updateRating(element, storageData);
-		}
+		|| JSON.stringify(Object.keys(storageData)) === JSON.stringify(["url"])))) {
+		// Database entry hit - Use recent data from in localstorage.
+		updateRating(element, storageData);
     } else {
     	// Database entry miss - Send new HTTP Request to Glassdoor API for rating info		
 		chrome.runtime.sendMessage(name, async function (JSONresponse) { 
@@ -107,18 +106,18 @@ async function addRating(element, name, originalName=null) {
 				let employers = data.employers.sort(
 					// Prioritize exact word matches (case-sensitive first then non-case-senstive)
 					// Then matches that don't contain "The " if the the name doesn't					
-					firstBy(function (x) {
-						const currName = x.name.replace(parenthesesRegex, "");
+					firstBy(function (e) {
+						const currName = e.name.replace(parenthesesRegex, "");
 						const targetName = name.replace(parenthesesRegex, "");
 						return -currName.split(" ").includes(targetName);
 					})
-					.thenBy(function (x) {
-						const currName = x.name.toLowerCase().replace(parenthesesRegex, "");
+					.thenBy(function (e) {
+						const currName = e.name.toLowerCase().replace(parenthesesRegex, "");
 						const targetName = name.toLowerCase().replace(parenthesesRegex, "");
 						return -currName.split(" ").includes(targetName);
 					})
-					.thenBy(function (x) {
-						const currName = x.name.replace(parenthesesRegex, "");
+					.thenBy(function (e) {
+						const currName = e.name.replace(parenthesesRegex, "");
 						const targetName = name.replace(parenthesesRegex, "");
 						return currName.includes("The ") && !targetName.includes("The ");
 					})
