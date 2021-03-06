@@ -52,6 +52,7 @@ function spanToAnchor(span){
 }
 
 const parenthesesRegex = /\s*\(.*?\)\s*/g;
+const punctuationRegex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
 
 function normalizeCompanyName(name){
     name = name.trim();

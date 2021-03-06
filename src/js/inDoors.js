@@ -107,18 +107,18 @@ async function addRating(element, name, originalName=null) {
 					// Prioritize exact word matches (case-sensitive first then non-case-senstive)
 					// Then matches that don't contain "The " if the the name doesn't					
 					firstBy(function (e) {
-						const currName = e.name.replace(parenthesesRegex, "");
-						const targetName = name.replace(parenthesesRegex, "");
+						const currName = e.name.replace(parenthesesRegex, "").replace(punctuationRegex, "");
+						const targetName = name.replace(parenthesesRegex, "").replace(punctuationRegex, "");
 						return -currName.split(" ").includes(targetName);
 					})
 					.thenBy(function (e) {
-						const currName = e.name.toLowerCase().replace(parenthesesRegex, "");
-						const targetName = name.toLowerCase().replace(parenthesesRegex, "");
+						const currName = e.name.toLowerCase().replace(parenthesesRegex, "").replace(punctuationRegex, "");
+						const targetName = name.toLowerCase().replace(parenthesesRegex, "").replace(punctuationRegex, "");
 						return -currName.split(" ").includes(targetName);
 					})
 					.thenBy(function (e) {
-						const currName = e.name.replace(parenthesesRegex, "");
-						const targetName = name.replace(parenthesesRegex, "");
+						const currName = e.name.replace(parenthesesRegex, "").replace(punctuationRegex, "");
+						const targetName = name.replace(parenthesesRegex, "").replace(punctuationRegex, "");
 						return currName.includes("The ") && !targetName.includes("The ");
 					})
 				);
