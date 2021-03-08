@@ -133,17 +133,17 @@ async function addRating(element, name, originalName=null) {
 				let reviewsUrl;
 				let returnData;
 
-				const urlNormalizedName = name.replace(" ", "-").replace('&', '-');
+				const urlEncodedName = encodeURIComponent(name);
 				// Handle Glassdoor sometimes showing the Explore page when company not found
 				if (data.attributionURL.startsWith("https://www.glassdoor.com/Explore/")) {
 					employer = null;
 					data.attributionURL = 
-					`https://www.glassdoor.com/Reviews/${urlNormalizedName}-reviews-SRCH_KE0,${name.length}.htm`;
+					`https://www.glassdoor.com/Reviews/${urlEncodedName}-reviews-SRCH_KE0,${name.length}.htm`;
 				}
 				if (employer) {
 					// Insert link to employer reviews
 					reviewsUrl = 
-					`https://www.glassdoor.com/Reviews/${urlNormalizedName}-Reviews-E${employer.id}.htm`;
+					`https://www.glassdoor.com/Reviews/${urlEncodedName}-Reviews-E${employer.id}.htm`;
 					returnData = {
 						retrievalDate: retrievalDate,
 						expirationDate: expirationDate,
