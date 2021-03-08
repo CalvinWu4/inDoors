@@ -81,28 +81,35 @@ function updateRating(element, data){
 
 // Grab the rating data for the company name and insert it into the rating wrapper
 async function addRating(element, name, originalName=null) {
-    var currentDate = new Date();
-	var storageTime = new Date(localStorage[`gd-${originalName ? originalName: name}-retrieval-date`]);
-    // Used for calculating how old this company's data in local storage is
-	var oneDay = 24*60*60*1000;
 	// Data schema for the rating wrapper
-	const returnDataKeys = 
-		['overallRating', 'numberOfRatings', 'url', 'name', 'website', 'squareLogo', 'industryName'];
-
+	const returnDataKeys = [
+		'retrievalDate',
+		'expirationDate',
+		'overallRating',
+		'numberOfRatings',
+		'url',
+		'name',
+		'website',
+		'squareLogo',
+		'industryName'
+	];
 	const storageData = load(name);
-    if (storageData &&
-		// Entry was saved less than a week ago
-		(Math.round(Math.abs((currentDate.getTime() - storageTime.getTime())/(oneDay))) < 7
+	
+    if (storageData && 
 		//  Data schema wasn't changed
-		&& (JSON.stringify(Object.keys(storageData)) === JSON.stringify(returnDataKeys) 
-		|| JSON.stringify(Object.keys(storageData)) === JSON.stringify(["url"])))) {
+		(JSON.stringify(Object.keys(storageData)) === JSON.stringify(returnDataKeys) 
+		|| JSON.stringify(Object.keys(storageData)) === JSON.stringify(['retrievalDate', 'expirationDate', 'url']))
+		// Entry was saved less than a week ago
+		&& new Date(storageData.expirationDate) > new Date(storageData.retrievalDate)) {
 		// Database entry hit - Use recent data from in localstorage.
 		updateRating(element, storageData);
     } else {
     	// Database entry miss - Send new HTTP Request to Glassdoor API for rating info		
-		chrome.runtime.sendMessage(name, async function (JSONresponse) { 
-			if (JSONresponse.status === "OK") {
-				const data = JSONresponse.response;
+		chrome.runtime.sendMessage(name, async function (backgroundScriptResponse) { 
+			if (backgroundScriptResponse.status === 200) {
+				const retrievalDate = backgroundScriptResponse.headers.date;
+				const expirationDate = backgroundScriptResponse.headers.expires;
+				const data = backgroundScriptResponse.json.response;
 				let employers = data.employers.sort(
 					// Prioritize exact word matches (case-sensitive first then non-case-senstive)
 					// Then matches that don't contain "The " if the the name doesn't					
@@ -137,6 +144,8 @@ async function addRating(element, name, originalName=null) {
 					reviewsUrl = 
 					`https://www.glassdoor.com/Reviews/${name.replace(" ", "-")}-Reviews-E${employer.id}.htm`;
 					returnData = {
+						retrievalDate: retrievalDate,
+						expirationDate: expirationDate,
 						overallRating: employer.overallRating,
 						numberOfRatings: kFormatter(employer.numberOfRatings),
 						url: reviewsUrl,
@@ -159,13 +168,15 @@ async function addRating(element, name, originalName=null) {
 					// Insert link to search page if employer can't be found
 					reviewsUrl = data.attributionURL;
 					returnData = {
+						retrievalDate: retrievalDate,
+						expirationDate: expirationDate,
 						url: reviewsUrl
 					}
 				}
 				updateRating(element, returnData);
 				save(originalName ? originalName : name, JSON.stringify(returnData));
 			}
-			else if (JSONresponse.status === "Access-Denied") {
+			else if (backgroundScriptResponse.status === 403) {
 				// Retry fetch to bypass throttling
 				addRating(element, name);
 			}

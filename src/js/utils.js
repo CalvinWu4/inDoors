@@ -4,25 +4,16 @@ Utility functions for inDoors.js
 
 // Load company rating if saved in localstorage
 var load = function(name) {
-	// Handle any companies named 'clear' or 'key'
-	if (typeof(localStorage[name]) === 'function') {
-		name += ' ';
-	}
-    if(localStorage[name] && tryParseJSON(localStorage[name])) {
-		return JSON.parse(localStorage[name]);
+	const key = `glassdoor-data: ${name}`;
+    if(localStorage.getItem(key) && tryParseJSON(localStorage.getItem(key))) {
+		return JSON.parse(localStorage.getItem(key));
     }
     return false;
 }
 
-// Save ratings into local storage, and keep track of how old it is
+// Save ratings into local storage
 var save = function(name, info) {
-	// Handle any companies named 'clear' or 'key'
-	if (typeof(localStorage[name]) === 'function') {
-		name += ' ';
-	}
-	localStorage[name] = info;
-	var date = new Date();
-	localStorage[`gd-${name}-retrieval-date`] = date.toDateString();
+	localStorage.setItem(`glassdoor-data: ${name}`, info);
 }
 
 // Convert 2500 to 2.5K
