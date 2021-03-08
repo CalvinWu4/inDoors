@@ -65,7 +65,7 @@ function normalizeCompanyName(name){
 	}
 
 	// Remove company suffixes 
-	name = name.replace(/\sLP|\sPBC/gi, "");
+	name = name.replace(/\sS.L.U.|\sSLU|\sPBC/g, "");
 
 	// Remove parentheses and text inside of them
     name = name.replace(parenthesesRegex, "");
