@@ -16,26 +16,6 @@ This extension works on the LinkedIn urls: `https://linkedin.com/jobs/`, `https:
 
 The fewer reviews a company has, the less likely Glassdoor will correctly find it. To improve chances of the finding the correct company, inDoors will strip the company name of company suffixes and text after colons, dashes, vertical bars, parentheses, and commas (except for Inc), prioritize exact word matches in the results given by Glassdoor, redo a failed search with the company name stripped of any locations, and finally use the mappings in [`misdirected-names.js`](https://github.com/CalvinWu4/inDoors/blob/master/src/js/misdirected-names.js) (e.g. Hearst Magazines on Linkedin should refer to Hearst on Glassdoor). Pull requests on that file are welcome.
 
-
-### Dark Reader
-
-For users of [Dark Reader](https://github.com/darkreader/darkreader)'s dynamic mode, drop this CSS into Dev tools under the `linkedin.com` section
-
-```css
-.glassdoor-label {
-    color: rgba(232, 230, 227, 0.6);
-}
-
-#glassdoor-link{
-    color: rgba(232, 230, 227, 0.6);
-}
-
-#glassdoor-link:hover {
-    color: rgb(126, 197, 255);
-}
-```
-
-
 ## Screenshots
 ![Screenshot](images/linkedin-jobssearch.png)
 ![Screenshot](images/googleforjobs.png)
