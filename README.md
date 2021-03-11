@@ -14,7 +14,7 @@ This extension uses an [API proxy](https://github.com/CalvinWu4/glassdoor-api-pr
 ## Notes
 This extension works on the LinkedIn urls: `https://linkedin.com/jobs/`, `https://linkedin.com/jobs/search/`, `https://linkedin.com/my-items/saved-jobs/`, `https://www.linkedin.com/jobs/view/*`, and `https://www.linkedin.com/company/*` on both the logged in and guest sessions.
 
-The fewer reviews a company has, the less likely Glassdoor will correctly find it. To improve chances of the finding the correct company, inDoors will strip the company name of company suffixes and text after colons, dashes, vertical bars, parentheses, and commas (except for Inc), prioritize exact word matches in the results given by Glassdoor, redo a failed search with the company name stripped of any locations, and finally use the mappings in [`misdirected-names.js`](https://github.com/CalvinWu4/inDoors/blob/master/src/js/misdirected-names.js) (e.g. Hearst Magazines on Linkedin should refer to Hearst on Glassdoor). Pull requests on that file are welcome.
+The fewer reviews a company has, the less likely Glassdoor will correctly find it. To improve chances of the finding the correct company, inDoors will try stripping the company name of company suffixes, generic company name endings, locations, and text after colons, dashes, vertical bars, parentheses, and commas (except for Inc), prioritize exact word matches in the results given by Glassdoor, and finally use the mappings in [`misdirected-names.js`](https://github.com/CalvinWu4/inDoors/blob/master/src/js/misdirected-names.js). Pull requests on that file are welcome.
 
 ## Screenshots
 ![Screenshot](images/linkedin-jobssearch.png)
