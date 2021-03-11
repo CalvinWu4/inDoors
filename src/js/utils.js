@@ -49,7 +49,8 @@ function normalizeCompanyName(name){
     name = name.trim();
 
 	// To avoid misdirected name searches
-	const replaceManyStr = (obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
+	const replaceManyStr = 
+	(obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
 	name = replaceManyStr(misdirectArray, name);
 
 	// Remove accents/diacritics
@@ -76,6 +77,13 @@ function normalizeCompanyName(name){
     name = name.trim();
 
     return name;
+}
+
+// Return name stripped of generic company endings
+function trimCompanyNameEndings(name) {
+	const regex = /(-|\s)(Compan(y|ies)|Family of Companies|Franchise|Platform|Stores)$/i;
+
+	return name.replace(regex, '');
 }
 
 function loadCSS(filename, document) {

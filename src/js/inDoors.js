@@ -157,12 +157,12 @@ async function addRating(element, name, originalName=null) {
 					}
 				}
 				else {
-					// Try again with the company name stripped of any place names
+					// Try again with the company name stripped of any place names and generic company endings
 					if (!originalName) {
 						const placeName = nlp(name).places().last().text();
-						const locationStrippedName = name.replace(placeName, "");
-						if (locationStrippedName !== name) {
-							return await addRating(element, locationStrippedName, name);
+						const strippedName = trimCompanyNameEndings(name.replace(placeName, "").trim()).trim();
+						if (strippedName !== name) {
+							return await addRating(element, strippedName, name);
 						}
 					}
 
