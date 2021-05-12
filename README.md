@@ -9,7 +9,7 @@
 
 ## About
 
-This extension uses an [API proxy](https://github.com/CalvinWu4/glassdoor-api-proxy/blob/master/script.js) built on top of the [Glassdoor API]. Rating data is cached on the server and browser for 9 days (to reflect the [7 business days](https://help.glassdoor.com/article/Ratings-on-Glassdoor/en_US/#:~:text=It%20typically%20takes%207%20business,review.) it typically takes for a rating be updated after an employee leaves a review). Clicking on the rating opens up the reviews page for the company or the search results page if the company is not found. Mousing over the rating brings up a tooltip with the company's website and industry name.
+This extension uses an [API proxy](https://github.com/CalvinWu4/glassdoor-api-proxy) built on top of the [Glassdoor API]. Rating data is cached on the server and browser for 9 days (to reflect the [7 business days](https://help.glassdoor.com/article/Ratings-on-Glassdoor/en_US/#:~:text=It%20typically%20takes%207%20business,review.) it typically takes for a rating be updated after an employee leaves a review). Clicking on the rating opens up the reviews page for the company or the search results page if the company is not found. Mousing over the rating brings up a tooltip with the company's website and industry name.
 
 ## Notes
 This extension works on the LinkedIn urls: `https://linkedin.com/jobs/`, `https://linkedin.com/jobs/search/`, `https://linkedin.com/my-items/saved-jobs/`, `https://www.linkedin.com/jobs/view/*`, and `https://www.linkedin.com/company/*` on both the logged in and guest sessions.
