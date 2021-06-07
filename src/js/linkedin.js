@@ -280,10 +280,10 @@ new MutationObserver(function(mutations) {
 }).observe(document, {subtree: true, childList: true});
 	
 // /company/* Top card
-[...document.querySelectorAll(":not(.profile) > .top-card-layout > .top-card-layout__card > .top-card-layout__entity-info-container > .top-card-layout__entity-info > .top-card-layout__title")]
+[...document.querySelectorAll("div.org-top-card__primary-content h1.t-24 > span")]
 	.forEach(element => {
 		const name = element.textContent;
-		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin");
+		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin t-16");
 	});
 
 new MutationObserver(function(mutations) {
@@ -292,9 +292,9 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				if (node.matches(":not(.profile) > .top-card-layout > .top-card-layout__card > .top-card-layout__entity-info-container > .top-card-layout__entity-info > .top-card-layout__title")) {
+				if (node.matches("div.org-top-card__primary-content h1.t-24 > span")) {
 					const name = node.textContent;
-					appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin");
+					appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin t-16");
 				}
 			}
 		}
