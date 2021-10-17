@@ -145,7 +145,7 @@ new MutationObserver(function(mutations) {
 
 /************************************* Guest UI *************************************/
 // /jobs/* Left result list
-[...document.querySelectorAll(".job-result-card__subtitle:not(.job-result-tile__subtitle)")]
+[...document.querySelectorAll(".base-search-card__subtitle")]
 	.forEach(element => {
 		const name = element.textContent;
 		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin");
@@ -157,7 +157,7 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				const nameNode = node.querySelector(".job-result-card__subtitle:not(.job-result-tile__subtitle)");
+				const nameNode = node.querySelector(".base-search-card__subtitle");
 				if (nameNode) {
 					const name = nameNode.textContent;
 					appendGlassdoor(nameNode, name, twoLines=false, classesToAdd="linkedin");
@@ -166,8 +166,8 @@ new MutationObserver(function(mutations) {
 		}
 }).observe(document, {subtree: true, childList: true});
 
-// /jobs/view/* Bottom results list  
-[...document.querySelectorAll(".job-result-tile__subtitle")]
+// /jobs/view/* Similar jobs  
+[...document.querySelectorAll(".base-main-card__subtitle")]
 	.forEach(element => {
 		const name = element.textContent;
 		appendGlassdoor(element, name, twoLines=true, classesToAdd="linkedin");
@@ -179,7 +179,7 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				const nameNode = node.querySelector(".job-result-card__subtitle");
+				const nameNode = node.querySelector(".base-main-card__subtitle");
 				if (nameNode) {
 					const name = nameNode.textContent;
 					appendGlassdoor(nameNode, name, twoLines=true, classesToAdd="linkedin");
@@ -188,7 +188,7 @@ new MutationObserver(function(mutations) {
 		}
 }).observe(document, {subtree: true, childList: true});
 
-// /jobs/search and /jobs/view Top card
+// /jobs/ and /jobs/view Top card
 [...document.querySelectorAll("span[class=topcard__flavor]")]
 	.forEach(element => {
 		const name = element.textContent;
@@ -253,7 +253,7 @@ new MutationObserver(function(mutations) {
 }).observe(document, {subtree: true, childList: true});
 	
 // /company/* Top card
-[...document.querySelectorAll("div.org-top-card__primary-content h1.t-24 > span")]
+[...document.querySelectorAll(".top-card-layout__title")]
 	.forEach(element => {
 		const name = element.textContent;
 		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin t-16");
@@ -265,7 +265,7 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				if (node.matches("div.org-top-card__primary-content h1.t-24 > span")) {
+				if (node.matches(".top-card-layout__title")) {
 					const name = node.textContent;
 					appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin t-16");
 				}
