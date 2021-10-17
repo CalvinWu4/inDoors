@@ -35,6 +35,13 @@ new MutationObserver(function(mutations) {
                     let iframe = document.getElementById('vjs-container-iframe');
                     if (iframe) {
                         iframe.addEventListener("load", function() {
+                            // Re-render left job results
+                            [...document.querySelectorAll('td.resultContent span.companyName')]
+                                .forEach(nameNode => {
+                                    const name = nameNode.textContent;
+                                    appendGlassdoor(nameNode.parentNode, name);
+                            });
+
                             // Inject CSS into iframe
                             if (iframe.contentDocument) {
                                 unloadCSS('src/css/inDoors.css', iframe.contentDocument);
