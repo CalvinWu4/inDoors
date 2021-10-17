@@ -1,5 +1,5 @@
 /************************************* Logged in UI *************************************/
-// /jobs/search/* Left result list
+// /jobs/collections/* Left result list
 [...document.querySelectorAll("[data-control-name='job_card_company_link']")]
 	.forEach(element => {
 		const name = element.childNodes[2].wholeText;
@@ -20,44 +20,31 @@ new MutationObserver(function(mutations) {
 		}
 }).observe(document, {subtree: true, childList: true});
 
-// /jobs/search/* Right rail top card
-var observer = new MutationObserver(function(mutations) {
+// /jobs/collections/* Right rail details	
+new MutationObserver(function(mutations) {
 	for(let mutation of mutations) {
-		if (mutation.type == "childList") {
-			for(let node of mutation.addedNodes) {
-				node = node.parentNode;
-				if (!(node instanceof HTMLElement)) continue;	// We track only elements, skip other nodes (e.g. text nodes)
-			
-				// Check the inserted element
-				if (node.matches(".jobs-details-top-card__company-url") ||
-					node.matches(".jobs-details-top-card__company-info")) {	// Company names w/o hrefs
-					let name = node.innerText.split(/\r?\n/)[1];
-					if (name !== 'Company Location') {	// No company name
-						appendGlassdoor(node, name, twoLines=true, classesToAdd="t-14 linkedin");
-					}
-					else{
-						node.parentNode.querySelectorAll(".glassdoor-label-wrapper").forEach(e => e.parentNode.removeChild(e));
-					}
-				}
+		for(let addedNode of mutation.addedNodes) {
+			if (!(addedNode instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+			// check the inserted element
+			if (addedNode.matches(".jobs-unified-top-card__subtitle-primary-grouping > span:first-of-type")) {
+				const name = addedNode.textContent;
+				appendGlassdoor(addedNode.parentNode, name, twoLines=false, classesToAdd="t-14 linkedin");
 			}
 		}
-		// On text change
-		else if (mutation.type == "characterData") {
-			let node = mutation.target.parentNode;
-			if (!(node instanceof HTMLElement)) continue;	// We track only elements, skip other nodes (e.g. text nodes)
+		if (mutation.type == "characterData") {
+			let changedNode = mutation.target;
 
 			// Check changed element
-			if (node.matches(".jobs-details-top-card__company-url") ||
-				node.matches(".jobs-details-top-card__company-info")) {	// Company names w/o hrefs
-				let name = node.innerText;
-				if (name !== 'Company Location') {	// No company name
-					appendGlassdoor(node, name, twoLines=true, classesToAdd="t-14 linkedin")
-				}
-				else{
-					node.parentNode.querySelectorAll(".glassdoor-label-wrapper").forEach(e => e.parentNode.removeChild(e));
-				}
+			if (changedNode.parentNode.parentNode.matches(".jobs-unified-top-card__subtitle-primary-grouping > span:first-of-type")) {
+				const name = changedNode.textContent;
+				document.querySelector('.jobs-unified-top-card__subtitle-primary-grouping').parentNode
+				.querySelectorAll('.glassdoor-label-wrapper').forEach(e => e.parentNode.removeChild(e));
+
+				appendGlassdoor(document.querySelector('.jobs-unified-top-card__subtitle-primary-grouping'), name, twoLines=false, classesToAdd="t-14 linkedin");
 			}
 		}
+
 	}
 }).observe(document, {characterData: true, subtree: true, childList: true});
 
@@ -134,20 +121,6 @@ new MutationObserver(function(mutations) {
 		const name = element.textContent;
 		appendGlassdoor(element.parentNode, name, twoLines=false, classesToAdd="t-14 linkedin");
 	});
-
-new MutationObserver(function(mutations) {
-	for(let mutation of mutations) {
-		for(let node of mutation.addedNodes) {
-				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
-
-				// check the inserted element
-				if (node.matches(".jobs-unified-top-card__subtitle-primary-grouping > span:first-of-type")) {
-					const name = node.textContent;
-					appendGlassdoor(node.parentNode, name, twoLines=false, classesToAdd="t-14 linkedin");
-				}
-			}
-		}
-}).observe(document, {subtree: true, childList: true});
 
 // /jobs/view/* Similar jobs
 [...document.querySelectorAll(".job-card--tile .t-14")]
