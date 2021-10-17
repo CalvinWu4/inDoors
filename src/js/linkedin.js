@@ -73,12 +73,12 @@ new MutationObserver(function(mutations) {
 		}
 }).observe(document, {subtree: true, childList: true});
 
-// /jobs
-[...document.querySelectorAll(".jobs-blended-container .job-card-square__text--1-line .job-card-container__company-name")]
+// /jobs/* Recommmended jobs
+[...document.querySelectorAll(".job-card-container__company-name")]
 	.forEach(element => {
-		const name = element.childNodes[2].wholeText;
-		appendGlassdoor(element.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle linkedin")
-});
+		const name = element.textContent;
+		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin");
+	});
 
 new MutationObserver(function(mutations) {
 	for(let mutation of mutations) {
@@ -86,9 +86,9 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				if (node.matches(".jobs-blended-container .job-card-square__text--1-line .job-card-container__company-name")) {
-					const name = node.childNodes[2].wholeText;
-					appendGlassdoor(node.parentNode, name, twoLines=true, classesToAdd="artdeco-entity-lockup__subtitle linkedin")
+				if (node.matches(".job-card-container__company-name")) {
+					const name = node.textContent;
+					appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin");
 				}
 			}
 		}
