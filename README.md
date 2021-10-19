@@ -21,12 +21,6 @@ The fewer reviews a company has, the less likely Glassdoor will correctly find i
 ![Screenshot](images/googleforjobs.png)
 ![Screenshot](images/indeed-jobs.png)
 ![Screenshot](images/stackoverflow.png)
-![Screenshot](images/linkedin-jobs.png)
-![Screenshot](images/linkedin-savedjobs.png)
-![Screenshot](images/linkedin-jobsview.png)
-![Screenshot](images/linkedin-company.png)
-![Screenshot](images/indeed-viewjob.png)
-![Screenshot](images/indeed-cmp.png)
 
 [link-chrome]: https://chrome.google.com/webstore/detail/indoors-glassdoor-integra/eapcedpgnlmgkigiieacngkpdjikfgci?hl=en&authuser=0 "Version published on Chrome Web Store"
 [link-firefox]: https://addons.mozilla.org/en-US/firefox/addon/indoors/ "Version published on Mozilla Add-ons"
