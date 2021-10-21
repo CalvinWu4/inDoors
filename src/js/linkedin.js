@@ -23,20 +23,11 @@ new MutationObserver(function(mutations) {
 // /jobs/collections/* Right rail details	
 new MutationObserver(function(mutations) {
 	for(let mutation of mutations) {
-		for(let addedNode of mutation.addedNodes) {
-			if (!(addedNode instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
-
-			// check the inserted element
-			if (addedNode.matches(".jobs-unified-top-card__subtitle-primary-grouping > span:first-of-type")) {
-				const name = addedNode.textContent;
-				appendGlassdoor(addedNode.parentNode, name, twoLines=false, classesToAdd="t-14 linkedin");
-			}
-		}
 		if (mutation.type == "characterData") {
 			let changedNode = mutation.target;
 
 			// Check changed element
-			if (changedNode.parentNode.parentNode.matches(".jobs-unified-top-card__subtitle-primary-grouping > span:first-of-type")) {
+			if (changedNode.parentNode.parentNode.matches(":not(.careers) .jobs-unified-top-card__subtitle-primary-grouping > span:first-of-type")) {
 				const name = changedNode.textContent;
 				document.querySelector('.jobs-unified-top-card__subtitle-primary-grouping').parentNode
 				.querySelectorAll('.glassdoor-label-wrapper').forEach(e => e.parentNode.removeChild(e));
@@ -116,7 +107,7 @@ new MutationObserver(function(mutations) {
 }).observe(document, {subtree: true, childList: true});
 
 // /jobs/view/* Top card
-[...document.querySelectorAll(".jobs-unified-top-card__subtitle-primary-grouping > span:first-of-type")]
+[...document.querySelectorAll(".careers .jobs-unified-top-card__subtitle-primary-grouping > span:first-of-type")]
 	.forEach(element => {
 		const name = element.textContent;
 		appendGlassdoor(element.parentNode, name, twoLines=false, classesToAdd="t-14 linkedin");
