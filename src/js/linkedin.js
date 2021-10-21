@@ -253,7 +253,7 @@ new MutationObserver(function(mutations) {
 }).observe(document, {subtree: true, childList: true});
 	
 // /company/* Top card
-[...document.querySelectorAll(".top-card-layout__title")]
+[...document.querySelectorAll(".main > .core-rail > .top-card-layout > .top-card-layout__card > .top-card-layout__entity-info-container > .top-card-layout__entity-info > .top-card-layout__title")]
 	.forEach(element => {
 		const name = element.textContent;
 		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin t-16");
@@ -265,7 +265,7 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				if (node.matches(".top-card-layout__title")) {
+				if (node.matches(".main > .core-rail > .top-card-layout > .top-card-layout__card > .top-card-layout__entity-info-container > .top-card-layout__entity-info > .top-card-layout__title")) {
 					const name = node.textContent;
 					appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin t-16");
 				}
