@@ -95,7 +95,7 @@ new MutationObserver(function(mutations) {
 }).observe(document, {subtree: true, childList: true});
 
 // /company/*
-[...document.querySelectorAll(".org-top-card-summary__title")]
+[...document.querySelectorAll(".org-top-card__primary-content h1 > span")]
 	.forEach(element => {
 		const name = element.textContent;
 		appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14 linkedin");
@@ -107,7 +107,7 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				if (node.matches(".org-top-card-summary__title")) {
+				if (node.matches(".org-top-card__primary-content h1 > span")) {
 					const name = node.textContent;
 					appendGlassdoor(node, name, twoLines=false, classesToAdd="t-14 linkedin");
 				}
