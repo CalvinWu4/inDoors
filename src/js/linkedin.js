@@ -29,6 +29,20 @@ new MutationObserver(function(mutations) {
 
 new MutationObserver(function(mutations) {
 	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+				// check the inserted element
+				if (node.matches(":not(.careers) .jobs-unified-top-card__subtitle-primary-grouping > span:first-of-type")) {
+					const name = node.textContent;
+					appendGlassdoor(node.parentNode, name, twoLines=false, classesToAdd="linkedin");
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
+		
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
 		if (mutation.type == "characterData") {
 			let changedNode = mutation.target;
 
