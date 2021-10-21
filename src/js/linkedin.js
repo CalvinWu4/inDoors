@@ -20,7 +20,13 @@ new MutationObserver(function(mutations) {
 		}
 }).observe(document, {subtree: true, childList: true});
 
-// /jobs/collections/* Right rail details	
+// /jobs/collections/* Right rail details
+[...document.querySelectorAll(":not(.careers) .jobs-unified-top-card__subtitle-primary-grouping > span:first-of-type")]
+	.forEach(element => {
+		const name = element.textContent;
+		appendGlassdoor(element.parentNode, name, twoLines=false, classesToAdd="t-14 linkedin");
+	});
+
 new MutationObserver(function(mutations) {
 	for(let mutation of mutations) {
 		if (mutation.type == "characterData") {
