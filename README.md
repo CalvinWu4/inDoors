@@ -1,6 +1,6 @@
 # <img src="src/icon/icon48.png" width="40" align="left"> inDoors
 
-> Browser extension that displays [Glassdoor] ratings for companies while browsing [LinkedIn], [Google for Jobs], [Indeed] and [Stackoverflow].
+> Browser extension that displays [Glassdoor] ratings for companies while browsing [LinkedIn], [Handshake], [Google for Jobs], [Indeed] and [Stackoverflow].
 
 ## Install
 
@@ -16,6 +16,7 @@ The fewer reviews a company has, the less likely Glassdoor will correctly find i
 
 ## Screenshots
 ![Screenshot](images/linkedin-jobssearch.png)
+![Screenshot](images/handshake.png)
 ![Screenshot](images/googleforjobs.png)
 ![Screenshot](images/indeed-jobs.png)
 ![Screenshot](images/stackoverflow.png)
@@ -25,6 +26,7 @@ The fewer reviews a company has, the less likely Glassdoor will correctly find i
 
 [Glassdoor]: https://www.glassdoor.com/
 [LinkedIn]: https://www.linkedin.com/
+[Handshake]: https://joinhandshake.com/
 [Google for Jobs]: https://www.google.com/search?q=jobs+near+me&ibp=htl;jobs
 [Indeed]: https://www.indeed.com/
 [Stackoverflow]: https://www.stackoverflow.com/jobs

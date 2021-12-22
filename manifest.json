@@ -1,8 +1,8 @@
 {
   "name": "inDoors - Show Glassdoor ratings on job sites",
   "short_name": "inDoors",
-  "description": "Shows Glassdoor ratings for companies when searching on Linkedin, Indeed, Google for Jobs and Stack Overflow.",
-  "version": "6.6.9",
+  "description": "Shows Glassdoor ratings for companies when searching on Linkedin, Handshake, Google for Jobs, Indeed, and Stack Overflow.",
+  "version": "7.0.0",
   "web_accessible_resources": [
 		"src/css/*",
     "node_modules/*"
@@ -25,6 +25,8 @@
                       "https://*.indeed.ae/*",
                       "https://*.indeed.co.uk/*",
                       "https://*.stackoverflow.com/jobs*",
+                      "https://*.joinhandshake.com/*",
+                      "https://*.joinhandshake.co.uk/*",
                       "*://www.google.com/search?*ibp=htl;jobs*",
                       "*://www.google.ad/search?*ibp=htl;jobs*",
                       "*://www.google.ae/search?*ibp=htl;jobs*",
@@ -216,7 +218,8 @@
                   "src/css/loading.css",
                   "node_modules/tippy.js/dist/tippy.css",
                   "src/css/inDoors-tippy.css"],
-            "js":["node_modules/dompurify/dist/purify.min.js",
+            "js":["node_modules/arrive/minified/arrive.min.js",
+                  "node_modules/dompurify/dist/purify.min.js",
                   "node_modules/compromise/builds/compromise.min.js",
                   "node_modules/@popperjs/core/dist/umd/popper.min.js",
                   "node_modules/tippy.js/dist/tippy-bundle.umd.min.js",
@@ -250,6 +253,12 @@
           "matches": ["https://*.stackoverflow.com/jobs*"],
           "css": ["src/css/stackoverflow.css"],
           "js": ["src/js/stackoverflow.js"],
+          "run_at": "document_end"
+        },
+        {
+          "matches": ["https://*.joinhandshake.com/*",
+                      "https://*.joinhandshake.co.uk/*"],
+          "js": ["src/js/handshake.js"],
           "run_at": "document_end"
         },
         {
