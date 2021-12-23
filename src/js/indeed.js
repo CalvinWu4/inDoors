@@ -6,10 +6,10 @@
 });
 
 // /cmp/
-const cmpNode = document.querySelector('.cmp-CompactHeaderCompanyName');
+const cmpNode = document.querySelector('[itemprop="name"]');
 
 if(cmpNode) {
-    appendGlassdoor(cmpNode.parentNode.nextElementSibling, cmpNode.textContent);
+    appendGlassdoor(cmpNode, cmpNode.textContent);
 }
 
 // /event/
