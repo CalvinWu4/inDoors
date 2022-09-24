@@ -105,6 +105,26 @@ new MutationObserver(function(mutations) {
 		}
 }).observe(document, {subtree: true, childList: true});
 
+[...document.querySelectorAll(".job-card-container__primary-description .app-aware-link")]
+	.forEach(element => {
+		const name = element.textContent;
+		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin");
+	});
+
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+				// check the inserted element
+				if (node.matches(".job-card-container__primary-description .app-aware-link")) {
+					const name = node.textContent;
+					appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin");
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
+
 // /company/*
 [...document.querySelectorAll(".org-top-card__primary-content h1 > span")]
 	.forEach(element => {

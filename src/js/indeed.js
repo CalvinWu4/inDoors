@@ -1,8 +1,14 @@
 // /jobs
-[...document.querySelectorAll('td.resultContent span.companyName')]
-    .forEach(nameNode => {
-        const name = nameNode.textContent;
-        appendGlassdoor(nameNode.parentNode, name);
+[...document.querySelectorAll('td.resultContent')]
+    .forEach(node => {
+        const companyNameNode = node.querySelector('.companyName')
+        const ratingsNode = node.querySelector('.ratingsDisplay')
+        if (ratingsNode) {
+            appendGlassdoor(ratingsNode, companyNameNode.textContent);
+        }
+        else {
+            appendGlassdoor(companyNameNode, companyNameNode.textContent);
+        }
 });
 
 // /cmp/
@@ -36,12 +42,18 @@ new MutationObserver(function(mutations) {
                     if (iframe) {
                         iframe.addEventListener("load", function() {
                             // Re-render left job results
-                            [...document.querySelectorAll('td.resultContent span.companyName')]
-                                .forEach(nameNode => {
-                                    const name = nameNode.textContent;
-                                    appendGlassdoor(nameNode.parentNode, name);
+                            [...document.querySelectorAll('td.resultContent')]
+                            .forEach(node => {
+                                const companyNameNode = node.querySelector('.companyName')
+                                const ratingsNode = node.querySelector('.ratingsDisplay')
+                                if (ratingsNode) {
+                                    appendGlassdoor(ratingsNode, companyNameNode.textContent);
+                                }
+                                else {
+                                    appendGlassdoor(companyNameNode, companyNameNode.textContent);
+                                }
                             });
-
+                                                
                             // Inject CSS into iframe
                             if (iframe.contentDocument) {
                                 unloadCSS('src/css/inDoors.css', iframe.contentDocument);
@@ -58,7 +70,8 @@ new MutationObserver(function(mutations) {
                           
                             const viewjobNode = iframe.contentDocument.querySelector('.jobsearch-InlineCompanyRating > div:first-child');
                             if (viewjobNode) {
-                                appendGlassdoor(viewjobNode.parentNode, viewjobNode.textContent);
+                                const iframeName = viewjobNode.parentNode.querySelector('a[href*="https://www.indeed.com/cmp/"]').textContent
+                                appendGlassdoor(viewjobNode.parentNode, iframeName)
                             }
                         });
                     }
