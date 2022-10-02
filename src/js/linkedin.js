@@ -21,26 +21,20 @@ new MutationObserver(function(mutations) {
 }).observe(document, {subtree: true, childList: true});
 
 // /jobs/collections/* Right rail details
-[...document.querySelectorAll(":not(.careers) .jobs-unified-top-card__subtitle-primary-grouping > span:first-of-type")]
-	.forEach(element => {
-		const name = element.textContent;
-		appendGlassdoor(element.parentNode, name, twoLines=false, classesToAdd="t-14 linkedin");
-	});
-
 new MutationObserver(function(mutations) {
 	for(let mutation of mutations) {
 		for(let node of mutation.addedNodes) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				if (node.matches(":not(.careers) .jobs-unified-top-card__subtitle-primary-grouping > span:first-of-type")) {
+				if (node.matches(":not(.careers) span.jobs-unified-top-card__subtitle-primary-grouping > span.jobs-unified-top-card__company-name > a")) {
 					const name = node.textContent;
-					appendGlassdoor(node.parentNode, name, twoLines=false, classesToAdd="linkedin");
+					appendGlassdoor(node.parentNode.parentNode, name, twoLines=false, classesToAdd="t-14 linkedin");
 				}
 			}
 		}
 }).observe(document, {subtree: true, childList: true});
-		
+
 new MutationObserver(function(mutations) {
 	for(let mutation of mutations) {
 		if (mutation.type == "characterData") {
