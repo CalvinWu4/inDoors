@@ -2,7 +2,7 @@
   "name": "inDoors - Show Glassdoor ratings on job sites",
   "short_name": "inDoors",
   "description": "Shows Glassdoor ratings for companies when searching on Linkedin, Indeed, Handshake, Google for Jobs, and Stack Overflow.",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "web_accessible_resources": [
     {
       "resources": [
