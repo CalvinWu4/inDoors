@@ -2,14 +2,20 @@
   "name": "inDoors - Show Glassdoor ratings on job sites",
   "short_name": "inDoors",
   "description": "Shows Glassdoor ratings for companies when searching on Linkedin, Indeed, Handshake, Google for Jobs, and Stack Overflow.",
-  "version": "7.0.3",
+  "version": "8.0.0",
   "web_accessible_resources": [
-		"src/css/*",
-    "node_modules/*"
+    {
+      "resources": [
+        "src/css/*",
+        "node_modules/*"    
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
 	],
 	"background": {
-		"scripts": ["src/js/utils.js", "src/js/background.js"],
-		"persistent": false
+    "service_worker": "src/js/background.js"
 		},
   "content_scripts": 
     [
@@ -454,7 +460,7 @@
           "run_at": "document_end"
         }
     ],
-  "permissions": [
+  "host_permissions": [
     "https://glassdoor.calvinwu4.workers.dev/*"
   ],
   "icons": {
@@ -462,5 +468,5 @@
     "48":"src/icon/icon48.png",
     "128":"src/icon/icon128.png" 
   },
-  "manifest_version": 2
+  "manifest_version": 3
 }
