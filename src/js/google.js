@@ -1,7 +1,7 @@
 /* ================================= Google for Jobs ================================= */
 // Left results list
 function addRatingsToGoogleResults(node){
-	[...node.querySelectorAll('.gws-plugins-horizon-jobs__li-ed > div > div > .gws-plugins-horizon-jobs__tl-lif > div > div > div:nth-of-type(3) > div > div:nth-of-type(1)')]
+	[...node.querySelectorAll('.gws-plugins-horizon-jobs__li-ed > div > div > .gws-plugins-horizon-jobs__tl-lif > div > div > div:nth-of-type(4) > div >  div:nth-of-type(1)')]
 		.forEach(nameNode => {
 			const name = nameNode.textContent;
 			appendGlassdoor(nameNode, name, twoLines=true);
