@@ -5,6 +5,21 @@
     transform: translate(0, .25rem);
   }
 
+.theme--dark .glassdoor-label {
+  font-weight: 400;
+  color: white
+}
+
+.theme--dark #glassdoor-link, :visited {
+  font-weight: 400;
+  color: white
+}
+
+.theme--dark .glassdoor-rating {
+  color: #4dd783;
+  font-weight: bold;
+}
+
 /* 
 * (Guest UI)
 * Put glassdoor-link in front of a tag 
