@@ -1,22 +1,26 @@
 /* 
 * === Google for Jobs styles ===
 */
-.gws-plugins-horizon-jobs__li-ed .glassdoor-label  {
-    color: gray;
+.glassdoor-label {
+    color: #70757a;
+}
+
+#glassdoor-link, :visited {
+    color: #70757a;
     font-weight: unset;
 }
 
-.gws-plugins-horizon-jobs__li-ed #glassdoor-link, :visited {
-    color: gray;
+.dark-mode .glassdoor-label {
+    color: #9aa0a6;
     font-weight: unset;
 }
 
-#gws-plugins-horizon-jobs__job_details_page .glassdoor-label {
-    color: gray;
+.dark-mode #glassdoor-link, :visited {
+    color: #9aa0a6;
     font-weight: unset;
 }
 
-#gws-plugins-horizon-jobs__job_details_page #glassdoor-link, :visited {
-    color: gray;
-    font-weight: unset;
+.dark-mode .glassdoor-rating {
+    color: #4dd783;
+    font-weight: bold;
 }
