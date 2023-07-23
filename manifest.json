@@ -30,7 +30,6 @@
                       "https://*.indeed.ch/*",
                       "https://*.indeed.ae/*",
                       "https://*.indeed.co.uk/*",
-                      "https://*.stackoverflow.com/jobs*",
                       "https://*.joinhandshake.com/*",
                       "https://*.joinhandshake.co.uk/*",
                       "*://www.google.com/search?*ibp=htl;jobs*",
@@ -253,12 +252,6 @@
                       "https://*.indeed.co.uk/*"],
           "css": ["src/css/indeed.css"],
           "js": ["src/js/indeed.js"],
-          "run_at": "document_end"
-        },
-        {
-          "matches": ["https://*.stackoverflow.com/jobs*"],
-          "css": ["src/css/stackoverflow.css"],
-          "js": ["src/js/stackoverflow.js"],
           "run_at": "document_end"
         },
         {
