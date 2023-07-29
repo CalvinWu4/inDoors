@@ -4,18 +4,12 @@
   "description": "Shows Glassdoor ratings for companies when searching on Linkedin, Indeed, Handshake, and Google for Jobs.",
   "version": "8.0.9",
   "web_accessible_resources": [
-    {
-      "resources": [
-        "src/css/*",
-        "node_modules/*"    
-      ],
-      "matches": [
-        "<all_urls>"
-      ]
-    }
+		"src/css/*",
+    "node_modules/*"
 	],
 	"background": {
-    "service_worker": "src/js/background.js"
+		"scripts": ["src/js/utils.js", "src/js/background.js"],
+		"persistent": false
 		},
   "content_scripts": 
     [
@@ -453,7 +447,7 @@
           "run_at": "document_end"
         }
     ],
-  "host_permissions": [
+  "permissions": [
     "https://glassdoor.calvinwu4.workers.dev/*"
   ],
   "icons": {
@@ -461,13 +455,5 @@
     "48":"src/icon/icon48.png",
     "128":"src/icon/icon128.png" 
   },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "indoors@example.com"
-    },
-    "gecko_android": {
-      "id": "indoors@example.com"
-    }
-  },
-  "manifest_version": 3
+  "manifest_version": 2
 }
