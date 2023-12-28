@@ -78,27 +78,6 @@ new MutationObserver(function(mutations) {
 		}
 }).observe(document, {subtree: true, childList: true});
 
-// /jobs/collections/recommended/* Recommmended jobs
-[...document.querySelectorAll(".job-card-container__company-name")]
-	.forEach(element => {
-		const name = element.textContent;
-		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin");
-	});
-
-new MutationObserver(function(mutations) {
-	for(let mutation of mutations) {
-		for(let node of mutation.addedNodes) {
-				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
-
-				// check the inserted element
-				if (node.matches(".job-card-container__company-name")) {
-					const name = node.textContent;
-					appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin");
-				}
-			}
-		}
-}).observe(document, {subtree: true, childList: true});
-
 // /jobs/search/* Right rail details
 [...document.querySelectorAll(".jobs-unified-top-card__primary-description .app-aware-link")]
 	.forEach(element => {
