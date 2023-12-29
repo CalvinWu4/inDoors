@@ -79,10 +79,10 @@ new MutationObserver(function(mutations) {
 }).observe(document, {subtree: true, childList: true});
 
 // /jobs/search/* Right rail details
-[...document.querySelectorAll(".jobs-unified-top-card__primary-description .app-aware-link")]
+[...document.querySelectorAll(".job-details-jobs-unified-top-card__primary-description-without-tagline .app-aware-link")]
 	.forEach(element => {
 		const name = element.textContent;
-		appendGlassdoor(element.parentNode, name, twoLines=false, classesToAdd="linkedin");
+		appendGlassdoor(element.parentNode.parentNode, name, twoLines=false, classesToAdd="linkedin");
 	});
 
 new MutationObserver(function(mutations) {
@@ -91,9 +91,9 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				if (node.matches(".jobs-unified-top-card__primary-description .app-aware-link")) {
+				if (node.matches(".job-details-jobs-unified-top-card__primary-description-without-tagline .app-aware-link")) {
 					const name = node.textContent;
-					appendGlassdoor(node.parentNode, name, twoLines=false, classesToAdd="linkedin");
+					appendGlassdoor(node.parentNode.parentNode, name, twoLines=false, classesToAdd="linkedin");
 				}
 			}
 		}
