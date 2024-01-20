@@ -52,7 +52,7 @@ function updateRating(element, data){
 					${data.squareLogo ? `<img id='inDoors-tippy-logo' src=${data.squareLogo}>` : ""}
 					<div>
 						<div id='inDoors-tippy-company'>
-							${data.website ? `<a href="http://${data.website}">${data.name}</a>` : `${data.name}`}
+							${data.website ? `<a href="https://${data.website}">${data.name}</a>` : `${data.name}`}
 						</div>
 						${data.industryName ? `<div>Industry: ${data.industryName}</div>` : ""}
 					</div>
