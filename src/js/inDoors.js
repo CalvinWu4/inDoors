@@ -99,7 +99,7 @@ async function addRating(element, name, originalName=null) {
 		//  Data schema wasn't changed
 		(JSON.stringify(Object.keys(storageData)) === JSON.stringify(returnDataKeys) 
 		|| JSON.stringify(Object.keys(storageData)) === JSON.stringify(['retrievalDate', 'expirationDate', 'url']))
-		// Entry was saved less than a week ago
+		// Entry is not expired
 		&& new Date() < new Date(Date.parse(storageData.expirationDate))) {
 		// Database entry hit - Use recent data from in localstorage.
 		updateRating(element, storageData);
