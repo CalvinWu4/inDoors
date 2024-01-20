@@ -62,3 +62,40 @@ const cmpNode = document.querySelector('[itemprop="name"]');
 if(cmpNode) {
     appendGlassdoor(cmpNode.parentElement.parentElement, cmpNode.textContent);
 }
+
+
+// /viewjob/
+new MutationObserver(function(mutations) {
+    for(let mutation of mutations) {
+        for(let node of mutation.addedNodes) {
+                if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+                // on right card first load
+                if (node.querySelector('#viewJobButtonLinkContainer') || node.querySelector('#indeedApplyButton')) {
+                    const companyNameNode = document.querySelector('[data-testid="inlineHeader-companyName"]');
+
+                    if (companyNameNode) {
+                        appendGlassdoor(companyNameNode.parentElement, companyNameNode.textContent);
+                    }
+                    this.disconnect();
+                }
+            }
+        }
+    }).observe(document, {subtree: true, childList: true});
+
+// /saved/
+new MutationObserver(function(mutations) {
+    for(let mutation of mutations) {
+        for(let node of mutation.addedNodes) {
+                if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+                if (node.querySelector('.atw-JobInfo-companyLocation > span')) {
+                    const companyNameNode = node.querySelector('.atw-JobInfo-companyLocation > span');
+
+                    if (companyNameNode) {
+                        appendGlassdoor(companyNameNode, companyNameNode.textContent);
+                    }
+                }
+            }
+        }
+    }).observe(document, {subtree: true, childList: true});

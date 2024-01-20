@@ -30,7 +30,7 @@ a#glassdoor-link:hover {
 }
 
 .display-none {
-  display: none;
+  display: none !important;
 }
 
 /* Remove Glassdoor logo link */
