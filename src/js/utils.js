@@ -50,7 +50,7 @@ function normalizeCompanyName(name){
 
 	// To avoid misdirected name searches
 	const replaceManyStr = 
-	(obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
+	(obj, sentence) => obj.reduce((f, s) => `${f}`.replace(new RegExp("\\b" + Object.keys(s)[0] + "\\b"), s[Object.keys(s)[0]]), sentence)
 	name = replaceManyStr(misdirectArray, name);
 
 	// Remove accents/diacritics
