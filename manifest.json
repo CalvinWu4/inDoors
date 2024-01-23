@@ -463,10 +463,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "indoors@example.com"
-    },
-    "gecko_android": {
-      "id": "indoors@example.com"
+      "id": "{bb24ff36-cf99-45a9-a504-995acf401701}"
     }
   },
   "manifest_version": 3
