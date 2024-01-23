@@ -1,6 +1,6 @@
 
 chrome.runtime.onMessage.addListener(function (name, sender, sendResponse) {
-    let url = `https://glassdoor.calvinwu4.workers.dev/?company='${name}'`;
+    let url = `https://glassdoor.calvinwu4.workers.dev/?company='${name.replaceAll('"', '\'')}'`;
     
     fetch(url).then((res) => res.json().then((json) => sendResponse(json)));
     
