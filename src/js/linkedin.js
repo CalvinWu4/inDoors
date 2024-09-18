@@ -169,6 +169,48 @@ new MutationObserver(function(mutations) {
 		}
 }).observe(document, {subtree: true, childList: true});
 
+// /jobs/search/* Left result list
+[...document.querySelectorAll(".job-card-job-posting-card-wrapper__content .flex-grow-1")]
+	.forEach(element => {
+		const name = element.getElementsByClassName("artdeco-entity-lockup__subtitle")[0].textContent;
+		appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14 linkedin");
+	});
+
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+				// check the inserted element
+				if (node.matches(".job-card-job-posting-card-wrapper__content .flex-grow-1")) {
+					const name = node.getElementsByClassName("artdeco-entity-lockup__subtitle")[0].textContent;
+					appendGlassdoor(node, name, twoLines=false, classesToAdd="t-14 linkedin");
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
+
+// /jobs/search/* Right rail details
+[...document.querySelectorAll(".job-details-jobs-unified-top-card__company-name .app-aware-link")]
+	.forEach(element => {
+		const name = element.textContent;
+		appendGlassdoor(element.parentNode.parentNode.parentNode, name, twoLines=false, classesToAdd="linkedin");
+	});
+
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+				// check the inserted element
+				if (node.matches(".job-details-jobs-unified-top-card__company-name .app-aware-link")) {
+					const name = node.textContent;
+					appendGlassdoor(node.parentNode.parentNode.parentNode, name, twoLines=false, classesToAdd="linkedin");
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
+
 /************************************* Guest UI *************************************/
 // /jobs/* Left result list
 [...document.querySelectorAll(".jobs-search__results-list .base-search-card__subtitle")]
