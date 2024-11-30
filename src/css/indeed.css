@@ -41,3 +41,17 @@
 .jobsearch-JobComponent-embeddedHeader .logowrapper {
   transform: translate(0, .15rem);
 }
+
+a#glassdoor-link {
+  text-decoration: unset;
+}
+
+a#glassdoor-link:hover {
+  color: var(--color-action-active);
+  text-decoration: underline;
+}
+
+/* /saved */
+:not(.loading) .atw-JobInfo-container .atw-JobInfo .atw-JobInfo-companyLocation span {
+    display: unset;
+}

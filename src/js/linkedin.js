@@ -1,8 +1,8 @@
 /************************************* Logged in UI *************************************/
 // /jobs/collections/* Left result list
-[...document.querySelectorAll("[data-control-name='job_card_company_link']")]
+[...document.querySelectorAll(".job-card-container .artdeco-entity-lockup__subtitle > span")]
 	.forEach(element => {
-		const name = element.childNodes[2].wholeText;
+		const name = element.textContent;
 		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin");
 	});
 
@@ -12,8 +12,8 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				if (node.matches("[data-control-name='job_card_company_link']")) {
-					const name = node.childNodes[2].wholeText;
+				if (node.matches(".job-card-container .artdeco-entity-lockup__subtitle > span")) {
+					const name = node.textContent;
 					appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin");
 				}
 			}
@@ -22,88 +22,58 @@ new MutationObserver(function(mutations) {
 
 // /jobs/collections/* Right rail details
 new MutationObserver(function(mutations) {
-	for(let mutation of mutations) {
-		for(let node of mutation.addedNodes) {
-				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+    for(let mutation of mutations) {
+        for(let node of mutation.addedNodes) {
+            if (!(node instanceof HTMLElement)) continue;    // we track only elements, skip other nodes (e.g. text nodes)
 
-				// check the inserted element
-				if (node.matches(":not(.careers) span.jobs-unified-top-card__subtitle-primary-grouping > span.jobs-unified-top-card__company-name > a")) {
-					const name = node.textContent;
-					appendGlassdoor(node.parentNode.parentNode, name, twoLines=false, classesToAdd="t-14 linkedin");
-				}
-			}
-		}
+            // check the inserted element
+            if (node.matches(".job-details-jobs-unified-top-card__company-name > a")) {
+                const name = node.textContent;
+                appendGlassdoor(node.parentNode.parentNode.parentNode, name, twoLines=false, classesToAdd="t-14 linkedin");
+            }
+        }
+    }
 }).observe(document, {subtree: true, childList: true});
 
 new MutationObserver(function(mutations) {
-	for(let mutation of mutations) {
-		if (mutation.type == "characterData") {
-			let changedNode = mutation.target;
+    for(let mutation of mutations) {
+        if (mutation.type == "characterData") {
+            let changedNode = mutation.target;
 
-			// Check changed element
-			if (changedNode.parentNode.parentNode.matches(":not(.careers) .jobs-unified-top-card__subtitle-primary-grouping > span:first-of-type")) {
-				const name = changedNode.textContent;
-				document.querySelector('.jobs-unified-top-card__subtitle-primary-grouping').parentNode
-				.querySelectorAll('.glassdoor-label-wrapper').forEach(e => e.parentNode.removeChild(e));
+            // Check changed element
+            if (changedNode.parentNode.parentNode.matches(".job-details-jobs-unified-top-card__company-name")) {
+                const name = changedNode.textContent;
+                document.querySelector('.job-details-jobs-unified-top-card__company-name').parentNode
+                .querySelectorAll('.glassdoor-label-wrapper').forEach(e => e.parentNode.removeChild(e));
 
-				appendGlassdoor(document.querySelector('.jobs-unified-top-card__subtitle-primary-grouping'), name, twoLines=false, classesToAdd="t-14 linkedin");
-			}
-		}
-
-	}
+                appendGlassdoor(document.querySelector('.job-details-jobs-unified-top-card__company-name'), name, twoLines=false, classesToAdd="t-14 linkedin");
+            }
+        }
+    }
 }).observe(document, {characterData: true, subtree: true, childList: true});
 
 // /my-items/saved-jobs/*
-if (document.querySelector('.ph5')?.textContent?.includes('My Jobs')) {
-	[...document.querySelectorAll(".entity-result__primary-subtitle")]
-		.forEach(element => {
-				const name = element.childNodes[2].textContent;
-				appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14 linkedin");
-		});
-}
-
 new MutationObserver(function(mutations) {
 	for(let mutation of mutations) {
 		for(let node of mutation.addedNodes) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				if (node.matches(".entity-result__primary-subtitle")) {	
+				if (node.matches(".workflow-results-container .entity-result__divider > .mb1 > .t-14")) {	
 					if (document.querySelector('.ph5').textContent.includes('My Jobs')) {
-						const name = node.childNodes[2].textContent;
-						appendGlassdoor(node, name, twoLines=false, classesToAdd="t-14 linkedin"); 
+						const name = node.textContent;
+						appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin"); 
 					}
 				}
 			}
 		}
 }).observe(document, {subtree: true, childList: true});
 
-// /jobs/collections/recommended/* Recommmended jobs
-[...document.querySelectorAll(".job-card-container__company-name")]
-	.forEach(element => {
-		const name = element.textContent;
-		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin");
-	});
-
-new MutationObserver(function(mutations) {
-	for(let mutation of mutations) {
-		for(let node of mutation.addedNodes) {
-				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
-
-				// check the inserted element
-				if (node.matches(".job-card-container__company-name")) {
-					const name = node.textContent;
-					appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin");
-				}
-			}
-		}
-}).observe(document, {subtree: true, childList: true});
-
 // /jobs/search/* Right rail details
-[...document.querySelectorAll(".jobs-unified-top-card__primary-description .app-aware-link")]
+[...document.querySelectorAll(".job-details-jobs-unified-top-card__primary-description-without-tagline .app-aware-link")]
 	.forEach(element => {
 		const name = element.textContent;
-		appendGlassdoor(element.parentNode, name, twoLines=false, classesToAdd="linkedin");
+		appendGlassdoor(element.parentNode.parentNode, name, twoLines=false, classesToAdd="linkedin");
 	});
 
 new MutationObserver(function(mutations) {
@@ -112,9 +82,9 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				if (node.matches(".jobs-unified-top-card__primary-description .app-aware-link")) {
+				if (node.matches(".job-details-jobs-unified-top-card__primary-description-without-tagline .app-aware-link")) {
 					const name = node.textContent;
-					appendGlassdoor(node.parentNode, name, twoLines=false, classesToAdd="linkedin");
+					appendGlassdoor(node.parentNode.parentNode, name, twoLines=false, classesToAdd="linkedin");
 				}
 			}
 		}
@@ -185,6 +155,48 @@ new MutationObserver(function(mutations) {
 				if (node.matches(".job-card--tile .t-14")) {
 					const name = node.textContent;
 					appendGlassdoor(node, name, twoLines=true, classesToAdd="t-12 linkedin"); 
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
+
+// /jobs/search/* Left result list
+[...document.querySelectorAll(".job-card-job-posting-card-wrapper__content .flex-grow-1")]
+	.forEach(element => {
+		const name = element.getElementsByClassName("artdeco-entity-lockup__subtitle")[0].textContent;
+		appendGlassdoor(element, name, twoLines=false, classesToAdd="t-14 linkedin");
+	});
+
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+				// check the inserted element
+				if (node.matches(".job-card-job-posting-card-wrapper__content .flex-grow-1")) {
+					const name = node.getElementsByClassName("artdeco-entity-lockup__subtitle")[0].textContent;
+					appendGlassdoor(node, name, twoLines=false, classesToAdd="t-14 linkedin");
+				}
+			}
+		}
+}).observe(document, {subtree: true, childList: true});
+
+// /jobs/search/* Right rail details
+[...document.querySelectorAll(".job-details-jobs-unified-top-card__company-name .app-aware-link")]
+	.forEach(element => {
+		const name = element.textContent;
+		appendGlassdoor(element.parentNode.parentNode.parentNode, name, twoLines=false, classesToAdd="linkedin");
+	});
+
+new MutationObserver(function(mutations) {
+	for(let mutation of mutations) {
+		for(let node of mutation.addedNodes) {
+				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+				// check the inserted element
+				if (node.matches(".job-details-jobs-unified-top-card__company-name .app-aware-link")) {
+					const name = node.textContent;
+					appendGlassdoor(node.parentNode.parentNode.parentNode, name, twoLines=false, classesToAdd="linkedin");
 				}
 			}
 		}
@@ -300,10 +312,10 @@ new MutationObserver(function(mutations) {
 }).observe(document, {subtree: true, childList: true});
 	
 // /company/* Top card
-[...document.querySelectorAll(".main > .core-rail > .top-card-layout > .top-card-layout__card > .top-card-layout__entity-info-container > .top-card-layout__entity-info > .top-card-layout__title")]
+[...document.querySelectorAll(".org-top-card-summary__title")]
 	.forEach(element => {
 		const name = element.textContent;
-		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin t-16");
+		appendGlassdoor(element.nextElementSibling, name, twoLines=false, classesToAdd="linkedin");
 	});
 
 new MutationObserver(function(mutations) {
@@ -312,10 +324,11 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				if (node.matches(".main > .core-rail > .top-card-layout > .top-card-layout__card > .top-card-layout__entity-info-container > .top-card-layout__entity-info > .top-card-layout__title")) {
-					const name = node.textContent;
-					appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin t-16");
+				const nameNode = node.querySelector(".org-top-card-summary__title");
+				if (nameNode) {
+					const name = nameNode.textContent;
+					appendGlassdoor(nameNode.nextElementSibling, name, twoLines=false, classesToAdd="linkedin");
 				}
 			}
 		}
-}).observe(document, {subtree: true, childList: true});
+}).observe(document, {subtree: true, childList: true, attributes: true});

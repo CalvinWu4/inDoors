@@ -1,81 +1,101 @@
-// /jobs
-[...document.querySelectorAll('td.resultContent')]
-    .forEach(node => {
-        const companyNameNode = node.querySelector('.companyName')
-        const ratingsNode = node.querySelector('.ratingsDisplay')
-        if (ratingsNode) {
-            appendGlassdoor(ratingsNode, companyNameNode.textContent);
+// jobs
+new MutationObserver(function(mutations) {
+    for(let mutation of mutations) {
+        for(let node of mutation.addedNodes) {
+                if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+                // on right card first load
+                if (node.querySelector('[data-testid="inlineHeader-companyName"]')) {
+                    // appendGlassdoor for left results
+                    [...document.querySelectorAll('[data-testid="company-name"]')]
+                        .forEach(companyNameNode => {
+                            if (companyNameNode.nextElementSibling.getAttribute('data-testid')) {
+                                appendGlassdoor(companyNameNode, companyNameNode.textContent);
+                            }
+                            // append after Indeed rating
+                            else {
+                                appendGlassdoor(companyNameNode.nextElementSibling, companyNameNode.textContent);
+                            }
+                        });
+                    this.disconnect();
+                }
+            }
         }
-        else {
-            appendGlassdoor(companyNameNode, companyNameNode.textContent);
+}).observe(document, {subtree: true, childList: true});
+
+new MutationObserver(function(mutations) {
+    for(let mutation of mutations) {
+        for(let node of mutation.addedNodes) {
+                if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+                // when right card loads
+                if (node.querySelector('[data-testid="inlineHeader-companyName"]')) {
+                    // appendGlassdoor for right card
+                    const companyNameNode = node.querySelector('[data-testid="inlineHeader-companyName"]');
+                    appendGlassdoor(companyNameNode.parentElement, companyNameNode.textContent);
+                }
+
+                // appendGlassdoor for right card collapsed
+                if (node.querySelector('[data-testid="jobsearch-CollapsedEmbeddedHeader-companyName"]')) {
+                    const companyNameNode = node.querySelector('[data-testid="jobsearch-CollapsedEmbeddedHeader-companyName"]')
+                    appendGlassdoor(companyNameNode.parentNode, companyNameNode.textContent);
+                }
+
+                // appendGlassdoor when more left results are loaded
+                if (node.querySelector('[data-testid="company-name"]')) {
+                    const companyNameNode = node.querySelector('[data-testid="company-name"]')
+                    if (companyNameNode.nextElementSibling.getAttribute('data-testid')) {
+                        appendGlassdoor(companyNameNode, companyNameNode.textContent);
+                    }
+                    // append after Indeed rating
+                    else {
+                        appendGlassdoor(companyNameNode.nextElementSibling, companyNameNode.textContent);
+                    }
+                }
+            }
         }
-});
+}).observe(document, {subtree: true, childList: true});
 
 // /cmp/
 const cmpNode = document.querySelector('[itemprop="name"]');
 
 if(cmpNode) {
-    appendGlassdoor(cmpNode, cmpNode.textContent);
+    appendGlassdoor(cmpNode.parentElement.parentElement, cmpNode.textContent);
 }
 
-// /event/
-const eventNode = document.querySelector('.card-subtitle');
 
-if(eventNode) {
-    appendGlassdoor(eventNode.parentNode, eventNode.textContent);
-}
-
-// /viewjob left list
-const viewjobNode = document.querySelector('.jobsearch-InlineCompanyRating > div');
-
-if(viewjobNode) {
-    appendGlassdoor(viewjobNode.parentNode, viewjobNode.textContent);
-}
-
-// /viewjob right iframe
+// /viewjob/
 new MutationObserver(function(mutations) {
-	for(let mutation of mutations) {
-		for(let node of mutation.addedNodes) {
-                if (node instanceof HTMLElement) {
-                    // Watch the iframe for changes
-                    let iframe = document.getElementById('vjs-container-iframe');
-                    if (iframe) {
-                        iframe.addEventListener("load", function() {
-                            // Re-render left job results
-                            [...document.querySelectorAll('td.resultContent')]
-                            .forEach(node => {
-                                const companyNameNode = node.querySelector('.companyName')
-                                const ratingsNode = node.querySelector('.ratingsDisplay')
-                                if (ratingsNode) {
-                                    appendGlassdoor(ratingsNode, companyNameNode.textContent);
-                                }
-                                else {
-                                    appendGlassdoor(companyNameNode, companyNameNode.textContent);
-                                }
-                            });
-                                                
-                            // Inject CSS into iframe
-                            if (iframe.contentDocument) {
-                                unloadCSS('src/css/inDoors.css', iframe.contentDocument);
-                                loadCSS('src/css/inDoors.css', iframe.contentDocument);
-                                unloadCSS('src/css/loading.css', iframe.contentDocument);
-                                loadCSS('src/css/loading.css', iframe.contentDocument);
-                                unloadCSS('node_modules/tippy.js/dist/tippy.css', iframe.contentDocument);
-                                loadCSS('node_modules/tippy.js/dist/tippy.css', iframe.contentDocument);
-                                unloadCSS('src/css/inDoors-tippy.css', iframe.contentDocument);
-                                loadCSS('src/css/inDoors-tippy.css', iframe.contentDocument);
-                                unloadCSS('src/css/indeed.css', iframe.contentDocument);
-                                loadCSS('src/css/indeed.css', iframe.contentDocument);
-                            } 
-                          
-                            const viewjobNode = iframe.contentDocument.querySelector('.jobsearch-InlineCompanyRating > div:first-child');
-                            if (viewjobNode) {
-                                const iframeName = viewjobNode.parentNode.querySelector('a[href*="https://www.indeed.com/cmp/"]').textContent
-                                appendGlassdoor(viewjobNode.parentNode, iframeName)
-                            }
-                        });
+    for(let mutation of mutations) {
+        for(let node of mutation.addedNodes) {
+                if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+                // on right card first load
+                if (node.querySelector('#viewJobButtonLinkContainer') || node.querySelector('#indeedApplyButton')) {
+                    const companyNameNode = document.querySelector('[data-testid="inlineHeader-companyName"]');
+
+                    if (companyNameNode) {
+                        appendGlassdoor(companyNameNode.parentElement, companyNameNode.textContent);
+                    }
+                    this.disconnect();
+                }
+            }
+        }
+    }).observe(document, {subtree: true, childList: true});
+
+// /saved/
+new MutationObserver(function(mutations) {
+    for(let mutation of mutations) {
+        for(let node of mutation.addedNodes) {
+                if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
+
+                if (node.querySelector('.atw-JobInfo-companyLocation > span')) {
+                    const companyNameNode = node.querySelector('.atw-JobInfo-companyLocation > span');
+
+                    if (companyNameNode) {
+                        appendGlassdoor(companyNameNode, companyNameNode.textContent);
                     }
                 }
             }
-		}
-}).observe(document, {subtree: true, childList: true});
+        }
+    }).observe(document, {subtree: true, childList: true});

@@ -50,7 +50,7 @@ function normalizeCompanyName(name){
 
 	// To avoid misdirected name searches
 	const replaceManyStr = 
-	(obj, sentence) => obj.reduce((f, s) => `${f}`.replace(Object.keys(s)[0], s[Object.keys(s)[0]]), sentence)
+	(obj, sentence) => obj.reduce((f, s) => `${f}`.replace(new RegExp("\\b" + Object.keys(s)[0] + "\\b"), s[Object.keys(s)[0]]), sentence)
 	name = replaceManyStr(misdirectArray, name);
 
 	// Remove accents/diacritics
@@ -84,30 +84,6 @@ function trimCompanyNameEndings(name) {
 	const regex = /(-|\s)(Compan(y|ies)|Family of Companies|Franchise|Platform|Stores)$/i;
 
 	return name.replace(regex, '');
-}
-
-function loadCSS(filename, document) {
-    var head = document.head;
-    var link = document.createElement("link");
-  
-    link.type = "text/css";
-    link.rel = "stylesheet";
-    link.href = chrome.extension.getURL(filename);
-  
-    head.appendChild(link);
-}
-
-function unloadCSS(filename, document) {
-    var targetelement="link"; 
-    var targetattr="href";
-    var allsuspects=document.getElementsByTagName(targetelement)
-
-    for (var i=allsuspects.length; i>=0; i--) { //search backwards within nodelist for matching elements to remove
-        if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && 
-        allsuspects[i].getAttribute(targetattr).indexOf(filename)!=-1) {
-            allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
-        }
-    }
 }
 
 function tryParseJSON (jsonString){
