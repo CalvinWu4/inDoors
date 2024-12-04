@@ -59,10 +59,10 @@ new MutationObserver(function(mutations) {
 				if (!(node instanceof HTMLElement)) continue;	// we track only elements, skip other nodes (e.g. text nodes)
 
 				// check the inserted element
-				if (node.matches(".workflow-results-container .entity-result__divider > .mb1 > .t-14")) {	
-					if (document.querySelector('.ph5').textContent.includes('My Jobs')) {
+				if (node.matches(".workflow-results-container .mb1 > .t-14:nth-child(2)")) {	
+					if (window.location.pathname === '/my-items/saved-jobs/') {
 						const name = node.textContent;
-						appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin"); 
+						appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin t-14"); 
 					}
 				}
 			}
