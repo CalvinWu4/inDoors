@@ -1,8 +1,8 @@
 /************************************* Logged in UI *************************************/
-// /jobs/collections/* Left result list
+// /jobs and /jobs/collections/* Left result list
 [...document.querySelectorAll(".job-card-container .artdeco-entity-lockup__subtitle > span")]
 	.forEach(element => {
-		const name = element.textContent;
+		const name = element.textContent.split(' · ')[0];
 		appendGlassdoor(element, name, twoLines=false, classesToAdd="linkedin");
 	});
 
@@ -13,7 +13,7 @@ new MutationObserver(function(mutations) {
 
 				// check the inserted element
 				if (node.matches(".job-card-container .artdeco-entity-lockup__subtitle > span")) {
-					const name = node.textContent;
+					const name = node.textContent.split(' · ')[0];
 					appendGlassdoor(node, name, twoLines=false, classesToAdd="linkedin");
 				}
 			}
