@@ -1,3 +1,6 @@
+# NO LONGER WORKING DUE TO GLASSDOOR REMOVING THEIR API
+
+
 # <img src="src/icon/icon48.png" width="40" align="left"> inDoors
 
 > Browser extension that displays [Glassdoor] ratings for companies while browsing [LinkedIn], [Indeed], and [Handshake].
